@@ -19,6 +19,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
+    "framer-motion": "^11.5.4",
     "glob": "^11.0.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.441.0",

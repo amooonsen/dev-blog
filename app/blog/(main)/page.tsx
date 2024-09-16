@@ -7,8 +7,8 @@ import FilterCategory from './_components/FilterCategory';
 
 export default function blogMain() {
   return (
-    <main className="mt-14 mb-8">
-      <h1 className="border-t border-b border-slate-400 text-[256px] font-bold text-center">
+    <main className="mt-14 mb-32">
+      <h1 className="border-t border-b border-slate-400 text-[192px] font-bold text-center">
         DEV LOG
       </h1>
       <Section className="mt-10">

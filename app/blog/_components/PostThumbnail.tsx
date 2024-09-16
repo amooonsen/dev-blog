@@ -1,13 +1,13 @@
-"use client";
-import React from "react";
-import Link from "next/link";
+'use client';
+import React from 'react';
+import Link from 'next/link';
 
-export default function PostThumbnail({post}) {
+export default function PostThumbnail({ post }) {
   return (
     <li>
       <Link href={`/posts/${post.id}`}>
         {/* 썸네일 이미지 */}
-        <img src={post.thumbnail} alt={post.title} />
+        {/* <img src={post.thumbnail} alt={post.title} /> */}
 
         {/* 제목 */}
         <h2>{post.title}</h2>
@@ -16,11 +16,11 @@ export default function PostThumbnail({post}) {
         <p>{post.creationDate}</p>
 
         {/* 태그 */}
-        <ul>
+        {/* <ul>
           {post.tags.map((tag, index) => (
             <li key={index}>#{tag}</li>
           ))}
-        </ul>
+        </ul> */}
 
         {/* 본문 미리보기 */}
         <p>{post.previewText}</p>

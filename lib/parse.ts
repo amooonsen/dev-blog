@@ -1,54 +1,71 @@
-// import dayjs from "dayjs";
-// import fs from "fs";
+// repositories/PostRepository.ts
+
+import dayjs from 'dayjs';
+import { promises as fs } from 'fs';
 import { sync } from 'glob';
-// import matter from "gray-matter";
+import matter from 'gray-matter';
 import path from 'path';
+import { Post } from '@/types/Post';
 
-const BASE_PATH = '/posts';
-const POSTS_PATH = path.join(process.cwd(), BASE_PATH);
+export class PostRepository {
+  private readonly BASE_PATH = '/posts';
+  private readonly POSTS_PATH = path.join(process.cwd(), this.BASE_PATH);
 
-// 모든 MDX 파일 조회
-export const getPostPaths = (category?: string) => {
-  const folder = category || '**';
-  const postPaths: string[] = sync(`${POSTS_PATH}/${folder}/**/*.mdx`);
-  return postPaths;
-};
+  // MDX 파일 경로 가져오기
+  public getPostFilePaths(category?: string): string[] {
+    const folder = category || '**';
+    return sync(`${this.POSTS_PATH}/${folder}/**/*.mdx`);
+  }
 
-export const getCategoryPublicName = (dirPath: string) =>
-  dirPath
-    .split('_')
-    .map((token) => token[0].toUpperCase() + token.slice(1, token.length))
-    .join(' ');
+  // 카테고리 이름 포매팅
+  private formatCategoryName(dirPath: string): string {
+    return dirPath
+      .split('_')
+      .map((token) => token.charAt(0).toUpperCase() + token.slice(1))
+      .join(' ');
+  }
 
-export const parsePostAbstarct = (postPath: string) => {
-  const filePath = postPath
-    .slice(postPath.indexOf(BASE_PATH))
-    .replace(`${BASE_PATH}/`, '')
-    .replace('.mdx', '');
-  const [categoryPath, slug] = filePath.split('/');
-  const url = `/blog/${categoryPath}/${slug}`;
-  const categoryPublicName = getCategoryPublicName(categoryPath);
-  return { url, categoryPath, categoryPublicName, slug };
-};
+  // 게시물 파싱
+  private async parsePost(postPath: string): Promise<Post> {
+    // 파일 경로에서 정보 추출
+    const relativePath = path.relative(this.POSTS_PATH, postPath).replace('.mdx', '');
+    const [categoryPath, slug] = relativePath.split(path.sep);
+    const url = `/blog/${categoryPath}/${slug}`;
+    const categoryPublicName = this.formatCategoryName(categoryPath);
 
-const parsePost = async (postPath: string) => {
-  const postAbstract = parsePostAbstarct(postPath);
-  return {
-    ...postAbstract,
-  };
-};
+    // 파일 내용 비동기적으로 읽기
+    const fileContent = await fs.readFile(postPath, 'utf-8');
+    const { data: frontmatter, content } = matter(fileContent);
+    const dateString = dayjs(frontmatter.date).locale('ko').format('YYYY년 MM월 DD일');
 
-const sortPostList = (PostList) => {
-  return PostList.sort((a, b) => (a.date > b.date ? -1 : 1));
-};
+    return {
+      url,
+      categoryPath,
+      categoryPublicName,
+      slug,
+      date: frontmatter.date,
+      dateString,
+      content,
+      ...frontmatter,
+    } as Post;
+  }
 
-export const getPostList = async (category?: string) => {
-  const postPaths = getPostPaths(category);
-  const postList = await Promise.all(postPaths.map((postPath) => parsePost(postPath)));
-  return postList;
-};
+  // 게시물 리스트 가져오기
+  public async fetchPostList(category?: string): Promise<Post[]> {
+    const postPaths = this.getPostFilePaths(category);
+    const postPromises = postPaths.map((postPath) => this.parsePost(postPath));
+    const posts = await Promise.all(postPromises);
+    return posts;
+  }
 
-export const getSortedPostList = async (category?: string) => {
-  const postList = await getPostList(category);
-  return sortPostList(postList);
-};
+  // 게시물 리스트 정렬
+  private sortPostsByDate(posts: Post[]): Post[] {
+    return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
+  }
+
+  // 정렬된 게시물 리스트 가져오기
+  public async fetchSortedPostList(category?: string): Promise<Post[]> {
+    const posts = await this.fetchPostList(category);
+    return this.sortPostsByDate(posts);
+  }
+}

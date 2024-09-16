@@ -1,13 +1,23 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function PostThumbnail({ post }) {
   return (
     <li>
-      <Link href={`/posts/${post.id}`}>
+      <Link href={`${post.url}`}>
         {/* 썸네일 이미지 */}
-        {/* <img src={post.thumbnail} alt={post.title} /> */}
+        <div className="relative aspect-video w-full rounded-t-md border-b">
+          <Image
+            src={post.thumbnail}
+            alt={`thumbnail for ${post.title}`}
+            sizes="(max-width: 1000px) 50vw, 450px"
+            fill
+            priority
+            className="object-cover"
+          />
+        </div>
 
         {/* 제목 */}
         <h2>{post.title}</h2>
@@ -23,7 +33,7 @@ export default function PostThumbnail({ post }) {
         </ul> */}
 
         {/* 본문 미리보기 */}
-        <p>{post.previewText}</p>
+        <p>{post.desc}</p>
       </Link>
     </li>
   );

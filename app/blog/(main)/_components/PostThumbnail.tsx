@@ -3,9 +3,17 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function PostThumbnail({ post }) {
+// types
+import { Post } from '@/types/Post';
+
+interface PostThumbnailProps {
+  key: string;
+  post: Post;
+}
+
+export default function PostThumbnail({ key, post }: PostThumbnailProps) {
   return (
-    <li>
+    <li key={key}>
       <Link href={`${post.url}`}>
         {/* 썸네일 이미지 */}
         <div className="relative aspect-video w-full rounded-t-md border-b">
@@ -18,22 +26,15 @@ export default function PostThumbnail({ post }) {
             className="object-cover"
           />
         </div>
-
-        {/* 제목 */}
-        <h2>{post.title}</h2>
-
-        {/* 생성일 */}
-        <p>{post.creationDate}</p>
-
+        <h2 className="mt-8 text-2xl font-semibold">{post.title}</h2>
+        <p className="text-overflow text-base text-slate-500">{post.preview}</p>
+        <time>{post.creationDate}</time>
         {/* 태그 */}
         {/* <ul>
           {post.tags.map((tag, index) => (
             <li key={index}>#{tag}</li>
           ))}
         </ul> */}
-
-        {/* 본문 미리보기 */}
-        <p>{post.desc}</p>
       </Link>
     </li>
   );

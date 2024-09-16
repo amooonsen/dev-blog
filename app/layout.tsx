@@ -38,7 +38,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div id="wrap" className="min-h-screen">
           <Header />
-          <main>{children}</main>
+          {children}
           <Footer />
         </div>
       </body>

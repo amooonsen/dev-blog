@@ -5,8 +5,8 @@ export default function Footer() {
   const currentYear = dayjs().year();
 
   return (
-    <footer className="border-t pt-8">
-      <div className="flex justify-between items-center lg:max-w-6xl mx-auto px-6 lg:px-0">
+    <footer className="border-t">
+      <div className="flex justify-between items-center lg:max-w-6xl h-32 mx-auto px-6 lg:px-0">
         <div className="flex flex-col gap-2">
           <address className="not-italic">newabekar@naver.com</address>
           <small>© {currentYear} Cho Kyung Moon. All Rights Reserved.</small>

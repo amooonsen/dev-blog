@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -7,13 +6,12 @@ import Image from 'next/image';
 import { Post } from '@/types/Post';
 
 interface PostThumbnailProps {
-  key: string;
   post: Post;
 }
 
-export default function PostThumbnail({ key, post }: PostThumbnailProps) {
+export default function PostThumbnail({ post }: PostThumbnailProps) {
   return (
-    <li key={key}>
+    <li>
       <Link href={`${post.url}`}>
         {/* 썸네일 이미지 */}
         <div className="relative aspect-video w-full rounded-t-md border-b">

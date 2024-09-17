@@ -5,7 +5,7 @@ import { promises as fs } from 'fs';
 import { sync } from 'glob';
 import matter from 'gray-matter';
 import path from 'path';
-import { Post } from '@/types/Post';
+import { Post, CategoryDetail } from '@/types/Post';
 
 export class PostRepository {
   private readonly BASE_PATH = '/posts';
@@ -67,5 +67,39 @@ export class PostRepository {
   public async fetchSortedPostList(category?: string): Promise<Post[]> {
     const posts = await this.fetchPostList(category);
     return this.sortPostsByDate(posts);
+  }
+
+  public async fetchAllPostCount() {
+    return (await this.fetchPostList()).length;
+  }
+
+  // 카테고리 리스트 가져오기
+  public async fetchCategoryList(): Promise<CategoryDetail[]> {
+    try {
+      const postList = await this.fetchPostList();
+      const categoryCountMap: { [key: string]: number } = {};
+
+      for (const post of postList) {
+        const category = post.categoryPath;
+        if (categoryCountMap[category]) {
+          categoryCountMap[category] += 1;
+        } else {
+          categoryCountMap[category] = 1;
+        }
+      }
+
+      const categoryDetails: CategoryDetail[] = Object.entries(categoryCountMap).map(
+        ([category, count]) => ({
+          dirName: category,
+          publicName: this.formatCategoryName(category),
+          count,
+        })
+      );
+
+      return categoryDetails;
+    } catch (error) {
+      console.error('카테고리 리스트 불러오기 실패', error);
+      return [];
+    }
   }
 }

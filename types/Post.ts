@@ -8,3 +8,9 @@ export interface Post {
   content: string;
   [key: string]: any;
 }
+
+export interface CategoryDetail {
+  dirName: string;
+  publicName: string;
+  count: number;
+}

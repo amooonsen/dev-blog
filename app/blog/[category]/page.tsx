@@ -7,6 +7,6 @@ type CategoryListPageProps = {
 };
 
 // 카테고리 랜더링 페이지임용 ㅋ
-export default function CategoryListPage({ params }: CategoryListPageProps) {
+export default async function CategoryListPage({ params }: CategoryListPageProps) {
   return <PostListPage category={params.category} />;
 }

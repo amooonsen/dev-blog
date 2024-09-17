@@ -2,6 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// components
+import { Badge } from '@/components/ui/badge';
+
 // types
 import { Post } from '@/types/Post';
 
@@ -10,6 +13,7 @@ interface PostThumbnailProps {
 }
 
 export default function PostThumbnail({ post }: PostThumbnailProps) {
+  // console.log(post);
   return (
     <li>
       <Link href={`${post.url}`}>
@@ -27,13 +31,15 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
         <h2 className="mt-8 text-2xl font-semibold">{post.title}</h2>
         <p className="text-overflow text-base text-slate-500">{post.preview}</p>
         <time>{post.creationDate}</time>
-        {/* 태그 */}
-        {/* <ul>
-          {post.tags.map((tag, index) => (
-            <li key={index}>#{tag}</li>
-          ))}
-        </ul> */}
       </Link>
+      {/* 태그 */}
+      <ul className="flex gap-2 mt-2">
+        {post.tags.map((tag: string, index: number) => (
+          <li key={`post-tags-${index}`}>
+            <Badge>{tag}</Badge>
+          </li>
+        ))}
+      </ul>
     </li>
   );
 }

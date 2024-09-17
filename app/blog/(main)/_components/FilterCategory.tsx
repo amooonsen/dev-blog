@@ -18,15 +18,21 @@ export default function FilterCategory({ allPostCount, categoryList }: FilterCat
   return (
     <ul className="flex gap-4">
       <li>
-        <Button asChild>
-          <Link href="/blog">All {allPostCount}</Link>
+        <Button className="inline-flex gap-2" asChild>
+          <Link href="/blog">
+            <strong>All</strong>
+            <span>{allPostCount}</span>
+          </Link>
         </Button>
       </li>
       {categoryList.map(
         (item: CategoryDetail): ReactElement => (
           <li key={item.dirName}>
-            <Button asChild>
-              <Link href={`/blog/${item.dirName}}`}>{item.publicName}</Link>
+            <Button className="inline-flex gap-2" asChild>
+              <Link href={`/blog/${item.dirName}`}>
+                <strong>{item.publicName}</strong>
+                <span>{item.count}</span>
+              </Link>
             </Button>
           </li>
         )

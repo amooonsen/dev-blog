@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 // components
 import { Section } from '@/components/ui/section';
@@ -31,7 +31,9 @@ export default async function PostListPage({ category }: PostListPageProps) {
       </Section>
       <Section className="mt-10 space-y-8">
         <h2 className="text-3xl font-bold">All blog posts</h2>
-        <PostThumbnailList postList={postList} />
+        <Suspense fallback={<div>로딩중</div>}>
+          <PostThumbnailList postList={postList} />
+        </Suspense>
       </Section>
     </main>
   );

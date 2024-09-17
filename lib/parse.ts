@@ -55,6 +55,7 @@ export class PostRepository {
     const postPaths = this.getPostFilePaths(category);
     const postPromises = postPaths.map((postPath) => this.parsePost(postPath));
     const posts = await Promise.all(postPromises);
+    console.log(posts.length);
     return posts;
   }
 
@@ -95,7 +96,6 @@ export class PostRepository {
           count,
         })
       );
-
       return categoryDetails;
     } catch (error) {
       console.error('카테고리 리스트 불러오기 실패', error);

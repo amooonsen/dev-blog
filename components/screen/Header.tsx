@@ -3,13 +3,13 @@
 import React from 'react';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+// import { usePathname } from 'next/navigation';
 
 // constants
 import { navMenus, navMenusType } from '@/constants/navMenusConst';
 
 export default function Header() {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   return (
     <header className="w-full h-18">
       <div className="flex justify-between items-center lg:max-w-6xl mx-auto px-6 lg:px-0">

@@ -1,6 +1,12 @@
 import React from 'react';
 
+import PostListPage from '../(main)/_components/PostListPage';
+
+type CategoryListPageProps = {
+  params: { category: string };
+};
+
 // 카테고리 랜더링 페이지임용 ㅋ
-export default function CategoryListPage() {
-  return <div>CategoryListPage</div>;
+export default function CategoryListPage({ params }: CategoryListPageProps) {
+  return <PostListPage category={params.category} />;
 }

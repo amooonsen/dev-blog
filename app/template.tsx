@@ -1,19 +1,19 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 // constnats
-import { slide, opacity, perspective } from '@/constants/pageTransitionConst';
+// import { slide, opacity, perspective } from '@/constants/pageTransitionConst';
 
-const anim = (variants) => {
-  return {
-    initial: 'initial',
-    animate: 'enter',
-    exit: 'exit',
-    variants,
-  };
-};
+// const anim = (variants: Variants) => {
+//   return {
+//     initial: 'initial',
+//     animate: 'enter',
+//     exit: 'exit',
+//     variants,
+//   };
+// };
 
 export default function Template({ children }: { children: React.ReactNode }) {
   return (

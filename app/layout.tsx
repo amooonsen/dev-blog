@@ -8,7 +8,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 
 // components
-import { ThemeProvider } from '@/components/context/theme-provider';
+// import { ThemeProvider } from '@/components/context/theme-provider';
 import Header from '@/components/screen/Header';
 import Footer from '@/components/screen/Footer';
 

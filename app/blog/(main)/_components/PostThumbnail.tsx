@@ -13,27 +13,29 @@ interface PostThumbnailProps {
 }
 
 export default function PostThumbnail({ post }: PostThumbnailProps) {
-  // console.log(post);
   return (
-    <li>
+    <li className="group">
       <Link href={`${post.url}`}>
-        {/* 썸네일 이미지 */}
-        <div className="relative aspect-video w-full rounded-t-md border-b">
+        {/* Thumbnail Image */}
+        <div className="relative aspect-video w-full rounded-t-md border-b overflow-hidden">
           <Image
             src={post.thumbnail}
             alt={`thumbnail for ${post.title}`}
             sizes="(max-width: 1000px) 50vw, 450px"
             fill
             priority
-            className="object-cover"
+            className="object-cover transition-transform duration-300 ease-out group-hover:scale-110"
           />
         </div>
-        <h2 className="mt-8 text-2xl font-semibold">{post.title}</h2>
-        <p className="text-overflow text-base text-slate-500">{post.preview}</p>
+        <h3 className="relative inline-block mt-8 text-2xl font-semibold">
+          {post.title}
+          <span className="absolute left-0 bottom-0 h-0.5 bg-black transition-all duration-300 ease-out w-0 group-hover:w-full"></span>
+        </h3>
+        <p className="text-overflow mt-4 text-base text-slate-500">{post.preview}</p>
         <time>{post.creationDate}</time>
       </Link>
-      {/* 태그 */}
-      <ul className="flex gap-2 mt-2">
+      {/* Tags */}
+      <ul className="flex gap-2 mt-6">
         {post.tags.map((tag: string, index: number) => (
           <li key={`post-tags-${index}`}>
             <Badge>{tag}</Badge>

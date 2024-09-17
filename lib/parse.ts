@@ -55,7 +55,6 @@ export class PostRepository {
     const postPaths = this.getPostFilePaths(category);
     const postPromises = postPaths.map((postPath) => this.parsePost(postPath));
     const posts = await Promise.all(postPromises);
-    console.log(posts.length);
     return posts;
   }
 

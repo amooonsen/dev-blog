@@ -11,8 +11,8 @@ import { navMenus, navMenusType } from '@/constants/navMenusConst';
 export default function Header() {
   // const pathname = usePathname();
   return (
-    <header className="w-full h-18">
-      <div className="flex justify-between items-center lg:max-w-6xl mx-auto px-6 lg:px-0">
+    <header className="w-full h-24">
+      <div className="flex justify-between items-center lg:max-w-6xl h-full mx-auto px-6 lg:px-0">
         <div id="logo">
           <Link className="text-4xl font-semibold" href="/">
             Moon.log

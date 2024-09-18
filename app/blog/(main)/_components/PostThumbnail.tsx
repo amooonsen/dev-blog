@@ -31,14 +31,14 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
           {post.title}
           <span className="absolute left-0 bottom-0 h-0.5 bg-black transition-all duration-300 ease-out w-0 group-hover:w-full"></span>
         </h3>
-        <p className="text-overflow mt-4 text-base text-slate-500">{post.preview}</p>
+        <p className="text-overflow h-12 mt-4 text-base text-slate-500">{post.preview}</p>
         <time>{post.creationDate}</time>
       </Link>
       {/* Tags */}
       <ul className="flex gap-2 mt-6">
         {post.tags.map((tag: string, index: number) => (
           <li key={`post-tags-${index}`}>
-            <Badge>{tag}</Badge>
+            <Badge className="cursor-pointer">{tag}</Badge>
           </li>
         ))}
       </ul>

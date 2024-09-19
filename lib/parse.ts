@@ -12,7 +12,7 @@ export class PostRepository {
   private readonly POSTS_PATH = path.join(process.cwd(), this.BASE_PATH);
 
   // MDX 파일 경로 가져오기
-  public getPostFilePaths(category?: string): string[] {
+  private getPostFilePaths(category?: string): string[] {
     const folder = category || '**';
     return sync(`${this.POSTS_PATH}/${folder}/**/*.mdx`);
   }

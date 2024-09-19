@@ -11,14 +11,14 @@ export const navMenus: navMenusType[] = [
     href: '/blog',
   },
   {
+    page: 'NewsLetter',
+    href: '/newsletter',
+  },
+  {
     page: 'Portfolio',
     href: '#',
     target: '_blank',
     rel: 'noopener noreferrer',
-  },
-  {
-    page: 'About',
-    href: '/about',
   },
   {
     page: 'Contact',

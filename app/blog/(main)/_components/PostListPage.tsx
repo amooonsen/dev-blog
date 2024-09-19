@@ -4,6 +4,7 @@ import React, { Suspense } from 'react';
 import { Section } from '@/components/ui/section';
 import PostThumbnailList from './PostThumbnailList';
 import FilterCategory from './FilterCategory';
+import PostListSkeleton from '@/components/screen/PostListSkeleton';
 
 // lib
 import { PostRepository } from '@/lib/parse';
@@ -31,7 +32,7 @@ export default async function PostListPage({ category }: PostListPageProps) {
       </Section>
       <Section className="mt-10 space-y-8">
         <h2 className="text-3xl font-bold">All blog posts</h2>
-        <Suspense fallback={<div>로딩중</div>}>
+        <Suspense fallback={<PostListSkeleton />}>
           <PostThumbnailList postList={postList} />
         </Suspense>
       </Section>

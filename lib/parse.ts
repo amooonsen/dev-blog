@@ -101,4 +101,11 @@ export class PostRepository {
       return [];
     }
   }
+
+  // 게시글 상세
+  public async fetchPostDetail(category: string, slug: string) {
+    const filePath = `${this.POSTS_PATH}/${category}/${slug}/content.mdx`;
+    const postDetail = await this.parsePost(filePath);
+    return postDetail;
+  }
 }

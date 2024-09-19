@@ -1,0 +1,144 @@
+---
+title: '[프로그래머스] PCCP 기출문제 2번 / 석유 시추'
+preview: '굳어버린 뇌 살리기 프로젝트'
+date: 2023-09-16
+thumbnail: /posts/coding_test/post1_thumbnail.jpg
+tags: ['React', 'JavaScript']
+---
+
+# 문제설명
+
+세로길이가 n 가로길이가 m인 격자 모양의 땅 속에서 석유가 발견되었습니다. 석유는 여러 덩어리로 나누어 묻혀있습니다. 당신이 시추관을 수직으로 단 하나만 뚫을 수 있을 때, 가장 많은 석유를 뽑을 수 있는 시추관의 위치를 찾으려고 합니다. 시추관은 열 하나를 관통하는 형태여야 하며, 열과 열 사이에 시추관을 뚫을 수 없습니다.
+![](https://velog.velcdn.com/images/_mo__on/post/1e24effe-22b9-410f-b95b-6ef1554d249c/image.png)
+
+예를 들어 가로가 8, 세로가 5인 격자 모양의 땅 속에 위 그림처럼 석유가 발견되었다고 가정하겠습니다. 상, 하, 좌, 우로 연결된 석유는 하나의 덩어리이며, 석유 덩어리의 크기는 덩어리에 포함된 칸의 수입니다. 그림에서 석유 덩어리의 크기는 왼쪽부터 8, 7, 2입니다.
+
+![](https://velog.velcdn.com/images/_mo__on/post/733c1b6a-fde6-4325-b84d-776c47c955dd/image.png)
+
+시추관은 위 그림처럼 설치한 위치 아래로 끝까지 뻗어나갑니다. 만약 시추관이 석유 덩어리의 일부를 지나면 해당 덩어리에 속한 모든 석유를 뽑을 수 있습니다. 시추관이 뽑을 수 있는 석유량은 시추관이 지나는 석유 덩어리들의 크기를 모두 합한 값입니다. 시추관을 설치한 위치에 따라 뽑을 수 있는 석유량은 다음과 같습니다.
+
+**시추관의 위치 획득한 덩어리 총 석유량
+**1 [8] 8
+2 [8] 8
+3 [8] 8
+4 [7] 7
+5 [7] 7
+6 [7] 7
+7 [7, 2] 9
+8 [2] 2
+오른쪽 그림처럼 7번 열에 시추관을 설치하면 크기가 7, 2인 덩어리의 석유를 얻어 뽑을 수 있는 석유량이 9로 가장 많습니다.
+
+석유가 묻힌 땅과 석유 덩어리를 나타내는 2차원 정수 배열 land가 매개변수로 주어집니다. 이때 시추관 하나를 설치해 뽑을 수 있는 가장 많은 석유량을 return 하도록 solution 함수를 완성해 주세요.
+
+# code
+
+```
+function solution(land) {
+    const n = land.length;
+    const m = land[0].length;
+
+    // 방문 여부와 석유 덩어리 인덱스를 저장하는 배열
+    const visited = Array.from({ length: n }, () => Array(m).fill(0));
+    // 각 석유 덩어리의 크기를 저장하는 맵
+    const oilMap = new Map();
+
+    // 상하좌우 방향 벡터
+    const dx = [-1, 0, 1, 0];
+    const dy = [0, 1, 0, -1];
+
+    let oilIndex = 1; // 석유 덩어리의 인덱스
+    let maxOil = 0;   // 최대 석유량
+
+    // BFS를 이용하여 석유 덩어리를 탐색하고 크기를 계산하는 함수
+    function bfs(initX, initY) {
+        let oilSize = 0;
+        const queue = [{ x: initX, y: initY }];
+        visited[initX][initY] = oilIndex;
+
+        while (queue.length > 0) {
+            const { x, y } = queue.shift();
+
+            if (land[x][y] === 1) oilSize++;
+
+            for (let i = 0; i < 4; i++) {
+                const nx = x + dx[i];
+                const ny = y + dy[i];
+
+                // 격자 범위 내에 있고, 방문하지 않았으며, 석유가 있는 경우
+                if (nx >= 0 && nx < n && ny >= 0 && ny < m && visited[nx][ny] === 0 && land[nx][ny] === 1) {
+                    visited[nx][ny] = oilIndex;
+                    queue.push({ x: nx, y: ny });
+                }
+            }
+        }
+
+        // 석유 덩어리의 크기를 맵에 저장
+        oilMap.set(oilIndex++, oilSize);
+    }
+
+    // 모든 위치를 탐색하여 석유 덩어리를 식별하고 크기를 저장
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < m; j++) {
+            if (visited[i][j] === 0 && land[i][j] === 1) bfs(i, j);
+        }
+    }
+
+    // 각 열에 시추관을 설치했을 때 얻을 수 있는 석유량 계산
+    for (let j = 0; j < m; j++) {
+        let columnOil = 0;
+        const uniqueOilIndices = new Set();
+
+        // 해당 열에서 지나는 석유 덩어리의 인덱스를 수집
+        for (let i = 0; i < n; i++) {
+            if (visited[i][j] > 0) uniqueOilIndices.add(visited[i][j]);
+        }
+
+        // 중복을 제거한 석유 덩어리들의 크기를 합산
+        uniqueOilIndices.forEach(index => {
+            columnOil += oilMap.get(index);
+        });
+
+        // 최대 석유량 갱신
+        maxOil = Math.max(maxOil, columnOil);
+    }
+
+    return maxOil;
+}
+
+```
+
+# 문제 접근 및 사용한 알고리즘
+
+이 문제는 2차원 격자에서 연결된 석유 덩어리를 찾아내고, 각 column을 따라 시추관을 설치했을 때 최대 석유량을 계산하는 문제였다.
+
+## BFS를 통한 석유 덩어리 탐색
+
+격자에서 석유가 있는 위치를 방문하지 않았다면,
+BFS(너비 우선 탐색)를 이용하여 연결된 석유 덩어리를 탐색한다.
+각 석유 덩어리에 고유한 인덱스를 부여하고, 해당 덩어리의 크기를 저장한다.
+
+## 열별로 시추관 설치 시 획득 가능한 석유량 계산
+
+각 열에서 시추관이 지나는 석유 덩어리들의 인덱스를 수집한다.
+수집된 인덱스를 기반으로 석유 덩어리들의 크기를 합산하여 해당 열에서 얻을 수 있는 총 석유량을 계산하고, 모든 열에 대해 위 과정을 수행하여 최대 석유량을 구한다.
+
+## 효율성 고려
+
+이미 방문한 위치를 체크하여 중복 탐색을 방지 및 석유 덩어리의 크기를 사전 계산
+
+# 후기
+
+오랜만에서 도전한 2단계여서 그런지 뇌가 많이 굳은 느낌이 들었다.
+특히나 bfs로 접근하는게 맞는지 고민하는 시간이 있었다.
+처음에는 단순히 각 열마다 석유 칸의 개수를 세려고 했지만,
+석유가 상하좌우로 연결된 덩어리라는 점에서 복잡도가 증가해버렸다 ㅠ
+시추관이 지나가는 열에서 어떤 석유 덩어리들을 지나는지 파악해야 했었다.
+키포인트를 정리하자면 아래와 같다.
+
+1. BFS 알고리즘을 활용하여 석유 덩어리를 탐색하고, 각 덩어리에 고유한 인덱스를 부여하여 식별
+2. visited 배열에 석유 덩어리의 인덱스를 저장함으로써, 시추관이 지나는 열에서 어떤 석유 덩어리들을 포함하는지 확인
+3. Set 자료구조를 사용하여 중복된 석유 덩어리를 제외하고 합산
+
+![](https://velog.velcdn.com/images/_mo__on/post/99ed9ee5-8546-462d-b9d5-ebdfcd536ba1/image.gif)
+
+감사합니다.

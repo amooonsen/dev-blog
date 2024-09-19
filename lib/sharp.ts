@@ -1,6 +1,6 @@
 import sharp from 'sharp';
 
-export async function getBase64Image(imagePath: string | null) {
+export async function getBase64Image(imagePath: string) {
   try {
     const buffer = await sharp(imagePath).resize(10).blur().toBuffer();
 

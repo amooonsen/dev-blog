@@ -38,7 +38,7 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
       </Link>
       {/* Tags */}
       <ul className="flex gap-2 mt-4">
-        {post.tags.map((tag: string, index: number) => (
+        {post.tags?.map((tag: string, index: number) => (
           <li key={`post-tags-${index}`}>
             <Badge className="cursor-pointer">{tag}</Badge>
           </li>

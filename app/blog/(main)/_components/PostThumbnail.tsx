@@ -17,7 +17,6 @@ interface PostThumbnailProps {
 
 export default function PostThumbnail({ post }: PostThumbnailProps) {
   const fetchBase64 = async () => {
-    'use server';
     const base64 = await getBase64Image(`public${post.thumbnail}`);
     return base64;
   };
@@ -32,7 +31,7 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
             sizes="(max-width: 1000px) 50vw, 450px"
             fill
             priority
-            blurDataURL={fetchBase64()}
+            blurDataURL={fetchBase64() as unknown as string}
             className="object-cover transition-transform duration-300 ease-out group-hover:scale-110"
           />
         </div>

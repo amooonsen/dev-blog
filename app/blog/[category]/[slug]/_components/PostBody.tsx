@@ -12,6 +12,7 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
+// @ts-expect-error
 import remarkA11yEmoji from '@fec/remark-a11y-emoji';
 
 interface PostBodyProps {
@@ -28,7 +29,6 @@ export default function PostBody({ post }: PostBodyProps) {
           rehypePlugins: [
             // pretty code block
             [
-              // @ts-ignore
               rehypePrettyCode,
               {
                 theme: { dark: 'github-dark-dimmed', light: 'github-light' },
@@ -39,7 +39,7 @@ export default function PostBody({ post }: PostBodyProps) {
           ],
         },
       }}
-      // components={MdxComponents}
+      components={MdxComponents}
     />
   );
 }

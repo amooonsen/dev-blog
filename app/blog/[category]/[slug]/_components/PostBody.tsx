@@ -12,7 +12,7 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
-// @ts-expect-error
+// @ts-expect-error: remark-a11y-emoji has no types
 import remarkA11yEmoji from '@fec/remark-a11y-emoji';
 
 interface PostBodyProps {

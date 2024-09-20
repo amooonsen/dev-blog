@@ -17,7 +17,6 @@ interface PostThumbnailProps {
 
 export default function PostThumbnail({ post }: PostThumbnailProps) {
   const fetchBase64 = async () => {
-    'use server';
     const base64 = await getBase64Image(`public${post.thumbnail}`);
     return base64;
   };

@@ -39,7 +39,7 @@ export default function PostBody({ post }: PostBodyProps) {
           ],
         },
       }}
-      // components={MdxComponents}
+      components={MdxComponents}
     />
   );
 }

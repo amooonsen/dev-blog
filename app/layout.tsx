@@ -1,9 +1,6 @@
 // Meta
 import type { Metadata } from 'next';
 
-// fonts
-import localFont from 'next/font/local';
-
 // style
 import './globals.css';
 
@@ -15,16 +12,8 @@ import NextTopLoader from 'nextjs-toploader';
 import Header from '@/components/screen/Header';
 import Footer from '@/components/screen/Footer';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
+// fonts
+import { pretendard } from '@/assets/fonts/fonts';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -38,7 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
+      <body className={`${pretendard.className} antialiased`}>
         <NextTopLoader color="#16a34a" shadow="0 0 10px #16a34a,0 0 5px #16a34a" />
         <div id="wrap" className="min-h-screen">
           <Header />

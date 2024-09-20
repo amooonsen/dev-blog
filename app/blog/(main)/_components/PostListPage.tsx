@@ -24,9 +24,7 @@ export default async function PostListPage({ category }: PostListPageProps) {
 
   return (
     <main className="mt-14 mb-32">
-      <h1 className="border-t border-b border-slate-400 text-[192px] font-bold text-center">
-        DEV LOG
-      </h1>
+      
       <Section className="mt-10">
         <FilterCategory allPostCount={allPostCount} categoryList={categoryList} />
       </Section>

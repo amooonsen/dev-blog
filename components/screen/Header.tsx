@@ -5,6 +5,9 @@ import React from 'react';
 import Link from 'next/link';
 // import { usePathname } from 'next/navigation';
 
+// components
+import Logo from '../ui/Logo';
+
 // constants
 import { navMenus, navMenusType } from '@/constants/navMenusConst';
 
@@ -13,11 +16,7 @@ export default function Header() {
   return (
     <header className="w-full h-24">
       <div className="flex justify-between items-center lg:max-w-6xl h-full mx-auto px-6 lg:px-0">
-        <div id="logo">
-          <Link className="text-4xl font-semibold" href="/">
-            Moon.log
-          </Link>
-        </div>
+        <Logo />
         <div className="flex">
           <nav>
             <ul className="flex gap-4 text-2xl">

@@ -12,6 +12,7 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
+// @ts-ignore
 import remarkA11yEmoji from '@fec/remark-a11y-emoji';
 
 interface PostBodyProps {

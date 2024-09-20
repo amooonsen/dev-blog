@@ -1,13 +1,19 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, AnchorHTMLAttributes } from 'react';
 
-import { LinkProps } from 'next/link';
+interface ExternalLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  href?: string;
+}
 
-export const ExternalLink = ({ children, href, ...props }: PropsWithChildren<LinkProps>) => {
+export const ExternalLink = ({
+  children,
+  href,
+  ...props
+}: PropsWithChildren<ExternalLinkProps>) => {
   return (
     <a
       {...props}
       target="_blank"
-      href={href.toString() || ''}
+      href={href}
       className="break-words text-pink-600 no-underline underline-offset-4 hover:underline"
     >
       {children}

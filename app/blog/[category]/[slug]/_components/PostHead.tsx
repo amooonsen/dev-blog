@@ -10,6 +10,7 @@ export default function PostHead({ post }: PostHeadProps) {
   return (
     <div>
       <h1>{post?.title}</h1>
+      <ul></ul>
       {/* <img src={post?.thumbnail} alt="삽입 예정" /> */}
     </div>
   );

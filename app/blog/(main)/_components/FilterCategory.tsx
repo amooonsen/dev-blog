@@ -5,6 +5,9 @@ import React, { ReactElement } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
+// components
+import { SortCategoryPopover } from './SortCategoryPopover';
+
 // types
 import { CategoryDetail } from '@/types/Post';
 
@@ -17,7 +20,7 @@ interface FilterCategoryProps {
 export default function FilterCategory({ allPostCount, categoryList }: FilterCategoryProps) {
   return (
     <div className="flex justify-between">
-      <ul className="flex gap-4">
+      <ul className="flex flex-wrap gap-4 max-w-[60%]">
         <li>
           <Button className="inline-flex gap-2" asChild>
             <Link href="/blog">
@@ -41,8 +44,12 @@ export default function FilterCategory({ allPostCount, categoryList }: FilterCat
       </ul>
       <ul className="flex gap-4">
         <li>
-          태그별로 소팅해주는 팝오버 삽입 예정
-          오름차순, 내림차순, 최신순, 오래된순 팝오버 예정
+          {/* 태그별로 소팅해주는 팝오버 삽입 예정 */}
+          <SortCategoryPopover type="tag" />
+        </li>
+        <li>
+          {/* 오름차순, 내림차순, 최신순, 오래된순 팝오버 예정 */}
+          <SortCategoryPopover type="sort" />
         </li>
       </ul>
     </div>

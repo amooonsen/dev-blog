@@ -4,7 +4,7 @@ import React, { Suspense } from 'react';
 import { Section } from '@/components/ui/section';
 import PostThumbnailList from './PostThumbnailList';
 import FilterCategory from './FilterCategory';
-import PostListSkeleton from '@/components/screen/PostListSkeleton';
+import PostListSkeleton from '@/components/loading/PostListSkeleton';
 
 // lib
 import { PostRepository } from '@/lib/parse';
@@ -24,7 +24,6 @@ export default async function PostListPage({ category }: PostListPageProps) {
 
   return (
     <main className="mt-14 mb-32">
-      
       <Section className="mt-10">
         <FilterCategory allPostCount={allPostCount} categoryList={categoryList} />
       </Section>

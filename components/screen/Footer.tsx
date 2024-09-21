@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
+
 import React from 'react';
+import { FloatingDock } from '@/components/ui/floating-dock';
+import myLinks from '@/constants/myLinkConst';
 
 export default function Footer() {
   const currentYear = dayjs().year();
@@ -22,6 +25,9 @@ export default function Footer() {
             <a href="">Instagram</a>
           </li>
         </ul>
+        <div className="flex items-center justify-center h-[35rem] w-full">
+          <FloatingDock mobileClassName="translate-y-20" items={myLinks} />
+        </div>
       </div>
     </footer>
   );

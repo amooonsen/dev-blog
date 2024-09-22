@@ -14,18 +14,7 @@ export default function Footer() {
           <address className="not-italic">newabekar@naver.com</address>
           <small>© {currentYear} Cho Kyung Moon. All Rights Reserved.</small>
         </div>
-        <ul className="flex gap-3 text-xl font-semibold">
-          <li>
-            <a href="">Github</a>
-          </li>
-          <li>
-            <a href="">Portfolio</a>
-          </li>
-          <li>
-            <a href="">Instagram</a>
-          </li>
-        </ul>
-        <div className="flex items-center justify-center h-[35rem] w-full">
+        <div className="flex items-center justify-end w-full h-auto">
           <FloatingDock mobileClassName="translate-y-20" items={myLinks} />
         </div>
       </div>

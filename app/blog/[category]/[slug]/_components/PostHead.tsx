@@ -14,6 +14,7 @@ import { getFormattedDate } from '@/lib/date';
 
 // types
 import { Post } from '@/types/Post';
+import Link from 'next/link';
 
 interface PostHeadProps {
   post: Post;
@@ -22,7 +23,7 @@ interface PostHeadProps {
 export default function PostHead({ post }: PostHeadProps) {
   return (
     <Section id="postHead">
-      <div className="flex flex-col space-y-8 mb-8">
+      <div className="flex flex-col space-y-6 mb-8">
         <h1 className="text-5xl leading-snug font-bold">{post?.title}</h1>
         <div className="flex gap-3 text-slate-500 dark:text-slate-200">
           <div className="flex items-center gap-1">
@@ -34,13 +35,20 @@ export default function PostHead({ post }: PostHeadProps) {
             <span>3분</span>
           </div>
         </div>
-        <ul className="flex gap-3 mt-8">
+        <dl className="flex gap-3">
+          <dt>Category</dt>
+          <dd>
+            <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
+          </dd>
+        </dl>
+        <dl className="flex gap-3">
+          <dt>Keywords</dt>
           {post.tags?.map((item: string, index: number) => (
-            <li key={`post-tags-${index}`}>
+            <dd key={`post-tags-${index}`}>
               <Badge>{item}</Badge>
-            </li>
+            </dd>
           ))}
-        </ul>
+        </dl>
       </div>
       <div className="border-t pt-12">
         <PostImage src={post.thumbnail} alt={post.thumbnailAlt} type="thumbnail" />

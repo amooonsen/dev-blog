@@ -22,7 +22,6 @@ interface FilterCategoryProps {
 export default function FilterCategory({ allPostCount, categoryList }: FilterCategoryProps) {
   const router: AppRouterInstance = useRouter();
 
-  console.log(router);
   return (
     <div className="flex justify-between">
       <ul className="flex flex-wrap gap-4 max-w-[60%]">

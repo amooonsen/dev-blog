@@ -4,6 +4,7 @@ import React, { Suspense } from 'react';
 import { Section } from '@/components/ui/section';
 import PostThumbnailList from './PostThumbnailList';
 import FilterCategory from './FilterCategory';
+import SearchPost from '@/components/screen/SearchPost';
 import PostListSkeleton from '@/components/loading/PostListSkeleton';
 
 // lib
@@ -22,9 +23,14 @@ export default async function PostListPage({ category }: PostListPageProps) {
   const categoryList: CategoryDetail[] = await postRepository.fetchCategoryList();
   const postList = await postRepository.fetchSortedPostList(category);
 
+  console.log(postList);
+
   return (
-    <main className="mt-14 mb-32">
+    <main className="mt-20 mb-32">
       <Section className="mt-10">
+        <SearchPost />
+      </Section>
+      <Section className="mt-14">
         <FilterCategory allPostCount={allPostCount} categoryList={categoryList} />
       </Section>
       <Section className="mt-10 space-y-8">

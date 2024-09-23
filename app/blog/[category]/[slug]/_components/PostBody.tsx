@@ -1,7 +1,9 @@
+import { readFileSync } from 'fs';
 import React from 'react';
 
 // components
 import { MdxComponents } from '@/components/markdown';
+import { Section } from '@/components/ui/section';
 
 // types
 import { Post } from '@/types/Post';
@@ -19,27 +21,30 @@ interface PostBodyProps {
   post: Post;
 }
 
+// const prettyCodeOptions = {
+//   theme: {
+//     dark: JSON.parse(readFileSync('./code_theme/one-dark-pro-darker.json', 'utf-8')),
+//     light: JSON.parse(readFileSync('./code_theme/atom-one-light.json', 'utf-8')),
+//   },
+// };
+
 export default function PostBody({ post }: PostBodyProps) {
   return (
-    <MDXRemote
-      source={post.content}
-      options={{
-        mdxOptions: {
-          remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
-          rehypePlugins: [
-            // pretty code block
-            [
-              rehypePrettyCode,
-              {
-                theme: { dark: 'github-dark-dimmed', light: 'github-light' },
-              },
+    <Section>
+      <MDXRemote
+        source={post.content}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
+            rehypePlugins: [
+              [rehypePrettyCode],
+              // toc id를 추가하고 제목을 연결
+              rehypeSlug,
             ],
-            // toc id를 추가하고 제목을 연결
-            rehypeSlug,
-          ],
-        },
-      }}
-      components={MdxComponents}
-    />
+          },
+        }}
+        components={MdxComponents}
+      />
+    </Section>
   );
 }

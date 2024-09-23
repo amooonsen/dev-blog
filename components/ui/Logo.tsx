@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-import { BMJUA } from '@/assets/fonts/fonts';
-
-const texts = ['문.로그 :)', '조경문 블로그', '🌕 LOOGGG'];
+const texts = ['문.로그 :)', '조경문 블로그', '🌕 LOOGGG', `Hello! It's Moon`];
 
 const Logo: React.FC = () => {
   const [text, setText] = useState('Moon.log');
@@ -31,7 +29,7 @@ const Logo: React.FC = () => {
   const containerStyle = {
     position: 'relative' as 'relative',
     overflow: 'hidden',
-    height: '1em',
+    height: '48px',
   };
 
   const textStyle = {
@@ -41,10 +39,10 @@ const Logo: React.FC = () => {
   };
 
   return (
-    <div id="logo" className="min-w-[200px] h-[45px]">
+    <div id="logo" className="lg:min-w-[300px] h-[48px]">
       <Link
         href="/"
-        className={`${BMJUA.className} text-4xl font-semibold`}
+        className={`text-4xl font-semibold`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{ display: 'block' }}

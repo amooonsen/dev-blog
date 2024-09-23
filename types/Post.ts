@@ -1,6 +1,8 @@
 export interface Post {
   url: string;
   categoryPath: string;
+  thumbnail: string;
+  thumbnailAlt: string;
   categoryPublicName: string;
   slug: string;
   date: string;

@@ -3,6 +3,7 @@ import React from 'react';
 
 // components
 import { MdxComponents } from '@/components/markdown';
+import { Section } from '@/components/ui/section';
 
 // types
 import { Post } from '@/types/Post';
@@ -29,19 +30,21 @@ interface PostBodyProps {
 
 export default function PostBody({ post }: PostBodyProps) {
   return (
-    <MDXRemote
-      source={post.content}
-      options={{
-        mdxOptions: {
-          remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
-          rehypePlugins: [
-            [rehypePrettyCode],
-            // toc id를 추가하고 제목을 연결
-            rehypeSlug,
-          ],
-        },
-      }}
-      components={MdxComponents}
-    />
+    <Section>
+      <MDXRemote
+        source={post.content}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
+            rehypePlugins: [
+              [rehypePrettyCode],
+              // toc id를 추가하고 제목을 연결
+              rehypeSlug,
+            ],
+          },
+        }}
+        components={MdxComponents}
+      />
+    </Section>
   );
 }

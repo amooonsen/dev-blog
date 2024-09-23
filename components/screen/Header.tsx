@@ -14,7 +14,7 @@ import { navMenus, navMenusType } from '@/constants/navMenusConst';
 export default function Header() {
   // const pathname = usePathname();
   return (
-    <header className="w-full h-24">
+    <header className="sticky top-0 z-10 w-full h-24 backdrop-blur-md border-b">
       <div className="flex justify-between items-center lg:max-w-6xl h-full mx-auto px-6 lg:px-0">
         <ul className="skipnav">
           <li>

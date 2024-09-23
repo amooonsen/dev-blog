@@ -28,7 +28,7 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
         <div className="relative aspect-video w-full rounded-t-md border-b overflow-hidden">
           <Image
             src={post.thumbnail}
-            alt={`thumbnail for ${post.title}`}
+            alt={post.thumbnailAlt}
             sizes="(max-width: 1000px) 50vw, 450px"
             fill
             priority

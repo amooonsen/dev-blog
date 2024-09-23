@@ -3,6 +3,9 @@ import React from 'react';
 // components
 import { Section } from '@/components/ui/section';
 import { Badge } from '@/components/ui/badge';
+import PostImage from './PostImage';
+
+// icons
 import { Calendar } from 'lucide-react';
 import { BookAIcon } from 'lucide-react';
 
@@ -19,15 +22,15 @@ interface PostHeadProps {
 export default function PostHead({ post }: PostHeadProps) {
   return (
     <Section id="postHead">
-      <div className="flex flex-col space-y-8">
+      <div className="flex flex-col space-y-8 mb-8">
         <h1 className="text-5xl font-bold">{post?.title}</h1>
         <div className="flex gap-3 text-slate-500 dark:text-slate-200">
           <div className="flex items-center gap-1">
-            <Calendar width={16} height={16} />
+            <Calendar width={20} height={20} />
             <time className="text-base">{getFormattedDate(post.date)}</time>
           </div>
           <div className="flex items-center gap-1">
-            <BookAIcon width={16} height={16} />
+            <BookAIcon width={20} height={20} />
             <span>3분</span>
           </div>
         </div>
@@ -39,7 +42,9 @@ export default function PostHead({ post }: PostHeadProps) {
           ))}
         </ul>
       </div>
-      <img className="block mt-4" src={post?.thumbnail} alt={post.thumbnailAlt} />
+      <div className="border-t pt-12">
+        <PostImage src={post.thumbnail} alt={post.thumbnailAlt} type="thumbnail" />
+      </div>
     </Section>
   );
 }

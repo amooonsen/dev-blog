@@ -14,7 +14,7 @@ import { navMenus, navMenusType } from '@/constants/navMenusConst';
 export default function Header() {
   // const pathname = usePathname();
   return (
-    <header className="sticky top-0 z-10 w-full h-24 backdrop-blur-md border-b">
+    <header className="sticky top-0 z-10 w-full h-16 backdrop-blur-md border-b">
       <div className="flex justify-between items-center lg:max-w-5xl h-full mx-auto px-6 lg:px-0">
         <ul className="skipnav">
           <li>
@@ -24,7 +24,7 @@ export default function Header() {
         <Logo />
         <div className="flex">
           <nav>
-            <ul className="flex gap-4 text-xl font-semibold">
+            <ul className="flex gap-4 text-base">
               {navMenus.map((item: navMenusType, index: number) => (
                 <li key={`nav-menus-${index}`}>
                   <Link className="block p-4" href={item.href} target={item.target} rel={item.rel}>

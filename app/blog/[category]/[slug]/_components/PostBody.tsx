@@ -35,7 +35,7 @@ const rehypeOptions = {
 
 export default function PostBody({ post }: PostBodyProps) {
   return (
-    <Section className="prose mb-32">
+    <Section className="prose mt-16 mb-32">
       <MDXRemote
         source={post.content}
         options={{

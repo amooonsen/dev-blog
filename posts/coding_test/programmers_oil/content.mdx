@@ -1,7 +1,7 @@
 ---
 title: '[프로그래머스] PCCP 기출문제 2번 / 석유 시추'
 preview: '굳어버린 뇌 살리기 프로젝트'
-date: 2023-09-16
+date: 2024-09-16
 thumbnail: /posts/coding_test/post1_thumbnail.jpg
 thumbnailAlt: 초보자가 프로그래밍 바다로 떨어지는데 알고리즘, 데이터 사이언스, 수학 등 진입장벽이 있는 밈 그림
 tags: ['React', 'JavaScript']
@@ -33,79 +33,78 @@ tags: ['React', 'JavaScript']
 
 ## code
 
-```
+```jsx
 function solution(land) {
-    const n = land.length;
-    const m = land[0].length;
+  const n = land.length;
+  const m = land[0].length;
 
-    // 방문 여부와 석유 덩어리 인덱스를 저장하는 배열
-    const visited = Array.from({ length: n }, () => Array(m).fill(0));
-    // 각 석유 덩어리의 크기를 저장하는 맵
-    const oilMap = new Map();
+  // 방문 여부와 석유 덩어리 인덱스를 저장하는 배열
+  const visited = Array.from({ length: n }, () => Array(m).fill(0));
+  // 각 석유 덩어리의 크기를 저장하는 맵
+  const oilMap = new Map();
 
-    // 상하좌우 방향 벡터
-    const dx = [-1, 0, 1, 0];
-    const dy = [0, 1, 0, -1];
+  // 상하좌우 방향 벡터
+  const dx = [-1, 0, 1, 0];
+  const dy = [0, 1, 0, -1];
 
-    let oilIndex = 1; // 석유 덩어리의 인덱스
-    let maxOil = 0;   // 최대 석유량
+  let oilIndex = 1; // 석유 덩어리의 인덱스
+  let maxOil = 0; // 최대 석유량
 
-    // BFS를 이용하여 석유 덩어리를 탐색하고 크기를 계산하는 함수
-    function bfs(initX, initY) {
-        let oilSize = 0;
-        const queue = [{ x: initX, y: initY }];
-        visited[initX][initY] = oilIndex;
+  // BFS를 이용하여 석유 덩어리를 탐색하고 크기를 계산하는 함수
+  function bfs(initX, initY) {
+    let oilSize = 0;
+    const queue = [{ x: initX, y: initY }];
+    visited[initX][initY] = oilIndex;
 
-        while (queue.length > 0) {
-            const { x, y } = queue.shift();
+    while (queue.length > 0) {
+      const { x, y } = queue.shift();
 
-            if (land[x][y] === 1) oilSize++;
+      if (land[x][y] === 1) oilSize++;
 
-            for (let i = 0; i < 4; i++) {
-                const nx = x + dx[i];
-                const ny = y + dy[i];
+      for (let i = 0; i < 4; i++) {
+        const nx = x + dx[i];
+        const ny = y + dy[i];
 
-                // 격자 범위 내에 있고, 방문하지 않았으며, 석유가 있는 경우
-                if (nx >= 0 && nx < n && ny >= 0 && ny < m && visited[nx][ny] === 0 && land[nx][ny] === 1) {
-                    visited[nx][ny] = oilIndex;
-                    queue.push({ x: nx, y: ny });
-                }
-            }
+        // 격자 범위 내에 있고, 방문하지 않았으며, 석유가 있는 경우
+        if (nx >= 0 && nx < n && ny >= 0 && ny < m && visited[nx][ny] === 0 && land[nx][ny] === 1) {
+          visited[nx][ny] = oilIndex;
+          queue.push({ x: nx, y: ny });
         }
-
-        // 석유 덩어리의 크기를 맵에 저장
-        oilMap.set(oilIndex++, oilSize);
+      }
     }
 
-    // 모든 위치를 탐색하여 석유 덩어리를 식별하고 크기를 저장
-    for (let i = 0; i < n; i++) {
-        for (let j = 0; j < m; j++) {
-            if (visited[i][j] === 0 && land[i][j] === 1) bfs(i, j);
-        }
-    }
+    // 석유 덩어리의 크기를 맵에 저장
+    oilMap.set(oilIndex++, oilSize);
+  }
 
-    // 각 열에 시추관을 설치했을 때 얻을 수 있는 석유량 계산
+  // 모든 위치를 탐색하여 석유 덩어리를 식별하고 크기를 저장
+  for (let i = 0; i < n; i++) {
     for (let j = 0; j < m; j++) {
-        let columnOil = 0;
-        const uniqueOilIndices = new Set();
+      if (visited[i][j] === 0 && land[i][j] === 1) bfs(i, j);
+    }
+  }
 
-        // 해당 열에서 지나는 석유 덩어리의 인덱스를 수집
-        for (let i = 0; i < n; i++) {
-            if (visited[i][j] > 0) uniqueOilIndices.add(visited[i][j]);
-        }
+  // 각 열에 시추관을 설치했을 때 얻을 수 있는 석유량 계산
+  for (let j = 0; j < m; j++) {
+    let columnOil = 0;
+    const uniqueOilIndices = new Set();
 
-        // 중복을 제거한 석유 덩어리들의 크기를 합산
-        uniqueOilIndices.forEach(index => {
-            columnOil += oilMap.get(index);
-        });
-
-        // 최대 석유량 갱신
-        maxOil = Math.max(maxOil, columnOil);
+    // 해당 열에서 지나는 석유 덩어리의 인덱스를 수집
+    for (let i = 0; i < n; i++) {
+      if (visited[i][j] > 0) uniqueOilIndices.add(visited[i][j]);
     }
 
-    return maxOil;
-}
+    // 중복을 제거한 석유 덩어리들의 크기를 합산
+    uniqueOilIndices.forEach((index) => {
+      columnOil += oilMap.get(index);
+    });
 
+    // 최대 석유량 갱신
+    maxOil = Math.max(maxOil, columnOil);
+  }
+
+  return maxOil;
+}
 ```
 
 ## 문제 접근 및 사용한 알고리즘

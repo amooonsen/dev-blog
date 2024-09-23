@@ -23,7 +23,7 @@ export default function PostHead({ post }: PostHeadProps) {
   return (
     <Section id="postHead">
       <div className="flex flex-col space-y-8 mb-8">
-        <h1 className="text-5xl font-bold">{post?.title}</h1>
+        <h1 className="text-5xl leading-snug font-bold">{post?.title}</h1>
         <div className="flex gap-3 text-slate-500 dark:text-slate-200">
           <div className="flex items-center gap-1">
             <Calendar width={20} height={20} />
@@ -35,7 +35,7 @@ export default function PostHead({ post }: PostHeadProps) {
           </div>
         </div>
         <ul className="flex gap-3 mt-8">
-          {post.tags.map((item: string, index: number) => (
+          {post.tags?.map((item: string, index: number) => (
             <li key={`post-tags-${index}`}>
               <Badge>{item}</Badge>
             </li>

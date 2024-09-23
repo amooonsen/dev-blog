@@ -42,7 +42,7 @@ const Logo: React.FC = () => {
     <div id="logo" className="lg:min-w-[300px] h-[36px]">
       <Link
         href="/"
-        className={`text-3xl font-semibold`}
+        className={`text-2xl`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{ display: 'block' }}

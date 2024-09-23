@@ -1,0 +1,224 @@
+---
+title: '[NestJS] 서비스 이해하기 및 리팩토링'
+preview: '백엔드에서 오픈 API 데이터를 정제하고 이를 프론트엔드에 전달하는 방법에 대한 고찰'
+date: 2024-05-19
+thumbnail: /posts/backend/nest_js_3_thumbnail.svg
+thumbnailAlt: Nextjs 로고
+tags: ['Backend', 'NestJS', 'JavaScript', 'Typescript', '사이드프로젝트']
+---
+
+## 서론
+
+NestJS를 사용하면서 서비스와 컨트롤러의 역할을 명확히 이해하고, 이를 통해 코드를 보다 효율적으로 작성할 수 있다. 이번 포스팅에서는 NestJS에서 서비스가 무엇인지, 컨트롤러와 서비스의 차이점을 알아보고, 컨트롤러에 작성된 코드를 서비스로 리팩토링하는 방법을 살펴본다. 마지막으로 이를 응용한 예제를 통해 NestJS의 강력한 기능을 경험해 보자.
+
+### NestJS에서 서비스란?
+
+NestJS에서 서비스(Service)는 비즈니스 로직을 처리하는 핵심 부분을 담당한다. 주로 데이터베이스와의 상호작용, 외부 API 호출, 복잡한 계산 등을 처리한다. 컨트롤러는 요청을 받아서 적절한 서비스로 전달하고, 서비스는 해당 로직을 실행한 후 결과를 반환한다.
+
+### 컨트롤러와 서비스의 차이점
+
+- **컨트롤러(Controller)**: 클라이언트의 요청을 받아서 처리하는 역할을 한다. 주로 HTTP 요청을 수신하고, 요청을 서비스로 전달하며, 서비스에서 반환된 결과를 클라이언트에게 응답으로 보낸다.
+- **서비스(Service)**: 비즈니스 로직을 처리하는 부분이다. 데이터베이스 작업, 외부 API 호출, 복잡한 계산 등을 수행한다. 컨트롤러와는 달리, 클라이언트의 요청/응답에 직접 관여하지 않는다.
+
+### 컨트롤러에 작성된 코드를 서비스로 리팩토링
+
+다음은 컨트롤러에 작성된 코드를 서비스로 리팩토링하는 예제이다.
+
+### 기존 컨트롤러 코드
+
+```tsx
+import { Controller, Get, Param } from '@nestjs/common';
+import { User } from './user.entity';
+
+@Controller('users')
+export class UserController {
+  @Get(':id')
+  async getUser(@Param('id') id: string): Promise<User> {
+    // 비즈니스 로직이 직접 컨트롤러에 작성됨
+    const user = await User.findOne(id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user;
+  }
+}
+```
+
+### 리팩토링 후 코드
+
+```tsx
+import { Injectable } from '@nestjs/common';
+import { User } from './user.entity';
+
+@Injectable()
+export class UserService {
+  async findUserById(id: string): Promise<User> {
+    const user = await User.findOne(id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user;
+  }
+}
+```
+
+```tsx
+import { Controller, Get, Param } from '@nestjs/common';
+import { UserService } from './user.service';
+import { User } from './user.entity';
+
+@Controller('users')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Get(':id')
+  async getUser(@Param('id') id: string): Promise<User> {
+    return this.userService.findUserById(id);
+  }
+}
+```
+
+### 사용자 생성 기능 추가
+
+서비스를 활용하여 사용자 생성 기능을 추가해보자.
+
+### 서비스 코드
+
+```tsx
+@Injectable()
+export class UserService {
+  async createUser(name: string, age: number): Promise<User> {
+    const user = new User();
+    user.name = name;
+    user.age = age;
+    await user.save();
+    return user;
+  }
+}
+```
+
+### 컨트롤러 코드
+
+```tsx
+import { Controller, Post, Body } from '@nestjs/common';
+import { UserService } from './user.service';
+import { User } from './user.entity';
+
+@Controller('users')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Post()
+  async createUser(@Body() createUserDto: { name: string; age: number }): Promise<User> {
+    return this.userService.createUser(createUserDto.name, createUserDto.age);
+  }
+}
+```
+
+### 데이터베이스 연동
+
+이번에는 데이터베이스와 연동하여 조금 더 고급 예제를 살펴보자. 여기서는 TypeORM을 사용하여 사용자 데이터를 MySQL 데이터베이스에 저장하고 조회하는 기능을 구현해보겠다.
+
+### 설정 파일 (ormconfig.json)
+
+먼저, TypeORM 설정 파일을 작성한다.
+
+```json
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "test",
+  "password": "test",
+  "database": "test",
+  "entities": ["dist/**/*.entity.js"],
+  "synchronize": true
+}
+```
+
+### 사용자 엔티티 (user.entity.ts)
+
+User 엔티티를 정의한다.
+
+```tsx
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column()
+  age: number;
+}
+```
+
+### 사용자 서비스 (user.service.ts)
+
+사용자 서비스에 데이터베이스 연동 로직을 추가한다.
+
+```tsx
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
+
+@Injectable()
+export class UserService {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>
+  ) {}
+
+  async findUserById(id: string): Promise<User> {
+    const user = await this.userRepository.findOne(id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user;
+  }
+
+  async createUser(name: string, age: number): Promise<User> {
+    const user = new User();
+    user.name = name;
+    user.age = age;
+    return this.userRepository.save(user);
+  }
+}
+```
+
+### 사용자 컨트롤러 (user.controller.ts)
+
+컨트롤러는 서비스를 호출하여 요청을 처리한다.
+
+```tsx
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { UserService } from './user.service';
+import { User } from './user.entity';
+
+@Controller('users')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Get(':id')
+  async getUser(@Param('id') id: string): Promise<User> {
+    return this.userService.findUserById(id);
+  }
+
+  @Post()
+  async createUser(@Body() createUserDto: { name: string; age: number }): Promise<User> {
+    return this.userService.createUser(createUserDto.name, createUserDto.age);
+  }
+}
+```
+
+### 느낀 점
+
+NestJS에서 서비스와 컨트롤러를 분리하면 코드의 가독성과 유지보수성이 크게 향상된다. 컨트롤러는 단순히 요청을 받아 서비스로 전달하는 역할만 하기 때문에, 비즈니스 로직이 서비스에 집중되어 더 체계적으로 관리할 수 있다. 또한, 테스트 코드 작성 시에도 서비스 단위로 테스트할 수 있어 효율적이다.
+
+### 결론
+
+이번 포스팅에서는 NestJS에서 서비스의 역할과 컨트롤러와의 차이점을 알아보았다. 또한, 컨트롤러에 작성된 코드를 서비스로 리팩토링하고, 이를 응용한 예제를 통해 서비스의 활용성을 살펴보았다. 마지막으로 데이터베이스 연동을 통해 고급 예제를 다뤄보았다. 서비스와 컨트롤러를 적절히 분리하여 NestJS의 강력한 기능을 최대한 활용해보자.

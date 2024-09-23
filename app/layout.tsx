@@ -13,7 +13,7 @@ import Header from '@/components/screen/Header';
 import Footer from '@/components/screen/Footer';
 
 // fonts
-import { pretendard } from '@/assets/fonts/fonts';
+import { notoSansKr } from '@/assets/fonts/fonts';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
-      <body className={`${pretendard.className} antialiased`}>
+      <body className={`${notoSansKr.className} antialiased`}>
         <NextTopLoader color="#16a34a" shadow="0 0 10px #16a34a,0 0 5px #16a34a" />
         <div id="wrap" className="min-h-screen">
           <Header />

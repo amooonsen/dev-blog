@@ -17,11 +17,6 @@ export const pretendard = localFont({
   weight: '45 920',
   variable: '--font-pretendard',
 });
-export const BMJUA = localFont({
-  src: './BMJUA.woff',
-  display: 'swap',
-  weight: '100 900',
-});
 
 // next font goolge
 export const notoSansKr = Noto_Sans_KR({

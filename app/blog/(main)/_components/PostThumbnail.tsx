@@ -10,6 +10,7 @@ import { Post } from '@/types/Post';
 
 // utils
 import { getBase64Image } from '@/lib/sharp';
+import { getFormattedDate } from '@/lib/date';
 
 interface PostThumbnailProps {
   post: Post;
@@ -38,7 +39,7 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
         <div className="flex flex-col space-y-3">
           <h3 className="relative inline-block mt-4 text-2xl font-semibold">{post.title}</h3>
           <p className="text-overflow text-base text-slate-500">{post.preview}</p>
-          {/* <time>{post.date}</time> */}
+          <p>{getFormattedDate(post.date)}</p>
         </div>
       </Link>
       <ul className="flex gap-2 mt-4">

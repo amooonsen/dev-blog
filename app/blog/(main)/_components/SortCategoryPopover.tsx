@@ -11,28 +11,28 @@ export function SortCategoryPopover({ type }: SortCategoryPopoverProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Open popover</Button>
+        <Button variant="outline">{type === 'tag' ? 'Tags' : 'View'}</Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent className="w-44">
         <div className="grid gap-4">
           <div className="space-y-2">
-            <h4 className="font-medium leading-none">Dimensions</h4>
-            <p className="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
+            <h4 className="font-medium leading-none">태그 소팅</h4>
+            <p className="text-sm text-muted-foreground">항목을 선택해 주세요.</p>
           </div>
-          <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
+          <ul className="grid gap-2">
+            <li className="grid grid-cols-2 items-center gap-4">
               <div className="text-base">아이템1</div>
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
+            </li>
+            <li className="grid grid-cols-2 items-center gap-4">
               <div className="text-base">아이템1</div>
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
+            </li>
+            <li className="grid grid-cols-2 items-center gap-4">
               <div className="text-base">아이템1</div>
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
+            </li>
+            <li className="grid grid-cols-2 items-center gap-4">
               <div className="text-base">아이템1</div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </PopoverContent>
     </Popover>

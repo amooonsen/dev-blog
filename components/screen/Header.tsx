@@ -24,7 +24,7 @@ export default function Header() {
         <Logo />
         <div className="flex">
           <nav>
-            <ul className="flex gap-4 text-2xl">
+            <ul className="flex gap-4 text-xl font-semibold">
               {navMenus.map((item: navMenusType, index: number) => (
                 <li key={`nav-menus-${index}`}>
                   <Link className="block p-4" href={item.href} target={item.target} rel={item.rel}>

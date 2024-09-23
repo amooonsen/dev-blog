@@ -38,8 +38,10 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
         </div>
         <div className="flex flex-col space-y-3">
           <h3 className="relative inline-block mt-4 text-2xl font-semibold">{post.title}</h3>
-          <p className="text-overflow text-base text-slate-500">{post.preview}</p>
-          <p>{getFormattedDate(post.date)}</p>
+          <p className="text-overflow text-base text-slate-500 dark:text-slate-200">
+            {post.preview}
+          </p>
+          <p>{post.dateString}</p>
         </div>
       </Link>
       <ul className="flex gap-2 mt-4">

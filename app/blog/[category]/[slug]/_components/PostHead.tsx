@@ -27,7 +27,7 @@ export default function PostHead({ post }: PostHeadProps) {
         <div className="flex gap-3 text-slate-500 dark:text-slate-200">
           <div className="flex items-center gap-1">
             <Calendar width={20} height={20} />
-            <time className="text-base">{getFormattedDate(post.date)}</time>
+            <time className="text-base">{post.dateString}</time>
           </div>
           <div className="flex items-center gap-1">
             <BookAIcon width={20} height={20} />

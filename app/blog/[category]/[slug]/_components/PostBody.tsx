@@ -23,24 +23,25 @@ interface PostBodyProps {
 
 // const prettyCodeOptions = {
 //   theme: {
-//     dark: JSON.parse(readFileSync('./code_theme/one-dark-pro-darker.json', 'utf-8')),
-//     light: JSON.parse(readFileSync('./code_theme/atom-one-light.json', 'utf-8')),
+//     dark: JSON.parse(readFileSync('/public/theme/one-dark-pro.darker.json', 'utf-8')),
+//     // light: JSON.parse(readFileSync('./theme/one-monokai-light.json', 'utf-8')),
 //   },
 // };
 
+const rehypeOptions = {
+  theme: 'slack-dark',
+  keepBackground: true,
+};
+
 export default function PostBody({ post }: PostBodyProps) {
   return (
-    <Section>
+    <Section className="prose mt-16 mb-32">
       <MDXRemote
         source={post.content}
         options={{
           mdxOptions: {
             remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
-            rehypePlugins: [
-              [rehypePrettyCode],
-              // toc id를 추가하고 제목을 연결
-              rehypeSlug,
-            ],
+            rehypePlugins: [[rehypePrettyCode, rehypeOptions], rehypeSlug],
           },
         }}
         components={MdxComponents}

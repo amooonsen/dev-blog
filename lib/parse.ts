@@ -37,7 +37,6 @@ export class PostRepository {
     const fileContent = await fs.readFile(postPath, 'utf-8');
     const { data: frontmatter, content } = matter(fileContent);
     const dateString = dayjs(frontmatter.date).locale('ko').format('YYYY년 MM월 DD일');
-
     return {
       url,
       categoryPath,

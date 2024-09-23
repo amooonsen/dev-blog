@@ -1,6 +1,9 @@
 import React, { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import PostHead from './_components/PostHead';
-import PostBody from './_components/PostBody';
+// import PostBody from './_components/PostBody';
+
+const PostBody = dynamic(() => import('./_components/PostBody'), { ssr: false });
 
 import { PostRepository } from '@/lib/parse';
 
@@ -14,7 +17,6 @@ interface PostDetailProps {
 export default async function PostDetail({ params: { category, slug } }: PostDetailProps) {
   const postRepository = new PostRepository();
   const postDetail = await postRepository.fetchPostDetail(category, slug);
-  console.log(postDetail);
 
   return (
     <main className="mx-auto mt-20">

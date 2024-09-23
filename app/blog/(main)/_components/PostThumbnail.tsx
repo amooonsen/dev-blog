@@ -23,10 +23,10 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
   };
 
   return (
-    <li className="group">
-      <Link href={`${post.url}`}>
+    <li>
+      <Link className="group" href={`${post.url}`}>
         {post.thumbnail ? (
-          <div className="relative aspect-video w-full rounded-t-md border-b overflow-hidden">
+          <div className="relative aspect-video w-full rounded-md overflow-hidden">
             <Image
               src={post.thumbnail}
               alt={post.thumbnailAlt}
@@ -34,11 +34,11 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
               fill
               priority
               blurDataURL={fetchBase64() as unknown as string}
-              className="object-cover transition-transform duration-300 ease-out group-hover:scale-110"
+              className="object-cover transition-all duration-500 ease-out group-hover:scale-105"
             />
           </div>
         ) : (
-          <div className="relative flex justify-center items-center aspect-video w-full rounded-t-md border overflow-hidden">
+          <div className="relative flex justify-center items-center aspect-video w-full rounded-md border overflow-hidden">
             <span>No Image</span>
           </div>
         )}
@@ -51,19 +51,12 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
           </p>
         </div>
       </Link>
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center justify-between mt-4 pt-4 border-t">
         <time className="text-sm text-gray-500 dark:text-gray-200">{post.dateString}</time>
         <Badge>
           <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
         </Badge>
       </div>
-      {/* <ul className="flex flex-wrap gap-2 mt-4">
-        {post.tags?.map((tag: string, index: number) => (
-          <li key={`post-tags-${index}`}>
-            <Badge className="cursor-pointer">{tag}</Badge>
-          </li>
-        ))}
-      </ul> */}
     </li>
   );
 }

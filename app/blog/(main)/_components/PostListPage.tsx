@@ -23,6 +23,8 @@ export default async function PostListPage({ category }: PostListPageProps) {
   const categoryList: CategoryDetail[] = await postRepository.fetchCategoryList();
   const postList = await postRepository.fetchSortedPostList(category);
 
+  console.log(postList);
+
   return (
     <main className="mt-20 mb-32">
       <Section className="mt-10">

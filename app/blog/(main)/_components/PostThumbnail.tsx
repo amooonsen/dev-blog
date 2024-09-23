@@ -43,20 +43,27 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
           </div>
         )}
         <div className="flex flex-col space-y-4">
-          <h3 className="relative inline-block h-16 mt-4 text-2xl font-semibold">{post.title}</h3>
-          <p className="text-overflow text-base h-12 text-slate-500 dark:text-slate-200">
+          <h3 className="text-overflow line-one relative inline-block mt-4 text-lg font-semibold">
+            {post.title}
+          </h3>
+          <p className="text-overflow line-two text-base h-12 text-slate-500 dark:text-slate-200">
             {post.preview}
           </p>
-          <p className="text-sm text-gray-500 dark:text-gray-200">{post.dateString}</p>
         </div>
       </Link>
-      <ul className="flex flex-wrap gap-2 mt-4">
+      <div className="flex items-center justify-between mt-4">
+        <time className="text-sm text-gray-500 dark:text-gray-200">{post.dateString}</time>
+        <Badge>
+          <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
+        </Badge>
+      </div>
+      {/* <ul className="flex flex-wrap gap-2 mt-4">
         {post.tags?.map((tag: string, index: number) => (
           <li key={`post-tags-${index}`}>
             <Badge className="cursor-pointer">{tag}</Badge>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </li>
   );
 }

@@ -10,10 +10,9 @@ interface PostHeadProps {
 
 export default function PostHead({ post }: PostHeadProps) {
   return (
-    <div>
+    <section className="mx-auto mt-20" id="postHead">
       <h1>{post?.title}</h1>
       <p>{post.preview}</p>
-      <img src={post?.thumbnail} alt={post.thumbnailAlt} />
       <div>
         <ul>
           {post.tags.map((item: string, index: number) => (
@@ -22,6 +21,7 @@ export default function PostHead({ post }: PostHeadProps) {
         </ul>
         <p>{getFormattedDate(post.date)}</p>
       </div>
-    </div>
+      <img src={post?.thumbnail} alt={post.thumbnailAlt} />
+    </section>
   );
 }

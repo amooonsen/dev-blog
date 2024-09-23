@@ -17,13 +17,13 @@ export default async function PostDetail({ params: { category, slug } }: PostDet
   console.log(postDetail);
 
   return (
-    <div>
+    <>
       <Suspense fallback="헤더 로딩중">
         <PostHead post={postDetail} />
       </Suspense>
       <Suspense fallback="바디 로딩중">
         <PostBody post={postDetail} />
       </Suspense>
-    </div>
+    </>
   );
 }

@@ -6,6 +6,7 @@ import PostThumbnailList from './PostThumbnailList';
 import FilterCategory from './FilterCategory';
 import SearchPost from '@/components/screen/SearchPost';
 import PostListSkeleton from '@/components/loading/PostListSkeleton';
+import MainSkeleton from '@/components/loading/MainSkeleton';
 
 // repo
 import { PostRepository } from '@/service/PostRepository';
@@ -32,9 +33,8 @@ export default async function PostListPage({ category }: PostListPageProps) {
         <FilterCategory allPostCount={allPostCount} categoryList={categoryList} />
       </Section>
       <Section className="mt-14 space-y-8">
-        <h2 className="text-3xl font-bold">All blog posts</h2>
         <Suspense fallback={<PostListSkeleton />}>
-          <PostThumbnailList postList={postList} />
+          <PostThumbnailList postList={postList} category={category} />
         </Suspense>
       </Section>
     </main>

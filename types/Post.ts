@@ -1,13 +1,16 @@
 export interface Post {
+  title: string;
+  desc: string;
   url: string;
   categoryPath: string;
   thumbnail: string;
   thumbnailAlt: string;
   categoryPublicName: string;
   slug: string;
-  date: string;
+  date: Date;
   dateString: string;
   content: string;
+  readingMinutes: number;
   [key: string]: any;
 }
 

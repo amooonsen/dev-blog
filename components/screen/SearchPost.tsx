@@ -21,9 +21,9 @@ export default function SearchPost() {
   };
 
   return (
-    <div className="h-48 flex flex-col justify-center items-center px-4">
+    <div className="flex flex-col justify-center items-center px-4">
       <h2 className="mb-4 sm:mb-8 text-xl text-center sm:text-3xl dark:text-white text-black">
-        Search Input
+        보고싶은 글을 찾아주세요.
       </h2>
       <PlaceholdersAndVanishInput
         placeholders={placeholders}

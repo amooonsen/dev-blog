@@ -29,7 +29,7 @@ export default function PostHead({ post }: PostHeadProps) {
           </div>
           <div className="flex items-center gap-1">
             <BookAIcon width={20} height={20} />
-            <span>3분</span>
+            <span>{post.readingMinutes}분</span>
           </div>
         </div>
         <dl className="flex gap-3">

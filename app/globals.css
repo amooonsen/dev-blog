@@ -156,3 +156,21 @@ body {
   text-align: center;
   line-height: 100%;
 }
+
+.root-template {
+  background-color: black;
+}
+
+.root-template .page {
+  background-color: white;
+}
+
+.root-template .slide {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+}

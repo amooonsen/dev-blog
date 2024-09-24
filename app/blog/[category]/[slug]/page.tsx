@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react';
-import dynamic from 'next/dynamic';
 import PostHead from './_components/PostHead';
 import PostBody from './_components/PostBody';
 
@@ -14,25 +13,22 @@ interface PostDetailProps {
   };
 }
 
-export const dynamicParams = false;
+// export const dynamicParams = false;
 
-export const generateStaticParams = () => {
+export async function generateStaticParams() {
+  const postParser = new PostParser();
   const postDetailRepository = new PostDetailRepository();
   const postPaths: string[] = postDetailRepository.getPostFilePaths();
 
-  // 경로에서 category와 slug를 추출하여 params 객체 생성
-  return postPaths.map((filePath) => {
-    const pathSegments = filePath.replace('/posts', '').split('/');
-    const category = pathSegments[0];
-    const slug = pathSegments[1];
+  const paramList = postPaths.map(async (path) => {
+    const item = await postParser.parsePost(path, '/posts');
     return {
-      params: {
-        category,
-        slug,
-      },
+      category: item.categoryPath,
+      slug: item.slug,
     };
   });
-};
+  return paramList;
+}
 
 export default async function PostDetail({ params: { category, slug } }: PostDetailProps) {
   const postDetailRepository = new PostDetailRepository();

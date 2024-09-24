@@ -5,6 +5,7 @@ import PostBody from './_components/PostBody';
 
 // repo
 import { PostDetailRepository } from '@/service/PostDetailRepository';
+import { PostParser } from '@/service/PostParser';
 
 interface PostDetailProps {
   params: {
@@ -15,10 +16,23 @@ interface PostDetailProps {
 
 export const dynamicParams = false;
 
-// export const generateStaticParams = () => {
-//   const postRepository = new PostRepository();
-//   const postPaths: string[] = postRepository.fetchPostPath()
-// };
+export const generateStaticParams = () => {
+  const postDetailRepository = new PostDetailRepository();
+  const postPaths: string[] = postDetailRepository.getPostFilePaths();
+
+  // 경로에서 category와 slug를 추출하여 params 객체 생성
+  return postPaths.map((filePath) => {
+    const pathSegments = filePath.replace('/posts', '').split('/');
+    const category = pathSegments[0];
+    const slug = pathSegments[1];
+    return {
+      params: {
+        category,
+        slug,
+      },
+    };
+  });
+};
 
 export default async function PostDetail({ params: { category, slug } }: PostDetailProps) {
   const postDetailRepository = new PostDetailRepository();

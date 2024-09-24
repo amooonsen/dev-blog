@@ -2,17 +2,11 @@
 
 import { IPostRepository } from './IPostRepository';
 import { BaseRepository } from './BaseRepository';
-import { sync } from 'glob';
 import { Post, CategoryDetail } from '@/types/Post';
 
 export class PostRepository extends BaseRepository implements IPostRepository {
   constructor() {
     super();
-  }
-
-  private getPostFilePaths(category?: string): string[] {
-    const folder = category || '**';
-    return sync(`${this.POSTS_PATH}/${folder}/**/*.mdx`);
   }
 
   public async fetchPostList(category?: string): Promise<Post[]> {

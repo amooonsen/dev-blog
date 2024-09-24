@@ -8,6 +8,10 @@ import PostBodySkeleton from '@/components/loading/PostBodySkeleton';
 import { PostDetailRepository } from '@/service/PostDetailRepository';
 import { PostParser } from '@/service/PostParser';
 
+// meta
+import { Metadata } from 'next';
+import { blogName, baseDomain } from '@/constants/metaInfoConst';
+
 interface PostDetailProps {
   params: {
     category: string;
@@ -30,6 +34,33 @@ export async function generateStaticParams() {
     };
   });
   return paramList;
+}
+
+export async function generateMetadata({
+  params: { category, slug },
+}: PostDetailProps): Promise<Metadata> {
+  const postDetailRepository = new PostDetailRepository();
+  const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
+
+  const title = `${postDetail.title} | ${blogName}`;
+  const imageURL = `${baseDomain}${postDetail.thumbnail}`;
+  console.log(imageURL);
+  return {
+    title,
+    description: postDetail.desc,
+    openGraph: {
+      title,
+      description: postDetail.desc,
+      type: 'article',
+      url: `${baseDomain}${postDetail.url}`,
+      images: [imageURL],
+    },
+    twitter: {
+      title,
+      description: postDetail.desc,
+      // images: [imageURL],
+    },
+  };
 }
 
 export default async function PostDetail({ params: { category, slug } }: PostDetailProps) {

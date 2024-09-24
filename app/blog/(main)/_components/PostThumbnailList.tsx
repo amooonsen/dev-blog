@@ -11,14 +11,28 @@ interface PostThumbnailListProps {
   category?: string;
 }
 
-export default async function PostThumbnailList({ postList }: PostThumbnailListProps) {
+export default async function PostThumbnailList({ postList, category }: PostThumbnailListProps) {
+  let heading: string = '';
+
+  const renderCateogryText = () => {
+    postList.find((item) => {
+      if (item.categoryPath === category) {
+        heading = `View ${item.categoryPublicName}`;
+      }
+    });
+
+    return heading;
+  };
   return (
-    <ul className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-8">
-      {postList.map(
-        (post: Post): ReactElement => (
-          <PostThumbnail key={post.url} post={post} />
-        )
-      )}
-    </ul>
+    <>
+      <h2 className="text-3xl font-bold">{renderCateogryText() || 'All blog posts'}</h2>
+      <ul className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-8">
+        {postList.map(
+          (post: Post): ReactElement => (
+            <PostThumbnail key={post.url} post={post} />
+          )
+        )}
+      </ul>
+    </>
   );
 }

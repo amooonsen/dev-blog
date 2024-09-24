@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
+import readingTime from 'reading-time';
 import { Post } from '@/types/Post';
 
 export class PostParser {
@@ -12,8 +13,10 @@ export class PostParser {
     const categoryPublicName = this.formatCategoryName(categoryPath);
 
     // const absolutePath = path.join(process.cwd(), postPath);
+
     const fileContent = fs.readFileSync(postPath, 'utf-8');
     const { data: frontmatter, content } = matter(fileContent);
+    const readingMinutes = Math.ceil(readingTime(content).minutes);
     const dateString = dayjs(frontmatter.date).locale('ko').format('YYYY년 MM월 DD일');
 
     return {
@@ -24,6 +27,7 @@ export class PostParser {
       date: frontmatter.date,
       dateString,
       content,
+      readingMinutes,
       ...frontmatter,
     } as Post;
   }

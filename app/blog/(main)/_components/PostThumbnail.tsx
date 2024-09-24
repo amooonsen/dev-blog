@@ -10,6 +10,7 @@ import { Post } from '@/types/Post';
 
 // utils
 import { getBase64Image } from '@/lib/sharp';
+import { BookImageIcon } from 'lucide-react';
 
 interface PostThumbnailProps {
   post: Post;
@@ -50,10 +51,10 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
           </p>
         </div>
       </Link>
-      <div className="flex items-center justify-between mt-4 pt-4 border-t">
+      <div className="flex items-center justify-between mt-4 pt-4 border-t ">
         <time className="text-sm text-gray-500 dark:text-gray-200">{post.dateString}</time>
-        <Badge>
-          <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
+        <Badge variant="tags">
+          <Link href={`/blog/${post.categoryPath}`}>#{post.categoryPublicName}</Link>
         </Badge>
       </div>
     </li>

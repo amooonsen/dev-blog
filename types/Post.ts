@@ -10,6 +10,7 @@ export interface Post {
   date: Date;
   dateString: string;
   content: string;
+  readingMinutes: number;
   [key: string]: any;
 }
 

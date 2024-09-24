@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { promises as fs } from 'fs';
+import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 import { Post } from '@/types/Post';
@@ -11,7 +11,8 @@ export class PostParser {
     const url = `/blog/${categoryPath}/${slug}`;
     const categoryPublicName = this.formatCategoryName(categoryPath);
 
-    const fileContent = await fs.readFile(postPath, 'utf-8');
+    // const absolutePath = path.join(process.cwd(), postPath);
+    const fileContent = fs.readFileSync(postPath, 'utf-8');
     const { data: frontmatter, content } = matter(fileContent);
     const dateString = dayjs(frontmatter.date).locale('ko').format('YYYY년 MM월 DD일');
 

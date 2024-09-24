@@ -9,9 +9,6 @@ import PostImage from './PostImage';
 import { Calendar } from 'lucide-react';
 import { BookAIcon } from 'lucide-react';
 
-// ilbs
-import { getFormattedDate } from '@/lib/date';
-
 // types
 import { Post } from '@/types/Post';
 import Link from 'next/link';
@@ -51,7 +48,9 @@ export default function PostHead({ post }: PostHeadProps) {
         </dl>
       </div>
       <div className="border-t pt-12">
-        <PostImage src={post.thumbnail} alt={post.thumbnailAlt} type="thumbnail" />
+        {post.thumbnail && (
+          <PostImage src={post.thumbnail} alt={post.thumbnailAlt} type="thumbnail" />
+        )}
       </div>
     </Section>
   );

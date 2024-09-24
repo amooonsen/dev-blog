@@ -10,8 +10,8 @@ import NextTopLoader from 'nextjs-toploader';
 
 // components
 // import { ThemeProvider } from '@/components/context/theme-provider';
-// import Header from '@/components/screen/Header';
-// import Footer from '@/components/screen/Footer';
+import Header from '@/components/screen/Header';
+import Footer from '@/components/screen/Footer';
 
 // fonts
 import { notoSansKr } from '@/assets/fonts/fonts';
@@ -39,7 +39,9 @@ export default function RootLayout({
       <body className={`${notoSansKr.className} antialiased`}>
         <NextTopLoader color="#16a34a" shadow="0 0 10px #16a34a,0 0 5px #16a34a" />
         <div id="wrap" className="min-h-screen">
+          <Header />
           {children}
+          <Footer />
         </div>
       </body>
     </html>

@@ -33,7 +33,7 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
               fill
               priority
               blurDataURL={fetchBase64() as unknown as string}
-              className="object-cover transition-all duration-500 ease-out group-hover:scale-105"
+              className="object-cover transition-all duration-500 ease-out group-hover:scale-105 bg-foreground"
             />
           </div>
         ) : (

@@ -6,6 +6,7 @@ import PostThumbnailList from './PostThumbnailList';
 import FilterCategory from './FilterCategory';
 import SearchPost from '@/components/screen/SearchPost';
 import PostListSkeleton from '@/components/loading/PostListSkeleton';
+import MainSkeleton from '@/components/loading/MainSkeleton';
 
 // repo
 import { PostRepository } from '@/service/PostRepository';

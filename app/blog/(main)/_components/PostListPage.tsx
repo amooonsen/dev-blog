@@ -7,8 +7,8 @@ import FilterCategory from './FilterCategory';
 import SearchPost from '@/components/screen/SearchPost';
 import PostListSkeleton from '@/components/loading/PostListSkeleton';
 
-// lib
-import { PostRepository } from '@/lib/parse';
+// repo
+import { PostRepository } from '@/service/PostRepository';
 
 // types
 import { CategoryDetail } from '@/types/Post';
@@ -22,8 +22,6 @@ export default async function PostListPage({ category }: PostListPageProps) {
   const allPostCount: number = await postRepository.fetchAllPostCount();
   const categoryList: CategoryDetail[] = await postRepository.fetchCategoryList();
   const postList = await postRepository.fetchSortedPostList(category);
-
-  console.log(postList);
 
   return (
     <main className="mt-20 mb-32">

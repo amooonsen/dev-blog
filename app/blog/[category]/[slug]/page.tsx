@@ -3,7 +3,8 @@ import dynamic from 'next/dynamic';
 import PostHead from './_components/PostHead';
 import PostBody from './_components/PostBody';
 
-import { PostRepository } from '@/lib/parse';
+// repo
+import { PostDetailRepository } from '@/service/PostDetailRepository';
 
 interface PostDetailProps {
   params: {
@@ -14,14 +15,14 @@ interface PostDetailProps {
 
 export const dynamicParams = false;
 
-export const generateStaticParams = () => {
-  // const postRepository = new PostRepository();
-  // const postPaths: string[] = postRepository.fetchPostPath()
-};
+// export const generateStaticParams = () => {
+//   const postRepository = new PostRepository();
+//   const postPaths: string[] = postRepository.fetchPostPath()
+// };
 
 export default async function PostDetail({ params: { category, slug } }: PostDetailProps) {
-  const postRepository = new PostRepository();
-  const postDetail = await postRepository.fetchPostDetail(category, slug);
+  const postDetailRepository = new PostDetailRepository();
+  const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
 
   return (
     <main className="mx-auto mt-20">

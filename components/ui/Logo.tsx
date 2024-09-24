@@ -27,22 +27,22 @@ const Logo: React.FC = () => {
   };
 
   const containerStyle = {
-    position: 'relative' as 'relative',
+    position: 'relative' as const,
     overflow: 'hidden',
     height: '36px',
   };
 
   const textStyle = {
-    position: 'absolute' as 'absolute',
+    position: 'absolute' as const,
     left: 0,
     right: 0,
-  };
+  } as const;
 
   return (
     <div id="logo" className="lg:min-w-[300px] h-[36px]">
       <Link
         href="/"
-        className={`text-2xl`}
+        className={`text-2xl font-semibold`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{ display: 'block' }}

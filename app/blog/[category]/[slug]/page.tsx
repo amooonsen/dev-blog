@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import PostHead from './_components/PostHead';
 import PostBody from './_components/PostBody';
+import PostFooter from './_components/PostFooter';
 import PostHeadSkeleton from '@/components/loading/PostHeadSkeleton';
 import PostBodySkeleton from '@/components/loading/PostBodySkeleton';
 
@@ -75,6 +76,7 @@ export default async function PostDetail({ params: { category, slug } }: PostDet
       <Suspense fallback={<PostBodySkeleton />}>
         <PostBody post={postDetail} />
       </Suspense>
+      <PostFooter />
     </main>
   );
 }

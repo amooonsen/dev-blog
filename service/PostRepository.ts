@@ -1,23 +1,12 @@
 // repositories/PostRepository.ts
 
 import { IPostRepository } from './IPostRepository';
-import { PostParser } from './PostParser';
-import { sync } from 'glob';
-import path from 'path';
+import { BaseRepository } from './BaseRepository';
 import { Post, CategoryDetail } from '@/types/Post';
 
-export class PostRepository implements IPostRepository {
-  private readonly BASE_PATH = '/posts';
-  private readonly POSTS_PATH = path.join(process.cwd(), this.BASE_PATH);
-  private postParser: PostParser;
-
+export class PostRepository extends BaseRepository implements IPostRepository {
   constructor() {
-    this.postParser = new PostParser();
-  }
-
-  private getPostFilePaths(category?: string): string[] {
-    const folder = category || '**';
-    return sync(`${this.POSTS_PATH}/${folder}/**/*.mdx`);
+    super();
   }
 
   public async fetchPostList(category?: string): Promise<Post[]> {

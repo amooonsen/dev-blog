@@ -10,7 +10,6 @@ import { Post } from '@/types/Post';
 
 // utils
 import { getBase64Image } from '@/lib/sharp';
-import { getFormattedDate } from '@/lib/date';
 
 interface PostThumbnailProps {
   post: Post;

@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 
 // types
-import { Post } from '@/types/Post';
+import { Post } from '@/types/TypePost';
+import PostThumbnailTags from './PostThumbnailTags';
 
 interface PostThumbnailProps {
   post: Post;
@@ -41,23 +42,13 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
           </p>
         </div>
       </Link>
-      <div className="flex items-center justify-between mt-2">
+      <div className="flex items-center justify-between mt-4">
         <time className="text-sm text-gray-500 dark:text-gray-200">{post.dateString}</time>
         <Badge variant="categories">
           <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
         </Badge>
       </div>
-      <ul className="flex flex-wrap gap-1 items-center mt-4 pt-4 border-t ">
-        {post.tags?.map(
-          (item: string, index: number): ReactElement => (
-            <li className="mr-2" key={`thumbnail-tags-${index}`}>
-              <Link className="text-xs" href={`/blog/?tags=${item}`}>
-                {item}
-              </Link>
-            </li>
-          )
-        )}
-      </ul>
+      <PostThumbnailTags post={post} />
     </li>
   );
 }

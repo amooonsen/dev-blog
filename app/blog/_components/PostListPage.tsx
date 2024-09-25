@@ -13,7 +13,7 @@ import PostListNoData from './PostListNoData';
 import { PostRepository } from '@/service/PostRepository';
 
 // types
-import { ListPageProps } from '@/types/Page';
+import { ListPageProps } from '@/types/TypePage';
 
 export default async function PostListPage({ params: { category }, searchParams }: ListPageProps) {
   const postRepository = new PostRepository();

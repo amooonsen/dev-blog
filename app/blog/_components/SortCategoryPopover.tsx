@@ -12,7 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import useSortCategory from '@/hooks/useSortCategory';
 
 // types
-import { SortType } from '@/types/Page';
+import { SortType } from '@/types/TypePage';
 
 interface SortCategoryPopoverProps {
   type: SortType;

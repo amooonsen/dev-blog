@@ -11,7 +11,7 @@ import { baseDomain, blogName } from '@/constants/metaInfoConst';
 import { PostParser } from '@/service/PostParser';
 
 // types
-import { ListPageProps } from '@/types/Page';
+import { ListPageProps } from '@/types/TypePage';
 
 export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {
   const postRepository = new PostParser();

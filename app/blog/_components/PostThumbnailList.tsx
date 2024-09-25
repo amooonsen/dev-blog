@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react';
 import PostThumbnail from './PostThumbnail';
 
 // types
-import { Post } from '@/types/Post';
+import { Post } from '@/types/TypePost';
 
 interface PostThumbnailListProps {
   postList: Post[];

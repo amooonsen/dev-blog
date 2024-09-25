@@ -3,7 +3,7 @@
 import { IPostDetailRepository } from './IPostDetailRepository';
 import { BaseRepository } from './BaseRepository';
 import path from 'path';
-import { Post } from '@/types/Post';
+import { Post } from '@/types/TypePost';
 
 export class PostDetailRepository extends BaseRepository implements IPostDetailRepository {
   constructor() {

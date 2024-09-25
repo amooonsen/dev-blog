@@ -10,7 +10,7 @@ import { Calendar } from 'lucide-react';
 import { BookAIcon } from 'lucide-react';
 
 // types
-import { Post } from '@/types/Post';
+import { Post } from '@/types/TypePost';
 import Link from 'next/link';
 
 interface PostHeadProps {

@@ -1,4 +1,4 @@
-import { Post, CategoryDetail } from '@/types/Post';
+import { Post, CategoryDetail } from '@/types/TypePost';
 
 export interface IPostRepository {
   fetchPostList(category?: string): Promise<Post[]>;

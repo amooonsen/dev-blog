@@ -1,7 +1,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useTransition } from 'react';
 
-import { SortType } from '@/types/Page';
+import { SortType } from '@/types/TypePage';
 
 interface UseSortCategoryProps {
   type: 'tag' | 'sort';

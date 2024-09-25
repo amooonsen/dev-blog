@@ -4,8 +4,8 @@ import React, { Suspense } from 'react';
 import { Section } from '@/components/ui/section';
 import PostThumbnailList from './PostThumbnailList';
 import FilterCategory from './FilterCategory';
+import SortCategoryContainer from './SortCategoryContainer';
 import SearchPost from '@/components/screen/SearchPost';
-import { SortCategoryPopover } from './SortCategoryPopover';
 import PostListSkeleton from '@/components/loading/PostListSkeleton';
 import PostListNoData from './PostListNoData';
 
@@ -46,14 +46,7 @@ export default async function PostListPage({ params: { category }, searchParams 
       <Section className="mt-14">
         <div className="flex justify-between">
           <FilterCategory allPostCount={allPostCount} categoryList={categoryList} />
-          <ul className="flex gap-4">
-            <li>
-              <SortCategoryPopover type="tag" postList={postList} allTags={allTags} />
-            </li>
-            <li>
-              <SortCategoryPopover type="sort" postList={postList} />
-            </li>
-          </ul>
+          <SortCategoryContainer allTags={allTags} />
         </div>
       </Section>
       <Section className="mt-14 space-y-8">

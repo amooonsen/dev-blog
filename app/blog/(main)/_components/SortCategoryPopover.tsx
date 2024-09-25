@@ -15,7 +15,6 @@ import { Post } from '@/types/Post';
 
 interface SortCategoryPopoverProps {
   type: 'tag' | 'sort';
-  postList: Post[];
   allTags?: string[];
 }
 
@@ -24,9 +23,7 @@ const sortOptions: { label: string; value: string }[] = [
   { label: '오래된순', value: 'oldest' },
 ];
 
-export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps) {
-  const allTags: string[] = Array.from(new Set(postList.flatMap((post) => post.tags)));
-
+export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps) {
   // 선택된 태그 및 정렬 옵션 가져오기
   const searchParams = useSearchParams();
   const tagsParam = searchParams.get('tags');
@@ -51,6 +48,7 @@ export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps
         {/* <Button variant="outline">{type === 'tag' ? 'Tags' : 'View'}</Button> */}
         <Button variant="outline">{renderTriggerContent()}</Button>
       </PopoverTrigger>
+
       <PopoverContent className="w-44">
         {type === 'tag' ? (
           <div className="grid gap-4">

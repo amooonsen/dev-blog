@@ -15,12 +15,12 @@ export default function PostThumbnailTags({ post }: PostThumbnailTagsProps) {
   const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, item: string) => {
-    const currentUrl = `/blog/?tags=${item}`;
+    const currentUrl = new URL(`/blog?tags=${item}`, window.location.origin);
 
-    if (window.location.href === `${window.location.origin}${currentUrl}`) {
+    if (window.location.href === currentUrl.href) {
       event.preventDefault();
     } else {
-      router.push(currentUrl);
+      router.push(currentUrl.href);
     }
   };
 
@@ -31,7 +31,7 @@ export default function PostThumbnailTags({ post }: PostThumbnailTagsProps) {
           <li className="mr-2" key={`thumbnail-tags-${index}`}>
             <Link
               className="text-xs relative text-gray-600 transition-all duration-300 hover:text-primary"
-              href={`/blog/?tags=${item}`}
+              href={`/blog?tags=${item}`}
               onClick={(event) => handleClick(event, item)}
             >
               {item}

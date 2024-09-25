@@ -12,7 +12,7 @@ interface SortCategoryPopoverProps {
   postList: Post[];
 }
 
-const sortOptions = [
+const sortOptions: { label: string; value: string }[] = [
   { label: '최신순', value: 'newest' },
   { label: '오래된순', value: 'oldest' },
 ];
@@ -28,7 +28,22 @@ export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps
     console.log(tag);
     const params = new URLSearchParams(searchParams);
     const tags: string[] = params.get('tags') ? params.get('tags').split(',') : [];
+
+    if (tags.includes(tag)) {
+      // 태그 제거 로직
+      const newTags = tags.filter((t) => t !== tag);
+      newTags.length > 0 ? params.set('tags', newTags.join(',')) : params.delete('tags');
+    } else {
+      // 태그 추가 로직
+      tags.push(tag);
+      params.set('tags', tags.join(','));
+    }
+
     console.log(tags);
+
+    startTransition(() => {
+      router.push(`?${params.toString()}`);
+    });
   };
 
   const handleSortOptionClick = (option: string) => {

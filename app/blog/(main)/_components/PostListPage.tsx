@@ -13,16 +13,30 @@ import { PostRepository } from '@/service/PostRepository';
 
 // types
 import { CategoryDetail } from '@/types/Post';
+import { ListPageProps } from '@/types/Page';
 
-interface PostListPageProps {
-  category?: string;
-}
-
-export default async function PostListPage({ category }: PostListPageProps) {
+export default async function PostListPage({ params: { category }, searchParams }: ListPageProps) {
+  console.log(searchParams);
   const postRepository = new PostRepository();
   const allPostCount: number = await postRepository.fetchAllPostCount();
   const categoryList: CategoryDetail[] = await postRepository.fetchCategoryList();
   const postList = await postRepository.fetchSortedPostList(category);
+
+  const sortParam = searchParams?.sort;
+
+  // 정렬 로직
+  // 추후 사용시에 주석 해제
+  // if (sortParam === 'ascending') {
+  //   postList.sort((a, b) => a.title.localeCompare(b.title));
+  // } else if (sortParam === 'descending') {
+  //   postList.sort((a, b) => b.title.localeCompare(a.title));
+  if (sortParam) {
+    if (sortParam === 'newest') {
+      postList.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    } else if (sortParam === 'oldest') {
+      postList.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    }
+  }
 
   return (
     <main className="mt-20 mb-32">

@@ -23,20 +23,18 @@ export default function Header() {
         </ul>
         <Logo />
         {/* 모바일 UI 제작 필요 */}
-        <div className="hidden md:flex">
-          <nav>
-            <ul className="flex gap-4 text-base">
-              {navMenus.map((item: navMenusType, index: number) => (
-                <li key={`nav-menus-${index}`}>
-                  <Link className="block p-4" href={item.href} target={item.target} rel={item.rel}>
-                    {item.page}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          {/* ModeDark */}
-        </div>
+        <nav className="hidden md:flex">
+          <ul className="flex gap-4 text-base">
+            {navMenus.map((item: navMenusType, index: number) => (
+              <li key={`nav-menus-${index}`}>
+                <Link className="block p-4" href={item.href} target={item.target} rel={item.rel}>
+                  {item.page}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        {/* ModeDark */}
       </div>
     </header>
   );

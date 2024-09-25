@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="flex flex-col gap-2">
           <small>© {currentYear} Cho Kyung Moon. All Rights Reserved.</small>
         </div>
-        <div className="flex items-center justify-end w-full h-auto">
+        <div className="flex items-center justify-end w-fit h-auto">
           <FloatingDock mobileClassName="translate-y-20" items={myLinks} />
         </div>
       </div>

@@ -22,9 +22,8 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
             <Image
               src={post.thumbnail}
               alt={post.thumbnailAlt}
-              sizes="(max-width: 1000px) 50vw, 450px"
+              sizes="(max-width: 550px) 50vw, 450px"
               fill
-              priority
               className="object-cover transition-transform duration-300 ease-out group-hover:scale-125 bg-foreground"
             />
           </div>

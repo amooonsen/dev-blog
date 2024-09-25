@@ -74,3 +74,6 @@ export default async function PostDetail({ params: { category, slug } }: PostDet
     </main>
   );
 }
+
+// 모바일에서는 코드 영역이 완전히 보이지 않을 수 있어요.
+// 스낵바로 띄우기

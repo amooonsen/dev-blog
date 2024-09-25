@@ -25,7 +25,7 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
               sizes="(max-width: 1000px) 50vw, 450px"
               fill
               priority
-              className="object-cover transition-all duration-500 ease-out group-hover:scale-105 bg-foreground"
+              className="object-cover transition-transform duration-300 ease-out group-hover:scale-125 bg-foreground"
             />
           </div>
         ) : (
@@ -34,7 +34,7 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
           </div>
         )}
         <div className="flex flex-col space-y-4">
-          <h3 className="text-overflow line-one relative inline-block mt-4 text-lg font-semibold">
+          <h3 className="text-overflow line-one relative inline-block mt-4 text-lg font-semibold transition-all duration-300 ease-out group-hover:text-primary">
             {post.title}
           </h3>
           <p className="text-overflow line-two text-base h-12 text-slate-500 dark:text-slate-200">

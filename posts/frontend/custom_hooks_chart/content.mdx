@@ -1,0 +1,115 @@
+---
+title: '커스텀 훅으로 데이터 필터링 및 차트 렌더링'
+preview: '독립적으로 데이터 패칭을 시도했던 언젠가의 당신을 위해 !'
+date: 2024-05-24
+thumbnail: /posts/frontend/custom_hooks_chart_thumbnail.png
+thumbnailAlt: 코딩리스트에서 차트를 구현한 화면 UI
+tags: ['Backend', 'NestJS', 'JavaScript', 'Typescript', '사이드프로젝트']
+---
+
+Custom hooks `useCodingListFilter`와 훅이 독립적으로 동작할 때 발생할 수 있는 문제를 해결하는 방법에 중점을 둔다.
+
+## 문제 설명
+
+우선, `useCodingList` 훅은 Tanstack Query를 사용해 데이터를 캐시해주는 역할을 하는 함수이다.
+`useCodingListFilter` 훅과 `useCodingList` 훅이 독립적으로 동작하고 있기 때문에, `useCodingListFilter`에서 `useCodingList`를 직접 호출하면 `data`가 아직 로드되지 않은 상태에서 훅이 호출될 수 있다. 이를 해결하기 위해 `useCodingList`에서 반환된 `data`를 `useCodingListFilter`에 전달하는 방식으로 변경해야 한다.
+
+## 해결 방법
+
+### 1. 데이터 필터링 훅
+
+데이터를 필터링하고 그룹화하기 위한 훅을 작성한다. `useCodingListFilter` 훅은 외부에서 `data`를 받아 처리하도록 한다.
+
+```tsx
+import { useMemo, useReducer } from 'react';
+import { CodingListTableItem, DataFilterType } from './types';
+import { codingListFilter, initialState } from './filterReducer';
+
+interface UseCodingListFilterProps {
+  data: CodingListTableItem[];
+}
+
+export default function useCodingListFilter({ data }: UseCodingListFilterProps) {
+  const [filterState, dispatch] = useReducer(codingListFilter, initialState);
+
+  const groupedData: DataFilterType = useMemo(() => {
+    const grouped: DataFilterType = {};
+    data.forEach((item) => {
+      const category = item.category;
+      if (!grouped[category]) {
+        grouped[category] = [];
+      }
+      grouped[category].push(item);
+    });
+    return grouped;
+  }, [data]);
+
+  const filteredData: DataFilterType = useMemo(() => {
+    const filtered: DataFilterType = {};
+    Object.keys(groupedData).forEach((category) => {
+      if (filterState.categories.length === 0 || filterState.categories.includes(category)) {
+        filtered[category] = groupedData[category].filter(
+          (item) =>
+            filterState.statuses.length === 0 || filterState.statuses.includes(item.progress)
+        );
+      }
+    });
+    return filtered;
+  }, [groupedData, filterState]);
+
+  return {
+    groupedData,
+    filteredData,
+    filterState,
+    dispatch,
+  };
+}
+```
+
+### 2. 컴포넌트에서의 활용
+
+`useCodingList` 훅에서 `data`를 받아 `useCodingListFilter` 훅으로 전달하여 데이터를 처리한다.
+
+```tsx
+import React from 'react';
+import { useCodingList } from './hooks';
+import useCodingListFilter from './useCodingListFilter';
+import BarChart from './BarChart';
+
+const CodingList = () => {
+  const { data, error, status } = useCodingList();
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 'error' || !data) {
+    console.error(error);
+    return (
+      <div className="error-data">
+        <Error message="코딩리스트를 불러오지 못했습니다." />
+      </div>
+    );
+  }
+
+  const { groupedData, filteredData, filterState, dispatch } = useCodingListFilter({ data });
+
+  return (
+    <div className="guide-container">
+      {/* 기타 UI 컴포넌트 */}
+      <div className="statistics-area">
+        <div className="wbs-chart">
+          <BarChart data={wbsChartData} options={wbsChartOptions} />
+        </div>
+      </div>
+      {/* 기타 UI 컴포넌트 */}
+    </div>
+  );
+};
+
+export default CodingList;
+```
+
+## 결론
+
+`useCodingListFilter` 훅과 `useCodingList` 훅이 서로 독립적으로 동작할 때 발생할 수 있는 문제를 해결하기 위해, `useCodingList`에서 반환된 `data`를 `useCodingListFilter`에 전달하는 방식으로 변경했다. 이 방법을 통해 데이터가 로드된 후에만 필터링 작업이 수행되도록 보장할 수 있다.

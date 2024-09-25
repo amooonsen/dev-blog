@@ -8,20 +8,11 @@ import { Badge } from '@/components/ui/badge';
 // types
 import { Post } from '@/types/Post';
 
-// utils
-import { getBase64Image } from '@/lib/sharp';
-import { BookImageIcon } from 'lucide-react';
-
 interface PostThumbnailProps {
   post: Post;
 }
 
 export default function PostThumbnail({ post }: PostThumbnailProps) {
-  const fetchBase64 = async () => {
-    const base64 = await getBase64Image(`public${post.thumbnail}`);
-    return base64;
-  };
-
   return (
     <li>
       <Link className="group" href={`${post.url}`}>
@@ -33,7 +24,6 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
               sizes="(max-width: 1000px) 50vw, 450px"
               fill
               priority
-              blurDataURL={fetchBase64() as unknown as string}
               className="object-cover transition-all duration-500 ease-out group-hover:scale-105 bg-foreground"
             />
           </div>

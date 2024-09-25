@@ -17,7 +17,7 @@ export default async function PostThumbnailList({ postList, category }: PostThum
   const renderCateogryText = () => {
     postList.find((item) => {
       if (item.categoryPath === category) {
-        heading = `View ${item.categoryPublicName}`;
+        heading = item.categoryPublicName;
       }
     });
 
@@ -25,7 +25,7 @@ export default async function PostThumbnailList({ postList, category }: PostThum
   };
   return (
     <>
-      <h2 className="text-3xl font-bold">{renderCateogryText() || 'All blog posts'}</h2>
+      <h2 className="text-3xl font-bold">{renderCateogryText() || 'All posts'}</h2>
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-8">
         {postList.map(
           (post: Post): ReactElement => (

@@ -15,7 +15,7 @@ export default function Header() {
   // const pathname = usePathname();
   return (
     <header className="sticky top-0 z-10 w-full h-16 backdrop-blur-md border-b">
-      <div className="flex justify-between items-center lg:max-w-5xl h-full mx-auto px-6 lg:px-0">
+      <div className="flex justify-between items-center md:max-w-4xl h-full mx-auto px-6 lg:px-0">
         <ul className="skipnav">
           <li>
             <a href="#content">컨텐츠 바로가기</a>

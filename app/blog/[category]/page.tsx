@@ -4,15 +4,16 @@ import PostListPage from '../(main)/_components/PostListPage';
 
 // meta
 import { Metadata } from 'next';
+
+// constants
 import { baseDomain, blogName } from '@/constants/metaInfoConst';
 
 import { PostParser } from '@/service/PostParser';
 
-type CategoryListPageProps = {
-  params: { category: string };
-};
+// types
+import { ListPageProps } from '@/types/Page';
 
-export async function generateMetadata({ params: { category } }: CategoryListPageProps) {
+export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {
   const postRepository = new PostParser();
   const categoryPublicName = postRepository.formatCategoryName(category);
   const title = `${categoryPublicName} | ${blogName}`;
@@ -32,6 +33,6 @@ export async function generateMetadata({ params: { category } }: CategoryListPag
   };
 }
 
-export default async function CategoryListPage({ params }: CategoryListPageProps) {
-  return <PostListPage category={params.category} />;
+export default async function CategoryListPage({ params, searchParams }: ListPageProps) {
+  return <PostListPage params={params} searchParams={searchParams} />;
 }

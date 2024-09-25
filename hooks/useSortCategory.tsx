@@ -89,7 +89,7 @@ export default function useSortCategory({
       }
     } else {
       const sortOption = sortOptions.find((option) => option.value === sortParam);
-      return sortOption ? sortOption.label : 'View';
+      return sortOption ? sortOption.label : '최신순';
     }
   };
 

@@ -48,7 +48,8 @@ export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">{type === 'tag' ? 'Tags' : 'View'}</Button>
+        {/* <Button variant="outline">{type === 'tag' ? 'Tags' : 'View'}</Button> */}
+        <Button variant="outline">{renderTriggerContent()}</Button>
       </PopoverTrigger>
       <PopoverContent className="w-44">
         {type === 'tag' ? (
@@ -76,7 +77,12 @@ export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps
             <ul className="grid gap-2">
               {sortOptions.map((option) => (
                 <li key={option.value}>
-                  <button className="text-base" onClick={() => handleSortOptionClick(option.value)}>
+                  <button
+                    className={`text-base ${
+                      sortParam === option.value ? 'font-bold text-primary' : ''
+                    }`}
+                    onClick={() => handleSortOptionClick(option.value)}
+                  >
                     {option.label}
                   </button>
                 </li>

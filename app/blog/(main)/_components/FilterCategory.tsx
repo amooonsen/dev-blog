@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 
 // types
 import { CategoryDetail } from '@/types/Post';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 interface FilterCategoryProps {
   allPostCount: number;
@@ -17,7 +16,7 @@ interface FilterCategoryProps {
 
 export default function FilterCategory({ allPostCount, categoryList }: FilterCategoryProps) {
   return (
-    <ul className="flex flex-wrap gap-4 max-w-[70%]">
+    <ul className="flex flex-wrap gap-4 max-w-[60%]">
       <li>
         <Button variant="outline" className="inline-flex gap-2" asChild>
           <Link href="/blog">

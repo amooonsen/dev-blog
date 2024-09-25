@@ -33,18 +33,18 @@ export default function PostHead({ post }: PostHeadProps) {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <Badge variant="tags">
-            <Link href={`/blog/${post.categoryPath}`}>#{post.categoryPublicName}</Link>
+          <Badge variant="categories">
+            <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
           </Badge>
         </div>
-        {/* <dl className="flex items-center gap-3">
+        <dl className="flex items-center gap-3">
           <dt>Keywords</dt>
           {post.tags?.map((item: string, index: number) => (
             <dd key={`post-tags-${index}`} className="text-sm text-slate-500 dark:text-slate-200">
               {item}
             </dd>
           ))}
-        </dl> */}
+        </dl>
       </div>
       <div className="border-t pt-12">
         {post.thumbnail && (

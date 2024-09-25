@@ -1,15 +1,22 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+// components
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
+// hooks
+import useSortCategory from '@/hooks/useSortCategory';
+
+// types
 import { Post } from '@/types/Post';
 
 interface SortCategoryPopoverProps {
   type: 'tag' | 'sort';
   postList: Post[];
+  allTags?: string[];
 }
 
 const sortOptions: { label: string; value: string }[] = [
@@ -18,46 +25,25 @@ const sortOptions: { label: string; value: string }[] = [
 ];
 
 export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [isPending, startTransition] = useTransition();
-
   const allTags: string[] = Array.from(new Set(postList.flatMap((post) => post.tags)));
 
-  const handleTagClick = (tag: string) => {
-    console.log(tag);
-    const params = new URLSearchParams(searchParams);
-    const tags: string[] = params.get('tags') ? params.get('tags').split(',') : [];
+  // 선택된 태그 및 정렬 옵션 가져오기
+  const searchParams = useSearchParams();
+  const tagsParam = searchParams.get('tags');
+  const selectedTags = tagsParam ? tagsParam.split(',') : [];
 
-    if (tags.includes(tag)) {
-      // 태그 제거 로직
-      const newTags = tags.filter((t) => t !== tag);
-      newTags.length > 0 ? params.set('tags', newTags.join(',')) : params.delete('tags');
-    } else {
-      // 태그 추가 로직
-      tags.push(tag);
-      params.set('tags', tags.join(','));
-    }
-
-    console.log(tags);
-
-    startTransition(() => {
-      router.push(`?${params.toString()}`);
-    });
-  };
-
-  const handleSortOptionClick = (option: string) => {
-    const params = new URLSearchParams(searchParams);
-
-    if (params.get('sort') === option) {
-      params.delete('sort');
-    } else {
-      params.set('sort', option);
-    }
-    startTransition(() => {
-      router.push(`?${params.toString()}`);
-    });
-  };
+  const {
+    handleResetClick,
+    handleTagClick,
+    handleSortOptionClick,
+    renderTriggerContent,
+    sortParam,
+  } = useSortCategory({
+    type,
+    sortOptions,
+    selectedTags,
+    allTags,
+  });
 
   return (
     <Popover>

@@ -2,12 +2,15 @@
 
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Post } from '@/types/Post';
 
 interface SortCategoryPopoverProps {
   type: 'tag' | 'sort';
+  postList: Post[];
 }
 
-export function SortCategoryPopover({ type }: SortCategoryPopoverProps) {
+export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps) {
+  console.log(postList);
   return (
     <Popover>
       <PopoverTrigger asChild>

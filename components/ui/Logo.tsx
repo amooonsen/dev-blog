@@ -41,7 +41,7 @@ const Logo: React.FC = () => {
   return (
     <div id="logo" className="lg:min-w-[300px] h-[36px]">
       <Link
-        href="/"
+        href="/blog"
         className={`text-2xl font-semibold`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

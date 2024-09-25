@@ -1,44 +1,26 @@
-// useSortCategory.ts
-
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useTransition } from 'react';
+
+import { SortType } from '@/types/Page';
 
 interface UseSortCategoryProps {
   type: 'tag' | 'sort';
   sortOptions: { label: string; value: string }[];
   selectedTags: string[];
-  allTags: string[];
+  onTypeSelect: (type: SortType) => void;
 }
 
 export default function useSortCategory({
   type,
   sortOptions,
   selectedTags,
-  allTags,
+  onTypeSelect,
 }: UseSortCategoryProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  const tagsParam = searchParams.get('tags');
   const sortParam = searchParams.get('sort');
-
-  // 리셋 버튼 핸들러
-  const handleResetClick = () => {
-    if (window.confirm('초기화 하시겠습니까?')) {
-      const params = new URLSearchParams(searchParams.toString());
-
-      if (type === 'tag') {
-        params.delete('tags');
-      } else if (type === 'sort') {
-        params.delete('sort');
-      }
-
-      startTransition(() => {
-        router.push(`?${params.toString()}`);
-      });
-    }
-  };
 
   // 태그 클릭 핸들러
   const handleTagClick = (tag: string) => {
@@ -52,6 +34,8 @@ export default function useSortCategory({
     } else {
       params.delete('tags');
     }
+
+    onTypeSelect('tag');
 
     startTransition(() => {
       router.push(`?${params.toString()}`);
@@ -68,6 +52,8 @@ export default function useSortCategory({
       params.set('sort', option);
     }
 
+    onTypeSelect('sort');
+
     startTransition(() => {
       router.push(`?${params.toString()}`);
     });
@@ -77,7 +63,7 @@ export default function useSortCategory({
   const renderTriggerContent = () => {
     if (type === 'tag') {
       if (selectedTags.length === 0) {
-        return 'Tags';
+        return '태그';
       } else if (selectedTags.length <= 3) {
         return selectedTags.map((tag) => (
           <p key={tag} className="inline-block mr-1">
@@ -94,7 +80,6 @@ export default function useSortCategory({
   };
 
   return {
-    handleResetClick,
     handleTagClick,
     handleSortOptionClick,
     renderTriggerContent,

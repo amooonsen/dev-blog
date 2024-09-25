@@ -2,8 +2,6 @@ import React, { Suspense } from 'react';
 import PostHead from './_components/PostHead';
 import PostBody from './_components/PostBody';
 import PostFooter from './_components/PostFooter';
-import PostHeadSkeleton from '@/components/loading/PostHeadSkeleton';
-import PostBodySkeleton from '@/components/loading/PostBodySkeleton';
 
 // repo
 import { PostDetailRepository } from '@/service/PostDetailRepository';
@@ -70,12 +68,8 @@ export default async function PostDetail({ params: { category, slug } }: PostDet
 
   return (
     <main className="mx-auto mt-20">
-      <Suspense fallback={<PostHeadSkeleton />}>
-        <PostHead post={postDetail} />
-      </Suspense>
-      <Suspense fallback={<PostBodySkeleton />}>
-        <PostBody post={postDetail} />
-      </Suspense>
+      <PostHead post={postDetail} />
+      <PostBody post={postDetail} />
       <PostFooter />
     </main>
   );

@@ -8,16 +8,27 @@ import { Post } from '@/types/Post';
 
 interface PostThumbnailListProps {
   postList: Post[];
-  category?: string;
+  category: string;
+  selectedTags: string[];
 }
 
-export default async function PostThumbnailList({ postList, category }: PostThumbnailListProps) {
+export default async function PostThumbnailList({
+  postList,
+  category,
+  selectedTags,
+}: PostThumbnailListProps) {
   let heading: string = '';
 
-  const renderCateogryText = () => {
-    postList.find((item) => {
+  const renderCategoryText = () => {
+    postList.forEach((item) => {
+      const filteredTag = item.tags?.filter((tag: string) =>
+        selectedTags.some((selectedTag) => tag.includes(selectedTag))
+      );
+
       if (item.categoryPath === category) {
         heading = item.categoryPublicName;
+      } else if (filteredTag && filteredTag.length > 0) {
+        heading = selectedTags.join(', ');
       }
     });
 
@@ -25,7 +36,7 @@ export default async function PostThumbnailList({ postList, category }: PostThum
   };
   return (
     <>
-      <h2 className="text-3xl font-bold">{renderCateogryText() || 'All posts'}</h2>
+      <h2 className="text-3xl font-bold">{renderCategoryText() || 'All posts'}</h2>
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-8">
         {postList.map(
           (post: Post): ReactElement => (

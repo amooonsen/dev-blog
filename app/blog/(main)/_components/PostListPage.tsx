@@ -4,39 +4,39 @@ import React, { Suspense } from 'react';
 import { Section } from '@/components/ui/section';
 import PostThumbnailList from './PostThumbnailList';
 import FilterCategory from './FilterCategory';
+import SortCategoryContainer from './SortCategoryContainer';
 import SearchPost from '@/components/screen/SearchPost';
-import { SortCategoryPopover } from './SortCategoryPopover';
 import PostListSkeleton from '@/components/loading/PostListSkeleton';
+import PostListNoData from './PostListNoData';
 
 // repo
 import { PostRepository } from '@/service/PostRepository';
 
 // types
-import { CategoryDetail } from '@/types/Post';
 import { ListPageProps } from '@/types/Page';
 
 export default async function PostListPage({ params: { category }, searchParams }: ListPageProps) {
-  console.log(searchParams);
   const postRepository = new PostRepository();
-  const allPostCount: number = await postRepository.fetchAllPostCount();
-  const categoryList: CategoryDetail[] = await postRepository.fetchCategoryList();
-  const postList = await postRepository.fetchSortedPostList(category);
+  const [allPostCount, categoryList, allTags] = await Promise.all([
+    postRepository.fetchAllPostCount(),
+    postRepository.fetchCategoryList(),
+    postRepository.fetchAllTags(),
+  ]);
 
+  const tagsParams = searchParams?.tags;
   const sortParam = searchParams?.sort;
+  const selectedTags = Array.isArray(tagsParams)
+    ? tagsParams // 배열이면 그대로 사용
+    : tagsParams
+    ? tagsParams.split(',') // 문자열이면 split 사용
+    : [];
+  const sortOption = Array.isArray(sortParam) ? sortParam[0] : sortParam || '';
 
-  // 정렬 로직
-  // 추후 사용시에 주석 해제
-  // if (sortParam === 'ascending') {
-  //   postList.sort((a, b) => a.title.localeCompare(b.title));
-  // } else if (sortParam === 'descending') {
-  //   postList.sort((a, b) => b.title.localeCompare(a.title));
-  if (sortParam) {
-    if (sortParam === 'newest') {
-      postList.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    } else if (sortParam === 'oldest') {
-      postList.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-    }
-  }
+  const postList = await postRepository.fetchFilteredAndSortedPostList(
+    category,
+    selectedTags,
+    sortOption
+  );
 
   return (
     <main className="mt-20 mb-32">
@@ -46,21 +46,16 @@ export default async function PostListPage({ params: { category }, searchParams 
       <Section className="mt-14">
         <div className="flex justify-between">
           <FilterCategory allPostCount={allPostCount} categoryList={categoryList} />
-          <ul className="flex gap-4">
-            <li>
-              {/* 태그별로 소팅해주는 팝오버 삽입 예정 */}
-              <SortCategoryPopover type="tag" postList={postList} />
-            </li>
-            <li>
-              {/* 오름차순, 내림차순, 최신순, 오래된순 팝오버 예정 */}
-              <SortCategoryPopover type="sort" postList={postList} />
-            </li>
-          </ul>
+          <SortCategoryContainer allTags={allTags} />
         </div>
       </Section>
       <Section className="mt-14 space-y-8">
         <Suspense fallback={<PostListSkeleton />}>
-          <PostThumbnailList postList={postList} category={category} />
+          {postList.length > 0 ? (
+            <PostThumbnailList postList={postList} category={category} />
+          ) : (
+            <PostListNoData />
+          )}
         </Suspense>
       </Section>
     </main>

@@ -1,15 +1,22 @@
 'use client';
 
-import { useTransition } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
+// components
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Post } from '@/types/Post';
+import { Checkbox } from '@/components/ui/checkbox';
+
+// hooks
+import useSortCategory from '@/hooks/useSortCategory';
+
+// types
+import { SortType } from '@/types/Page';
 
 interface SortCategoryPopoverProps {
-  type: 'tag' | 'sort';
-  postList: Post[];
+  type: SortType;
+  allTags?: string[];
 }
 
 const sortOptions: { label: string; value: string }[] = [
@@ -17,53 +24,29 @@ const sortOptions: { label: string; value: string }[] = [
   { label: '오래된순', value: 'oldest' },
 ];
 
-export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps) {
-  const router = useRouter();
+export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps) {
+  const [selectedType, setSelectedType] = useState<'tag' | 'sort' | null>(null);
+
+  // 선택된 태그 및 정렬 옵션 가져오기
   const searchParams = useSearchParams();
-  const [isPending, startTransition] = useTransition();
+  const tagsParam = searchParams.get('tags');
+  const selectedTags = tagsParam ? tagsParam.split(',') : [];
 
-  const allTags: string[] = Array.from(new Set(postList.flatMap((post) => post.tags)));
-
-  const handleTagClick = (tag: string) => {
-    console.log(tag);
-    const params = new URLSearchParams(searchParams);
-    const tags: string[] = params.get('tags') ? params.get('tags').split(',') : [];
-
-    if (tags.includes(tag)) {
-      // 태그 제거 로직
-      const newTags = tags.filter((t) => t !== tag);
-      newTags.length > 0 ? params.set('tags', newTags.join(',')) : params.delete('tags');
-    } else {
-      // 태그 추가 로직
-      tags.push(tag);
-      params.set('tags', tags.join(','));
-    }
-
-    console.log(tags);
-
-    startTransition(() => {
-      router.push(`?${params.toString()}`);
+  const { handleTagClick, handleSortOptionClick, renderTriggerContent, sortParam } =
+    useSortCategory({
+      type,
+      sortOptions,
+      selectedTags,
+      onTypeSelect: setSelectedType,
     });
-  };
-
-  const handleSortOptionClick = (option: string) => {
-    const params = new URLSearchParams(searchParams);
-
-    if (params.get('sort') === option) {
-      params.delete('sort');
-    } else {
-      params.set('sort', option);
-    }
-    startTransition(() => {
-      router.push(`?${params.toString()}`);
-    });
-  };
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">{type === 'tag' ? 'Tags' : 'View'}</Button>
+        {/* <Button variant="outline">{type === 'tag' ? 'Tags' : 'View'}</Button> */}
+        <Button variant="outline">{renderTriggerContent()}</Button>
       </PopoverTrigger>
+
       <PopoverContent className="w-44">
         {type === 'tag' ? (
           <div className="grid gap-4">
@@ -72,8 +55,9 @@ export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps
               <p className="text-sm text-muted-foreground">태그를 선택해 주세요.</p>
             </div>
             <ul className="grid gap-2">
-              {allTags.map((tag) => (
-                <li key={tag}>
+              {allTags?.map((tag) => (
+                <li className="flex gap-2" key={tag}>
+                  <Checkbox id={tag} />
                   <button className="text-base" onClick={() => handleTagClick(tag)}>
                     {tag}
                   </button>
@@ -90,7 +74,12 @@ export function SortCategoryPopover({ type, postList }: SortCategoryPopoverProps
             <ul className="grid gap-2">
               {sortOptions.map((option) => (
                 <li key={option.value}>
-                  <button className="text-base" onClick={() => handleSortOptionClick(option.value)}>
+                  <button
+                    className={`text-base ${
+                      sortParam === option.value ? 'font-bold text-primary' : ''
+                    }`}
+                    onClick={() => handleSortOptionClick(option.value)}
+                  >
                     {option.label}
                   </button>
                 </li>

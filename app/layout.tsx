@@ -10,6 +10,7 @@ import NextTopLoader from 'nextjs-toploader';
 
 // components
 // import { ThemeProvider } from '@/components/context/theme-provider';
+import { DialogProvider } from '@/components/context/dialog-provider';
 import Header from '@/components/screen/Header';
 import Footer from '@/components/screen/Footer';
 
@@ -43,6 +44,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </div>
+        <DialogProvider />
       </body>
     </html>
   );

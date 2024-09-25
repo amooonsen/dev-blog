@@ -18,17 +18,61 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     return posts;
   }
 
-  private sortPostsByDate(posts: Post[]): Post[] {
-    return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
+  private sortPostsByDate(posts: Post[], order: 'asc' | 'desc' = 'desc'): Post[] {
+    return posts.sort((a, b) => {
+      if (order === 'asc') {
+        return a.date.getTime() - b.date.getTime();
+      } else {
+        return b.date.getTime() - a.date.getTime();
+      }
+    });
   }
 
-  public async fetchSortedPostList(category?: string): Promise<Post[]> {
-    const posts = await this.fetchPostList(category);
-    return this.sortPostsByDate(posts);
+  public async fetchFilteredAndSortedPostList(
+    category: string | undefined,
+    selectedTags: string[],
+    sortOption: string
+  ): Promise<Post[]> {
+    let posts = await this.fetchPostList(category);
+
+    // 태그 필터링
+    if (selectedTags.length > 0) {
+      posts = posts.filter((post) => selectedTags.every((tag) => post.tags.includes(tag)));
+    }
+
+    // 정렬
+    switch (sortOption) {
+      case 'ascending':
+        posts.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'descending':
+        posts.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case 'newest':
+        posts = this.sortPostsByDate(posts, 'desc');
+        break;
+      case 'oldest':
+        posts = this.sortPostsByDate(posts, 'asc');
+        break;
+      default:
+        // 기본 정렬: 최신순
+        posts = this.sortPostsByDate(posts, 'desc');
+        break;
+    }
+
+    return posts;
   }
 
   public async fetchAllPostCount(): Promise<number> {
     return (await this.fetchPostList()).length;
+  }
+
+  public async fetchAllTags(): Promise<string[]> {
+    const posts = await this.fetchPostList();
+    const tagsSet = new Set<string>();
+    posts.forEach((post) => post.tags.forEach((tag: string) => tagsSet.add(tag)));
+
+    return Array.from(tagsSet);
   }
 
   public async fetchCategoryList(): Promise<CategoryDetail[]> {

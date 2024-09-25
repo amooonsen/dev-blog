@@ -28,8 +28,8 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
             />
           </div>
         ) : (
-          <div className="relative flex justify-center items-center aspect-video w-full rounded-md border overflow-hidden">
-            <span>No Image</span>
+          <div className="relative flex justify-center items-center aspect-video w-full rounded-md bg-foreground overflow-hidden">
+            <span className="text-sm text-white dark:text-black">No Image</span>
           </div>
         )}
         <div className="flex flex-col space-y-4">
@@ -43,8 +43,8 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
       </Link>
       <div className="flex items-center justify-between mt-4 pt-4 border-t ">
         <time className="text-sm text-gray-500 dark:text-gray-200">{post.dateString}</time>
-        <Badge variant="tags">
-          <Link href={`/blog/${post.categoryPath}`}>#{post.categoryPublicName}</Link>
+        <Badge variant="categories">
+          <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
         </Badge>
       </div>
     </li>

@@ -15,14 +15,15 @@ export default function Header() {
   // const pathname = usePathname();
   return (
     <header className="sticky top-0 z-10 w-full h-16 backdrop-blur-md border-b">
-      <div className="flex justify-between items-center md:max-w-4xl h-full mx-auto px-6 lg:px-0">
+      <div className="flex justify-between items-center max-w-full md:max-w-4xl h-full mx-auto px-6 lg:px-0">
         <ul className="skipnav">
           <li>
             <a href="#content">컨텐츠 바로가기</a>
           </li>
         </ul>
         <Logo />
-        <div className="flex">
+        {/* 모바일 UI 제작 필요 */}
+        <div className="hidden md:flex">
           <nav>
             <ul className="flex gap-4 text-base">
               {navMenus.map((item: navMenusType, index: number) => (

@@ -2,7 +2,7 @@
 
 import { IPostRepository } from './IPostRepository';
 import { BaseRepository } from './BaseRepository';
-import { Post, CategoryDetail } from '@/types/Post';
+import { Post, CategoryDetail } from '@/types/TypePost';
 
 export class PostRepository extends BaseRepository implements IPostRepository {
   constructor() {

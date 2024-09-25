@@ -5,7 +5,7 @@ import { promises as fs } from 'fs';
 import { sync } from 'glob';
 import matter from 'gray-matter';
 import path from 'path';
-import { Post, CategoryDetail } from '@/types/Post';
+import { Post, CategoryDetail } from '@/types/TypePost';
 
 export class PostRepository {
   private readonly BASE_PATH = '/posts';

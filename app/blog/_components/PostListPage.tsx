@@ -13,7 +13,7 @@ import PostListNoData from './PostListNoData';
 import { PostRepository } from '@/service/PostRepository';
 
 // types
-import { ListPageProps } from '@/types/Page';
+import { ListPageProps } from '@/types/TypePage';
 
 export default async function PostListPage({ params: { category }, searchParams }: ListPageProps) {
   const postRepository = new PostRepository();
@@ -32,6 +32,7 @@ export default async function PostListPage({ params: { category }, searchParams 
     : [];
   const sortOption = Array.isArray(sortParam) ? sortParam[0] : sortParam || '';
 
+  // console.log(selectedTags);
   const postList = await postRepository.fetchFilteredAndSortedPostList(
     category,
     selectedTags,
@@ -52,7 +53,11 @@ export default async function PostListPage({ params: { category }, searchParams 
       <Section className="mt-14 space-y-8">
         <Suspense fallback={<PostListSkeleton />}>
           {postList.length > 0 ? (
-            <PostThumbnailList postList={postList} category={category} />
+            <PostThumbnailList
+              postList={postList}
+              category={category}
+              selectedTags={selectedTags}
+            />
           ) : (
             <PostListNoData />
           )}

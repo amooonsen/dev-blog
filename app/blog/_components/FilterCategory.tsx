@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 // types
-import { CategoryDetail } from '@/types/Post';
+import { CategoryDetail } from '@/types/TypePost';
 
 interface FilterCategoryProps {
   allPostCount: number;

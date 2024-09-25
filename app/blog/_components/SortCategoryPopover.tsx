@@ -12,7 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import useSortCategory from '@/hooks/useSortCategory';
 
 // types
-import { SortType } from '@/types/Page';
+import { SortType } from '@/types/TypePage';
 
 interface SortCategoryPopoverProps {
   type: SortType;
@@ -56,7 +56,7 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
             </div>
             <ul className="grid gap-2">
               {allTags?.map((tag) => (
-                <li className="flex gap-2" key={tag}>
+                <li className="flex gap-2 items-center" key={tag}>
                   <Checkbox id={tag} />
                   <button className="text-base" onClick={() => handleTagClick(tag)}>
                     {tag}
@@ -72,7 +72,7 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
               <p className="text-sm text-muted-foreground">옵션을 선택해 주세요.</p>
             </div>
             <ul className="grid gap-2">
-              {sortOptions.map((option) => (
+              {sortOptions?.map((option) => (
                 <li key={option.value}>
                   <button
                     className={`text-base ${

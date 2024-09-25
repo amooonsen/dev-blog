@@ -3,7 +3,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 import readingTime from 'reading-time';
-import { Post } from '@/types/Post';
+import { Post } from '@/types/TypePost';
 
 export class PostParser {
   public async parsePost(postPath: string, postsBasePath: string): Promise<Post> {

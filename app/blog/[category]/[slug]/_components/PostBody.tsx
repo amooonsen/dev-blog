@@ -6,7 +6,7 @@ import { MdxComponents } from '@/components/markdown';
 import { Section } from '@/components/ui/section';
 
 // types
-import { Post } from '@/types/Post';
+import { Post } from '@/types/TypePost';
 
 // libs
 import { MDXRemote } from 'next-mdx-remote/rsc';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 
 // types
-import { Post } from '@/types/Post';
+import { Post } from '@/types/TypePost';
+import PostThumbnailTags from './PostThumbnailTags';
 
 interface PostThumbnailProps {
   post: Post;
@@ -41,12 +42,13 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
           </p>
         </div>
       </Link>
-      <div className="flex items-center justify-between mt-4 pt-4 border-t ">
+      <div className="flex items-center justify-between mt-4">
         <time className="text-sm text-gray-500 dark:text-gray-200">{post.dateString}</time>
         <Badge variant="categories">
           <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
         </Badge>
       </div>
+      <PostThumbnailTags post={post} />
     </li>
   );
 }

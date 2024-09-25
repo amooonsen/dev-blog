@@ -24,7 +24,7 @@ export default function FilterCategory({ allPostCount, categoryList }: FilterCat
 
   return (
     <div className="flex justify-between">
-      <ul className="flex flex-wrap gap-4 max-w-[60%]">
+      <ul className="flex flex-wrap gap-4 max-w-[70%]">
         <li>
           <Button variant="outline" className="inline-flex gap-2" asChild>
             <Link href="/blog">

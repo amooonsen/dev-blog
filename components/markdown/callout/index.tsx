@@ -21,7 +21,7 @@ const getIconMetadata = (type: CalloutType): IconMetadata => {
     case 'info':
       return {
         icon: Icon.Warn,
-        boxClass: 'text-informative-foreground bg-informative',
+        boxClass: 'text-informative-foreground bg-primary-foreground',
       };
     case 'danger':
       return {

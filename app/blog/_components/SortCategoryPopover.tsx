@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
+
 import { Separator } from '@/components/ui/separator';
 
 // hooks
@@ -43,11 +44,7 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
     });
 
   const ScollAreaContainer = ({ children }: { children: React.ReactNode }) => {
-    return (
-      <ScrollArea className="h-72 w-48 rounded-md border">
-        {children}
-      </ScrollArea>
-    );
+    return <ScrollArea className="h-72 w-48 rounded-md border">{children}</ScrollArea>;
   };
 
   return (
@@ -64,7 +61,7 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
               <h4 className="font-medium leading-none">태그 선aasd택</h4>
               <p className="text-sm text-muted-foreground">태그를 선택해 주세요.</p>
             </div>
-            <ScollAreaContainer className="h-72 w-48 rounded-md border">
+            <ScollAreaContainer>
               <ul className="">
                 {allTags?.map((tag) => (
                   <li className="flex gap-2 items-center" key={tag}>

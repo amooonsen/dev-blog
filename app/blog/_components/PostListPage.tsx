@@ -1,4 +1,7 @@
 import React, { Suspense } from 'react';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 // components
 import { Section } from '@/components/ui/section';
@@ -14,6 +17,27 @@ import { PostRepository } from '@/service/PostRepository';
 
 // types
 import { ListPageProps } from '@/types/TypePage';
+
+export async function getStaticProps() {
+  const files = fs.readdirSync(path.join(process.cwd(), 'posts'));
+
+  const posts = files.map((filename) => {
+    const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), 'posts', filename), 'utf-8');
+
+    const { data: frontMatter } = matter(markdownWithMeta);
+
+    return {
+      frontMatter,
+      slug: filename.replace('.mdx', ''),
+    };
+  });
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
 
 export default async function PostListPage({ params: { category }, searchParams }: ListPageProps) {
   const postRepository = new PostRepository();

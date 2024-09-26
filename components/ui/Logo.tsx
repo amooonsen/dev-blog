@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-const texts = ['문.로그 :)', '조경문 블로그', '🌕 LOOGGG', `Hello! It's Moon`];
+import logoTexts from '@/constants/logoTextConst';
 
 const Logo: React.FC = () => {
   const [text, setText] = useState('Moon.log');
@@ -14,7 +14,7 @@ const Logo: React.FC = () => {
   const handleMouseEnter = () => {
     if (!isHover) {
       setPrevText(text);
-      const randomText = texts[Math.floor(Math.random() * texts.length)];
+      const randomText = logoTexts[Math.floor(Math.random() * logoTexts.length)];
       setText(randomText);
       setIsHover(true);
     }

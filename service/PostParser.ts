@@ -22,9 +22,6 @@ export class PostParser {
     const readingMinutes = Math.ceil(readingTime(content).minutes);
     const dateString = dayjs(frontmatter.date).locale('ko').format('YYYY년 MM월 DD일');
 
-    console.log(segments);
-    console.log(categoryPath);
-    console.log(slug);
     return {
       url,
       categoryPath,

@@ -20,7 +20,7 @@ Error: ENOENT: no such file or directory, open '/var/task/posts/backend/nest_js_
 Error: ENOENT: no such file or directory, open '/var/task/posts/backend/nest_js_4/content.mdx' at
  async open (node:internal/fs/promises:639:25) at async Object.readFile (node:internal/fs/promises:1242:14)
  at async u.parsePost (/var/task/.next/server/chunks/2235.js:1:12784) at async u.fetchPostDetail (/var/task/.next/server/chunks/2235.js:1:13688)
-  at async j (/var/task/.next/server/app/blog/[category]/[slug]/page.js:1:7909)
+  at async j (/var/task/.next/server/app/tech/[category]/[slug]/page.js:1:7909)
   { errno: -2, code: 'ENOENT', syscall: 'open', path: '/var/task/posts/backend/nest_js_4/content.mdx', digest: '391924482' }
 ```
 
@@ -61,7 +61,7 @@ export class PostParser {
     const categoryPath = segments[segments.length - 3];
     const slug = segments[segments.length - 2];
 
-    const url = `/blog/${categoryPath}/${slug}`;
+    const url = `/tech/${categoryPath}/${slug}`;
     const categoryPublicName = this.formatCategoryName(categoryPath);
 
     const fileContent = fs.readFileSync(postPath, 'utf-8');

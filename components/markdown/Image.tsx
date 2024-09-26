@@ -1,5 +1,5 @@
 import { ImgHTMLAttributes } from 'react';
-import PostImage from '@/app/blog/[category]/[slug]/_components/PostImage';
+import PostImage from '@/app/tech/[category]/[slug]/_components/PostImage';
 
 export const Image = ({ alt = '', ...props }: ImgHTMLAttributes<HTMLImageElement>) => {
   return (

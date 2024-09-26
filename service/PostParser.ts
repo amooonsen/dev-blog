@@ -14,7 +14,7 @@ export class PostParser {
     const categoryPath = segments[segments.length - 3];
     const slug = segments[segments.length - 2];
 
-    const url = `/blog/${categoryPath}/${slug}`;
+    const url = `/tech/${categoryPath}/${slug}`;
     const categoryPublicName = this.formatCategoryName(categoryPath);
 
     const fileContent = fs.readFileSync(postPath, 'utf-8');

@@ -12,6 +12,7 @@ import { PostParser } from '@/service/PostParser';
 // meta
 import { Metadata } from 'next';
 import { blogName, baseDomain } from '@/constants/metaInfoConst';
+import { PostRepository } from '../../../../service/PostRepository';
 
 interface PostDetailProps {
   params: {
@@ -28,9 +29,6 @@ export async function generateStaticParams() {
   const paramList = await Promise.all(
     postPaths.map(async (path) => {
       const item = await postParser.parsePost(path, '/posts');
-      // console.log(`path ${path}`);
-      // console.log(`categoryPath ${item.categoryPath}`);
-      // console.log(`item.slug ${item.slug}`);
       return {
         category: item.categoryPath,
         slug: item.slug,
@@ -67,14 +65,17 @@ export async function generateMetadata({
 }
 
 export default async function PostDetail({ params: { category, slug } }: PostDetailProps) {
+  const postRepository = new PostRepository();
   const postDetailRepository = new PostDetailRepository();
+
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
+  const postList = await postRepository.fetchPostList();
 
   return (
     <main className="mx-auto mt-20">
       <PostHead post={postDetail} />
       <PostBody post={postDetail} />
-      <PostFooter />
+      <PostFooter postList={postList} />
     </main>
   );
 }

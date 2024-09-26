@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PostListPage from '../blog/_components/PostListPage';
+import PostListPage from '../tech/_components/PostListPage';
 
 // types
 import { ListPageProps } from '@/types/TypePage';

@@ -34,7 +34,7 @@ export default function PostHead({ post }: PostHeadProps) {
         </div>
         <div className="flex items-center gap-3">
           <Badge variant="categories">
-            <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
+            <Link href={`/tech/${post.categoryPath}`}>{post.categoryPublicName}</Link>
           </Badge>
         </div>
         <dl className="flex items-center gap-3">

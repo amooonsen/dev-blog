@@ -9,7 +9,16 @@ import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Section } from '@/components/ui/section';
 
-export default function PostFooter() {
+// hooks
+
+// types
+import { Post } from '@/types/TypePost';
+
+interface PostFooterProps {
+  postList: Post[];
+}
+
+export default function PostFooter({ postList }: PostFooterProps) {
   const pathname = usePathname();
 
   const segments = pathname.split('/');
@@ -20,7 +29,8 @@ export default function PostFooter() {
       <Button asChild>
         <Link href={parentPath}>목록</Link>
       </Button>
-      {/* 이전글 다음글 */}
+      <h4>같은 태그의 글 이에요.</h4>
+      {/* POSTLIST TAGS */}
     </Section>
   );
 }

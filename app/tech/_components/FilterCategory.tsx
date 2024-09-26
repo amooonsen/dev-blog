@@ -19,7 +19,7 @@ export default function FilterCategory({ allPostCount, categoryList }: FilterCat
     <ul className="flex flex-wrap gap-4 max-w-[60%]">
       <li>
         <Button variant="outline" className="inline-flex gap-2" asChild>
-          <Link href="/blog">
+          <Link href="/tech">
             <strong>All</strong>
             <span>{allPostCount}</span>
           </Link>
@@ -29,7 +29,7 @@ export default function FilterCategory({ allPostCount, categoryList }: FilterCat
         (item: CategoryDetail): ReactElement => (
           <li key={item.dirName}>
             <Button variant="outline" className="inline-flex gap-2" asChild>
-              <Link href={`/blog/${item.dirName}`} aria-label={`카테고리: ${item.dirName}`}>
+              <Link href={`/tech/${item.dirName}`} aria-label={`카테고리: ${item.dirName}`}>
                 <strong>{item.publicName}</strong>
                 <span>{item.count}</span>
               </Link>

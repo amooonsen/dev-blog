@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Section } from '@/components/ui/section';
 
 // hooks
+import useViewSameTagPost from '@/hooks/useViewSameTagPost';
 
 // types
 import { Post } from '@/types/TypePost';
@@ -23,6 +24,8 @@ export default function PostFooter({ postList }: PostFooterProps) {
 
   const segments = pathname.split('/');
   const parentPath = segments.slice(0, -1).join('/') || '/';
+
+  useViewSameTagPost();
 
   return (
     <Section id="postFooter">

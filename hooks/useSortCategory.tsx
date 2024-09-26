@@ -66,7 +66,7 @@ export default function useSortCategory({
         return '태그';
       } else if (selectedTags.length <= 3) {
         return selectedTags.map((tag) => (
-          <p key={tag} className="inline-block mr-1">
+          <p key={tag} style={{ marginRight: 5 }}>
             {tag}
           </p>
         ));

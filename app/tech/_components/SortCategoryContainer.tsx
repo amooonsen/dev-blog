@@ -85,7 +85,9 @@ export default function SortCategoryContainer({ allTags }: SortCategoryContainer
   return (
     <ul className="flex gap-4">
       <li>
-        <Button onClick={handleResetClick}>초기화</Button>
+        <Button variant="destructive" size="sm" onClick={handleResetClick}>
+          초기화
+        </Button>
       </li>
       <li>
         <SortCategoryPopover type="tag" allTags={allTags} />

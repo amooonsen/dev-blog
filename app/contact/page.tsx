@@ -21,7 +21,7 @@ import faqItems from '@/constants/faqConst';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen  py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-green-600 to-purple-500 dark:from-green-400 dark:to-indigo-400 bg-clip-text text-transparent">
           Contact Us

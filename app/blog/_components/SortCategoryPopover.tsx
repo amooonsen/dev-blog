@@ -44,7 +44,7 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
 
   const ScollAreaContainer = ({ children }: { children: React.ReactNode }) => {
     return (
-      <ScrollArea id="" className="h-72 w-48 rounded-md border">
+      <ScrollArea className="h-72 w-48 rounded-md border">
         {children}
       </ScrollArea>
     );
@@ -64,7 +64,7 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
               <h4 className="font-medium leading-none">태그 선aasd택</h4>
               <p className="text-sm text-muted-foreground">태그를 선택해 주세요.</p>
             </div>
-            <ScrollArea className="h-72 w-48 rounded-md border">
+            <ScollAreaContainer className="h-72 w-48 rounded-md border">
               <ul className="">
                 {allTags?.map((tag) => (
                   <li className="flex gap-2 items-center" key={tag}>
@@ -75,7 +75,7 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
                   </li>
                 ))}
               </ul>
-            </ScrollArea>
+            </ScollAreaContainer>
           </div>
         ) : (
           <div className="grid gap-4">

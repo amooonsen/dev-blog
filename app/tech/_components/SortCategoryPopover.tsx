@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import { Label } from '@/components/ui/label';
 
 // hooks
 import useSortCategory from '@/hooks/useSortCategory';
@@ -44,7 +45,7 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
 
   const ScollAreaContainer = ({ children }: { children: React.ReactNode }) => {
     return (
-      <ScrollArea id="" className="h-72 w-36 rounded-md border">
+      <ScrollArea id="" className="h-72 w-36">
         {children}
       </ScrollArea>
     );
@@ -54,7 +55,9 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
     <Popover>
       <PopoverTrigger asChild>
         {/* <Button variant="outline">{type === 'tag' ? 'Tags' : 'View'}</Button> */}
-        <Button variant="outline">{renderTriggerContent()}</Button>
+        <Button variant="outline" size="sm">
+          {renderTriggerContent()}
+        </Button>
       </PopoverTrigger>
 
       <PopoverContent className="w-44">
@@ -67,11 +70,13 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
             <ScollAreaContainer>
               <ul className="grid gap-2">
                 {allTags?.map((tag) => (
-                  <li className="flex gap-2 items-center" key={tag}>
-                    <Checkbox id={tag} />
-                    <button className="text-base" onClick={() => handleTagClick(tag)}>
-                      {tag}
-                    </button>
+                  <li
+                    className="flex gap-2 items-center"
+                    key={tag}
+                    onClick={() => handleTagClick(tag)}
+                  >
+                    <Checkbox id={tag} onCheckedChange={() => handleTagClick(tag)} />
+                    <Label className="text-base">{tag}</Label>
                   </li>
                 ))}
               </ul>

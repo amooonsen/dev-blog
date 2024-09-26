@@ -1,4 +1,6 @@
 import React, { Suspense } from 'react';
+
+// components
 import PostHead from './_components/PostHead';
 import PostBody from './_components/PostBody';
 import PostFooter from './_components/PostFooter';
@@ -18,20 +20,23 @@ interface PostDetailProps {
   };
 }
 
-// export const dynamicParams = false;
-
 export async function generateStaticParams() {
   const postParser = new PostParser();
   const postDetailRepository = new PostDetailRepository();
   const postPaths: string[] = postDetailRepository.getPostFilePaths();
 
-  const paramList = postPaths.map(async (path) => {
-    const item = await postParser.parsePost(path, '/posts');
-    return {
-      category: item.categoryPath,
-      slug: item.slug,
-    };
-  });
+  const paramList = await Promise.all(
+    postPaths.map(async (path) => {
+      const item = await postParser.parsePost(path, '/posts');
+      // console.log(`path ${path}`);
+      // console.log(`categoryPath ${item.categoryPath}`);
+      // console.log(`item.slug ${item.slug}`);
+      return {
+        category: item.categoryPath,
+        slug: item.slug,
+      };
+    })
+  );
   return paramList;
 }
 
@@ -43,7 +48,6 @@ export async function generateMetadata({
 
   const title = `${postDetail.title} | ${blogName}`;
   const imageURL = `${baseDomain}${postDetail.thumbnail}`;
-  console.log(imageURL);
   return {
     title,
     description: postDetail.desc,

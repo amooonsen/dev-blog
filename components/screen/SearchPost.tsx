@@ -4,12 +4,7 @@ import React from 'react';
 
 import { PlaceholdersAndVanishInput } from '@/components/ui/placeholders-and-vanish-input';
 
-const placeholders = [
-  '가장 관심있는 분야는 뭐에요?',
-  'Frontend? Backend? Database?',
-  '2024년 개발 트렌드',
-  'Nextjs에서 성능 개선하는 방법',
-];
+import searchInputPlaceholders from '@/constants/searchInputConst';
 
 export default function SearchPost() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,10 +18,10 @@ export default function SearchPost() {
   return (
     <div className="flex flex-col justify-center items-center px-4">
       <h2 className="mb-4 sm:mb-8 text-xl text-center sm:text-3xl dark:text-white text-black">
-        보고싶은 글을 찾아주세요.
+        보고싶은 글을 검색해주세요.
       </h2>
       <PlaceholdersAndVanishInput
-        placeholders={placeholders}
+        placeholders={searchInputPlaceholders}
         onChange={handleChange}
         onSubmit={onSubmit}
       />

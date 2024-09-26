@@ -1,10 +1,11 @@
 import localFont from 'next/font/local';
 import { Noto_Sans_KR } from 'next/font/google';
+import { Jua } from 'next/font/google';
 
 // export const geistSans = localFont({
 //   src: './GeistVF.woff',
 //   variable: '--font-geist-sans',
-//   weight: '100 900',
+//   weight: '100 900',3
 // });
 // export const geistMono = localFont({
 //   src: './GeistMonoVF.woff',
@@ -17,11 +18,13 @@ import { Noto_Sans_KR } from 'next/font/google';
 //   weight: '45 920',
 //   variable: '--font-pretendard',
 // });
-export const BMJUA = localFont({
-  src: './BMJUA.woff',
-  display: 'swap',
-  weight: '100 900',
-});
+// export const jua = localFont({
+//   src: './BMJUA.woff',
+//   display: 'swap',
+//   weight: '100 900',
+// });
+
+export const jua = Jua({ subsets: ['latin'], weight: ['400'] });
 
 // next font goolge
 // export const notoSansKr = Noto_Sans_KR({

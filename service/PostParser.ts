@@ -7,18 +7,24 @@ import { Post } from '@/types/TypePost';
 
 export class PostParser {
   public async parsePost(postPath: string, postsBasePath: string): Promise<Post> {
-    const relativePath = path.relative(postsBasePath, postPath).replace('.mdx', '');
-    const [categoryPath, slug] = relativePath.split(path.sep);
+    const absolutePostPath = path.resolve(postPath);
+    const relativePath = path.relative(postsBasePath, absolutePostPath).replace('.mdx', '');
+
+    const segments = relativePath.split(path.sep);
+    const categoryPath = segments[segments.length - 3];
+    const slug = segments[segments.length - 2];
+
     const url = `/blog/${categoryPath}/${slug}`;
     const categoryPublicName = this.formatCategoryName(categoryPath);
-
-    // const absolutePath = path.join(process.cwd(), postPath);
 
     const fileContent = fs.readFileSync(postPath, 'utf-8');
     const { data: frontmatter, content } = matter(fileContent);
     const readingMinutes = Math.ceil(readingTime(content).minutes);
     const dateString = dayjs(frontmatter.date).locale('ko').format('YYYY년 MM월 DD일');
 
+    console.log(segments);
+    console.log(categoryPath);
+    console.log(slug);
     return {
       url,
       categoryPath,

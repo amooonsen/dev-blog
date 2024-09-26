@@ -15,7 +15,7 @@ import Header from '@/components/screen/Header';
 import Footer from '@/components/screen/Footer';
 
 // fonts
-import { BMJUA } from '@/assets/fonts/fonts';
+import { jua } from '@/assets/fonts/fonts';
 
 export const metadata: Metadata = {
   title: blogName,
@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
-      <body className={`${BMJUA.className} antialiased`}>
+      <body className={`${jua.className} antialiased`}>
         <NextTopLoader color="#16a34a" shadow="0 0 10px #16a34a,0 0 5px #16a34a" />
         <div id="wrap" className="min-h-screen">
           <Header />

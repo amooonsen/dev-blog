@@ -1,8 +1,4 @@
 import React, { Suspense } from 'react';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
 
 // components
 import PostHead from './_components/PostHead';
@@ -32,9 +28,9 @@ export async function generateStaticParams() {
   const paramList = await Promise.all(
     postPaths.map(async (path) => {
       const item = await postParser.parsePost(path, '/posts');
-      console.log(`path ${path}`);
-      console.log(`categoryPath ${item.categoryPath}`);
-      console.log(`item.slug ${item.slug}`);
+      // console.log(`path ${path}`);
+      // console.log(`categoryPath ${item.categoryPath}`);
+      // console.log(`item.slug ${item.slug}`);
       return {
         category: item.categoryPath,
         slug: item.slug,
@@ -52,7 +48,6 @@ export async function generateMetadata({
 
   const title = `${postDetail.title} | ${blogName}`;
   const imageURL = `${baseDomain}${postDetail.thumbnail}`;
-  console.log(imageURL);
   return {
     title,
     description: postDetail.desc,

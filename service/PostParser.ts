@@ -14,7 +14,7 @@ export class PostParser {
     const categoryPath = segments[segments.length - 3];
     const slug = segments[segments.length - 2];
 
-    const url = `/blog/${categoryPath}/${slug}`;
+    const url = `/tech/${categoryPath}/${slug}`;
     const categoryPublicName = this.formatCategoryName(categoryPath);
 
     const fileContent = fs.readFileSync(postPath, 'utf-8');
@@ -22,9 +22,6 @@ export class PostParser {
     const readingMinutes = Math.ceil(readingTime(content).minutes);
     const dateString = dayjs(frontmatter.date).locale('ko').format('YYYY년 MM월 DD일');
 
-    console.log(segments);
-    console.log(categoryPath);
-    console.log(slug);
     return {
       url,
       categoryPath,

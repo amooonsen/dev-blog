@@ -18,7 +18,7 @@ export default function Error({
     <div>
       <h2>에러 발생</h2>
       <button onClick={() => reset()}>다시 시도하기</button>
-      <Link href="/blog">홈으로</Link>
+      <Link href="/tech">홈으로</Link>
     </div>
   );
 }

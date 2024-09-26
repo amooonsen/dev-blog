@@ -44,7 +44,7 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
       <div className="flex items-center justify-between mt-4">
         <time className="text-sm text-gray-500 dark:text-gray-200">{post.dateString}</time>
         <Badge variant="categories">
-          <Link href={`/blog/${post.categoryPath}`}>{post.categoryPublicName}</Link>
+          <Link href={`/tech/${post.categoryPath}`}>{post.categoryPublicName}</Link>
         </Badge>
       </div>
       <PostThumbnailTags post={post} />

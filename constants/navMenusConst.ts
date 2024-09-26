@@ -7,19 +7,23 @@ export type navMenusType = {
 
 export const navMenus: navMenusType[] = [
   {
-    page: 'Blog',
-    href: '/blog',
+    page: 'Tech',
+    href: '/tech',
   },
   {
     page: 'NewsLetter',
     href: '/newsletter',
   },
   {
-    page: 'Portfolio',
-    href: '#',
-    target: '_blank',
-    rel: 'noopener noreferrer',
+    page: 'Life',
+    href: '/life',
   },
+  // {
+  //   page: 'Portfolio',
+  //   href: '#',
+  //   target: '_blank',
+  //   rel: 'noopener noreferrer',
+  // },
   {
     page: 'Contact',
     href: '/contact',

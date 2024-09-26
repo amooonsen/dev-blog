@@ -30,7 +30,7 @@ export class PostRepository {
     // 파일 경로에서 정보 추출
     const relativePath = path.relative(this.POSTS_PATH, postPath).replace('.mdx', '');
     const [categoryPath, slug] = relativePath.split(path.sep);
-    const url = `/blog/${categoryPath}/${slug}`;
+    const url = `/tech/${categoryPath}/${slug}`;
     const categoryPublicName = this.formatCategoryName(categoryPath);
 
     // 파일 내용 비동기적으로 읽기

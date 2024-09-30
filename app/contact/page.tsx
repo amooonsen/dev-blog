@@ -19,7 +19,7 @@ import ContactForm from './_components/ContactForm';
 // constants
 import faqItems from '@/constants/faqConst';
 import privacyList from '@/constants/privacyConst';
-import termsLists from '@/constants/termsConst';
+// import termsLists from '@/constants/termsConst';
 
 export default function ContactPage() {
   return (
@@ -104,7 +104,7 @@ export default function ContactPage() {
             </DialogContent>
           </Dialog>
 
-          <Dialog>
+          {/* <Dialog>
             <DialogTrigger asChild>
               <button className="text-sm underline">이용약관</button>
             </DialogTrigger>
@@ -120,7 +120,7 @@ export default function ContactPage() {
                 ))}
               </DialogHeader>
             </DialogContent>
-          </Dialog>
+          </Dialog> */}
         </div>
       </div>
     </div>

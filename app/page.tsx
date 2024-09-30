@@ -12,10 +12,7 @@ export default function Home() {
       <Section className="mt-10">
         <SearchPost />
       </Section>
-      <Section className="mt-16">
-        <h2 className="text-3xl font-bold mb-8 text-center">메뉴 보기</h2>
-        <BlogMainCards />
-      </Section>
+      <BlogMainCards />
     </main>
   );
 }

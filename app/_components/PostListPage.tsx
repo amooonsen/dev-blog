@@ -6,6 +6,7 @@ import matter from 'gray-matter';
 // components
 import { Section } from '@/components/ui/section';
 import PostThumbnailList from './PostThumbnailList';
+import SearchPost from '@/components/screen/SearchPost';
 import FilterCategory from './FilterCategory';
 import SortCategoryContainer from './SortCategoryContainer';
 import PostListSkeleton from '@/components/loading/PostListSkeleton';
@@ -63,6 +64,9 @@ export default async function PostListPage({ params: { category }, searchParams 
 
   return (
     <main className="mt-20 mb-32">
+      <Section className="mt-10">
+        <SearchPost />
+      </Section>
       <Section className="mt-14">
         <div className="flex justify-between">
           <FilterCategory allPostCount={allPostCount} categoryList={categoryList} />

@@ -1,12 +1,5 @@
 import React from 'react';
-import FilterCategorySkeleton from '@/components/loading/FilterCategorySkeleton';
-import PostListSkeleton from '@/components/loading/PostListSkeleton';
-
+import PostPageSkeleton '@/components/loading/PostPageSkeleton';
 export default function loading() {
-  return (
-    <main className="mt-20 mb-32">
-      <FilterCategorySkeleton />
-      <PostListSkeleton />
-    </main>
-  );
+  return <PostPageSkeleton />;
 }

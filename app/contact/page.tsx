@@ -8,6 +8,14 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -18,6 +26,8 @@ import { Textarea } from '@/components/ui/textarea';
 
 // constants
 import faqItems from '@/constants/faqConst';
+import privacyList from '@/constants/privacyConst';
+import termsLists from '@/constants/termsConst';
 
 export default function ContactPage() {
   return (
@@ -95,8 +105,48 @@ export default function ContactPage() {
             <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
           </svg>
           <p>{'기술 오타쿠가 세상을 구한다.'}</p>
-          <p className="mt-4">- Steve Jobs</p>
+          <p className="mt-4">- HoYoverse CEO | Liu Wei</p>
         </blockquote>
+
+        <div className="flex gap-4 justify-center mt-8">
+          <Dialog>
+            <DialogTrigger asChild>
+              <button className="text-sm underline">개인정보처리방침</button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>개인정보처리방침</DialogTitle>
+                <DialogDescription className="mt-4">
+                  {privacyList.map((item, index) => (
+                    <div key={index} className="p-2 border-b border-gray-200">
+                      <h3 className="font-medium">{item.title}</h3>
+                      <p className="text-sm text-gray-700">{item.desc}</p>
+                    </div>
+                  ))}
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <button className="text-sm underline">이용약관</button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>이용약관</DialogTitle>
+                <DialogDescription className="mt-4">
+                  {termsLists.map((item, index) => (
+                    <div key={index} className="p-2 border-t border-gray-200">
+                      <h3 className="font-medium">{item.title}</h3>
+                      <p className="text-sm text-gray-700">{item.desc}</p>
+                    </div>
+                  ))}
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
     </div>
   );

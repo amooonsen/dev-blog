@@ -14,7 +14,7 @@ export default function Footer() {
           <small>© {currentYear} Cho Kyung Moon. All Rights Reserved.</small>
         </div>
         <div className="flex items-center justify-end w-fit h-auto">
-          <FloatingDock mobileClassName="translate-y-20" items={myLinks} />
+          <FloatingDock items={myLinks} />
         </div>
       </div>
     </footer>

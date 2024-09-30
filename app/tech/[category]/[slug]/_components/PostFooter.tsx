@@ -25,7 +25,7 @@ export default function PostFooter({ postList }: PostFooterProps) {
   const segments = pathname.split('/');
   const parentPath = segments.slice(0, -1).join('/') || '/';
 
-  useViewSameTagPost();
+  // useViewSameTagPost();
 
   return (
     <Section id="postFooter">

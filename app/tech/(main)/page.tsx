@@ -1,4 +1,4 @@
-import PostListPage from '../_components/PostListPage';
+import PostListPage from '../../_components/PostListPage';
 
 // types
 import { ListPageProps } from '@/types/TypePage';

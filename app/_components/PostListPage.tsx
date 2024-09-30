@@ -6,9 +6,9 @@ import matter from 'gray-matter';
 // components
 import { Section } from '@/components/ui/section';
 import PostThumbnailList from './PostThumbnailList';
+import SearchPost from '@/components/screen/SearchPost';
 import FilterCategory from './FilterCategory';
 import SortCategoryContainer from './SortCategoryContainer';
-import SearchPost from '@/components/screen/SearchPost';
 import PostListSkeleton from '@/components/loading/PostListSkeleton';
 import PostListNoData from './PostListNoData';
 
@@ -56,7 +56,6 @@ export default async function PostListPage({ params: { category }, searchParams 
     : [];
   const sortOption = Array.isArray(sortParam) ? sortParam[0] : sortParam || '';
 
-  // console.log(selectedTags);
   const postList = await postRepository.fetchFilteredAndSortedPostList(
     category,
     selectedTags,

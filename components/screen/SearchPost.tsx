@@ -17,7 +17,7 @@ export default function SearchPost() {
 
   return (
     <div className="flex flex-col justify-center items-center px-4">
-      <h2 className="mb-4 sm:mb-8 text-xl text-center sm:text-3xl dark:text-white text-black">
+      <h2 className="mb-4 sm:mb-8 text-xl font-semibold text-center sm:text-3xl dark:text-white text-black">
         보고싶은 글을 검색해주세요.
       </h2>
       <PlaceholdersAndVanishInput

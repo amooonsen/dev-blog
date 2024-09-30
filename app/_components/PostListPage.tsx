@@ -8,7 +8,6 @@ import { Section } from '@/components/ui/section';
 import PostThumbnailList from './PostThumbnailList';
 import FilterCategory from './FilterCategory';
 import SortCategoryContainer from './SortCategoryContainer';
-import SearchPost from '@/components/screen/SearchPost';
 import PostListSkeleton from '@/components/loading/PostListSkeleton';
 import PostListNoData from './PostListNoData';
 
@@ -56,7 +55,6 @@ export default async function PostListPage({ params: { category }, searchParams 
     : [];
   const sortOption = Array.isArray(sortParam) ? sortParam[0] : sortParam || '';
 
-  // console.log(selectedTags);
   const postList = await postRepository.fetchFilteredAndSortedPostList(
     category,
     selectedTags,
@@ -65,9 +63,6 @@ export default async function PostListPage({ params: { category }, searchParams 
 
   return (
     <main className="mt-20 mb-32">
-      <Section className="mt-10">
-        <SearchPost />
-      </Section>
       <Section className="mt-14">
         <div className="flex justify-between">
           <FilterCategory allPostCount={allPostCount} categoryList={categoryList} />

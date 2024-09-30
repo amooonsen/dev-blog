@@ -14,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import ContactForm from './_components/ContactForm';
 
 // constants
 import faqItems from '@/constants/faqConst';
@@ -35,13 +36,14 @@ export default function ContactPage() {
           <br />
           작은 디테일까지 놓치지 않는 코드로, 당신의 비전을 현실로 만들어 드릴게요!
         </p>
-
         <div className="mb-8">
           <dl>
             <dt>제가 했던 일을 알고 싶다면?</dt>
             <dd>
               <Button asChild>
-                <a href="#none">프로젝트 보러가기</a>
+                <a href="#none" target="_blank">
+                  프로젝트 보러가기
+                </a>
               </Button>
             </dd>
           </dl>
@@ -49,12 +51,14 @@ export default function ContactPage() {
             <dt>구체적인 정보를 알고 싶다면?</dt>
             <dd>
               <Button asChild>
-                <a href="#none">포트폴리오 보러가기</a>
+                <a href="#none" target="_blank">
+                  포트폴리오 보러가기
+                </a>
               </Button>
             </dd>
           </dl>
         </div>
-
+        <ContactForm />
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">자주 묻는 질문</h2>
           <Accordion type="single" collapsible>
@@ -90,12 +94,12 @@ export default function ContactPage() {
               <DialogHeader>
                 <DialogTitle>개인정보처리방침</DialogTitle>
                 <DialogDescription></DialogDescription>
-                  {privacyList.map((item, index) => (
-                    <div key={index} className="p-2 border-t border-gray-200">
-                      <h3 className="font-medium">{item.title}</h3>
-                      <p className="text-sm text-gray-700">{item.desc}</p>
-                    </div>
-                  ))}
+                {privacyList.map((item, index) => (
+                  <div key={index} className="p-2 border-t border-gray-200">
+                    <h3 className="font-medium">{item.title}</h3>
+                    <p className="text-sm text-gray-700">{item.desc}</p>
+                  </div>
+                ))}
               </DialogHeader>
             </DialogContent>
           </Dialog>
@@ -108,13 +112,12 @@ export default function ContactPage() {
               <DialogHeader>
                 <DialogTitle>이용약관</DialogTitle>
                 <DialogDescription></DialogDescription>
-                  {termsLists.map((item, index) => (
-                    <div key={index} className="p-2 border-t border-gray-200">
-                      <h3 className="font-medium">{item.title}</h3>
-                      <p className="text-sm text-gray-700">{item.desc}</p>
-                    </div>
-                  ))}
-                
+                {termsLists.map((item, index) => (
+                  <div key={index} className="p-2 border-t border-gray-200">
+                    <h3 className="font-medium">{item.title}</h3>
+                    <p className="text-sm text-gray-700">{item.desc}</p>
+                  </div>
+                ))}
               </DialogHeader>
             </DialogContent>
           </Dialog>

@@ -1,6 +1,5 @@
 import React from 'react';
-import MainSkeleton from '../components/loading/MainSkeleton';
-
+import PostPageSkeleton '@/components/loading/PostPageSkeleton';
 export default function loading() {
-  return <MainSkeleton />;
+  return <PostPageSkeleton />;
 }

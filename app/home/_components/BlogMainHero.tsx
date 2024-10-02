@@ -43,7 +43,7 @@ export default function Hero() {
       />
       <div className="relative z-20 text-center text-white px-4 max-w-3xl">
         <motion.h2
-          className="text-4xl md:text-5xl font-bold mb-6"
+          className="text-4xl md:text-5xl font-bold mb-8"
           initial="hidden"
           animate={isLoaded ? 'visible' : 'hidden'}
         >

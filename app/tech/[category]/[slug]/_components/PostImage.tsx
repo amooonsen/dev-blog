@@ -16,9 +16,9 @@ export default function PostImage({ src, alt, type = 'content', ratio = 16 / 9 }
             unoptimized
             src={src ?? ''}
             alt={alt ?? '컨텐츠 이미지'}
+            sizes="(max-width: 550px) 50vw, 920px"
             fill
-            objectFit="cover"
-            className="absolute h-full w-full object-cover bg-foreground"
+            className="object-cover bg-foreground"
           />
         </AspectRatio>
       ) : (

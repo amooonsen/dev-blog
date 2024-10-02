@@ -32,10 +32,15 @@ const formSchema = z.object({
   email: z.string().email({
     message: '이메일 주소를 입력해주세요.',
   }),
-  inquiryType: z.string({
-    required_error: '요청사항을 선택해주세요.',
-  }),
-  message: z.string().max(150, {
+  inquiryType: z.preprocess(
+    (val) => (val === '' ? undefined : val),
+    z.enum(['job', 'project', 'collaboration', 'question'], {
+      required_error: '요청사항을 선택해주세요.',
+    })
+  ),
+  message: z.string().min(1, {
+    message: '메세지를 최소 1자 이상 입력해주세요.',
+  }).max(150, {
     message: '메세지는 최대 150자를 초과할 수 없습니다.',
   }),
 });

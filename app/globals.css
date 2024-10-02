@@ -174,3 +174,7 @@ body {
   background-color: white;
   z-index: 1;
 }
+
+::selection {
+  background-color: var(--primary);
+}

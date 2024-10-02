@@ -41,7 +41,7 @@ export default function RootLayout({
         <NextTopLoader color="#16a34a" shadow="0 0 10px #16a34a,0 0 5px #16a34a" />
         <div id="wrap" className="min-h-screen">
           <Header />
-          {children}
+          <div id="content">{children}</div>
           <Footer />
         </div>
         <DialogProvider />

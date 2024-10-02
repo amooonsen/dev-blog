@@ -18,6 +18,7 @@ import { PostRepository } from '@/service/PostRepository';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
+// 241002 generateStaticParams로 마이그레이션 및 공통화 필요
 export async function getStaticProps() {
   const files = fs.readdirSync(path.join(process.cwd(), 'posts'));
 

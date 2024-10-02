@@ -12,7 +12,7 @@ import { PostParser } from '@/service/PostParser';
 // meta
 import { Metadata } from 'next';
 import { blogName, baseDomain } from '@/constants/metaInfoConst';
-import { PostRepository } from '../../../../service/PostRepository';
+import { PostRepository } from '@/service/PostRepository';
 
 interface PostDetailProps {
   params: {

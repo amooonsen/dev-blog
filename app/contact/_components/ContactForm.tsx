@@ -32,12 +32,20 @@ const formSchema = z.object({
   email: z.string().email({
     message: '이메일 주소를 입력해주세요.',
   }),
-  inquiryType: z.string({
-    required_error: '요청사항을 선택해주세요.',
-  }),
-  message: z.string().max(150, {
-    message: '메세지는 최대 150자를 초과할 수 없습니다.',
-  }),
+  inquiryType: z.preprocess(
+    (val) => (val === '' ? undefined : val),
+    z.enum(['job', 'project', 'collaboration', 'question'], {
+      required_error: '요청사항을 선택해주세요.',
+    })
+  ),
+  message: z
+    .string()
+    .min(1, {
+      message: '메세지를 최소 1자 이상 입력해주세요.',
+    })
+    .max(150, {
+      message: '메세지는 최대 150자를 초과할 수 없습니다.',
+    }),
 });
 
 export default function ContactForm() {
@@ -45,7 +53,7 @@ export default function ContactForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
-      inquiryType: '',
+      inquiryType: undefined,
       message: '',
     },
   });
@@ -77,7 +85,7 @@ export default function ContactForm() {
           name="inquiryType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="mb-2 block">Inquiry Type</FormLabel>
+              <FormLabel className="mb-2 block">요청사항</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -85,10 +93,10 @@ export default function ContactForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="job">Job Opportunity</SelectItem>
-                  <SelectItem value="project">Project Inquiry</SelectItem>
-                  <SelectItem value="collaboration">Collaboration</SelectItem>
-                  <SelectItem value="question">General Question</SelectItem>
+                  <SelectItem value="job">채용 문의</SelectItem>
+                  <SelectItem value="project">프로젝트 문의</SelectItem>
+                  <SelectItem value="collaboration">협업 문의</SelectItem>
+                  <SelectItem value="question">질문하기</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -100,7 +108,7 @@ export default function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="mb-2 block">Message</FormLabel>
+              <FormLabel className="mb-2 block">문의하기</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Your message here..."

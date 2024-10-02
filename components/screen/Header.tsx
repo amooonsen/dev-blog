@@ -1,12 +1,9 @@
 import React from 'react';
 
-import Link from 'next/link';
-
 // components
 import Logo from '../ui/Logo';
-
-// constants
-import { navMenus, navMenusType } from '@/constants/navMenusConst';
+import HeaderNavigation from '../ui/HeaderNavigation';
+import ThemeToogle from '@/components/screen/ThemeToogle';
 
 export default function Header() {
   return (
@@ -18,19 +15,8 @@ export default function Header() {
           </li>
         </ul>
         <Logo />
-        {/* 모바일 UI 제작 필요 */}
-        <nav className="hidden md:flex">
-          <ul className="flex gap-4 text-base">
-            {navMenus.map((item: navMenusType, index: number) => (
-              <li key={`nav-menus-${index}`}>
-                <Link className="block p-4" href={item.href} target={item.target} rel={item.rel}>
-                  {item.page}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        {/* ModeDark */}
+        <HeaderNavigation />
+        <ThemeToogle />
       </div>
     </header>
   );

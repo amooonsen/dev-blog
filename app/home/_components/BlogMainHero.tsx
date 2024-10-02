@@ -38,7 +38,7 @@ export default function Hero() {
         layout="fill"
         objectFit="cover"
         placeholder="blur"
-        className="z-0"
+        className="z-0 select-none"
         priority
       />
       <div className="relative z-20 text-center text-white px-4 max-w-3xl">

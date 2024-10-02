@@ -18,6 +18,15 @@ import { PostRepository } from '@/service/PostRepository';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
+export async function generateStaticParams() {
+  const postRepository = new PostRepository();
+  const categoryList = await postRepository.fetchCategoryList();
+
+  return categoryList.map((category) => ({
+    category: category.slug, // 또는 적절한 카테고리 식별자
+  }));
+}
+
 export default async function PostListPage({ params: { category }, searchParams }: ListPageProps) {
   const postRepository = new PostRepository();
   const [allPostCount, categoryList, allTags] = await Promise.all([

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -9,7 +9,7 @@ import BlogHeroImage from '@/assets/images/typescript_oop_1.png';
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsLoaded(true);
   }, []);
 
@@ -25,13 +25,13 @@ export default function Hero() {
     hidden: { y: 50 },
     visible: (i: number) => ({
       y: 0,
-      transition: { delay: 0.5 + i * 0.2, duration: 0.5 },
+      transition: { delay: 0.5 + i * 0.1, duration: 0.3 },
     }),
   };
 
   return (
-    <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-black bg-opacity-45 z-10"></div>
+    <section className="relative h-[50vh] flex items-center justify-center mb-16 overflow-hidden">
+      <div className="absolute inset-0 bg-black bg-opacity-45 z-10 backdrop-blur-md"></div>
       <Image
         src={BlogHeroImage}
         alt="Hero background"

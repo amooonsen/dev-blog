@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+// import fs from 'fs';
+// import path from 'path';
+// import matter from 'gray-matter';
 
 // components
 import { Section } from '@/components/ui/section';
@@ -14,17 +14,26 @@ import PostListNoData from './PostListNoData';
 
 // repo
 import { PostRepository } from '@/service/PostRepository';
+import { PostParser } from '@/service/PostParser';
 
 // types
 import { ListPageProps } from '@/types/TypePage';
 
 export async function generateStaticParams() {
+  const postParser = new PostParser();
   const postRepository = new PostRepository();
   const categoryList = await postRepository.fetchCategoryList();
+  const postPaths: string[] = postRepository.getPostFilePaths();
 
-  return categoryList.map((category) => ({
-    category: category.slug, // 또는 적절한 카테고리 식별자
-  }));
+  const paramList = await Promise.all(
+    postPaths.map(async (path) => {
+      const item = await postParser.parsePost(path, '/posts');
+      return {
+        category: item.categoryPath,
+      };
+    })
+  );
+  return paramList;
 }
 
 export default async function PostListPage({ params: { category }, searchParams }: ListPageProps) {

@@ -2,7 +2,11 @@ import type { Config } from 'tailwindcss';
 
 const config: Config = {
   darkMode: ['class'],
-  content: ['./components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './hooks/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -74,13 +78,13 @@ const config: Config = {
             ':not(pre) > code': {
               fontWeight: 'inherit',
               position: 'relative',
-              bottom: '1',
+              bottom: '1px',
               margin: '0 3px',
               color: '#eb5757',
               backgroundColor: 'rgba(135,131,120,0.15)',
               fontFamily:
-                'SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace',
-              borderRadius: '3',
+                '"SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace',
+              borderRadius: '3px',
               padding: '0.2em 0.4em',
               overflowWrap: 'break-word',
             },
@@ -135,11 +139,11 @@ const config: Config = {
               marginTop: '0px !important',
             },
             '.project p,ul,li': {
-              fontSize: '15',
+              fontSize: '15px',
             },
             u: {
               textUnderlineOffset: '4px',
-              textDecorationThickness: '1',
+              textDecorationThickness: '1px',
               fontWeight: '600',
             },
           },

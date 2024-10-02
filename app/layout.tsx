@@ -8,6 +8,11 @@ import './globals.css';
 // plugins
 import NextTopLoader from 'nextjs-toploader';
 
+// GA & log & performance
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 // components
 import { ThemeProvider } from '@/components/context/theme-provider';
 import { DialogProvider } from '@/components/context/dialog-provider';
@@ -35,8 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
+    <html lang="ko">
       <body className={`${notoSansKr.className} antialiased`}>
         <ThemeProvider>
           <NextTopLoader color="#16a34a" shadow="0 0 10px #16a34a,0 0 5px #16a34a" />
@@ -47,6 +51,10 @@ export default function RootLayout({
           </div>
           <DialogProvider />
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
+        <GoogleAnalytics gaId="G-내계정키 환경변수로 넣을꺼임" />
+        <GoogleTagManager gtmId="G-내계정키 환경변수로 넣을꺼임" />
       </body>
     </html>
   );

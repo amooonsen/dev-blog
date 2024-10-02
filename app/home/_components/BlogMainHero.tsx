@@ -48,7 +48,7 @@ export default function Hero() {
           animate={isLoaded ? 'visible' : 'hidden'}
         >
           {['개발자', '조경문', '|', 'moon'].map((word, i) => (
-            <motion.span key={i} custom={i} variants={titleVariants} className="inline-block mr-2">
+            <motion.span key={i} custom={i} variants={titleVariants} className="inline-block mr-3">
               {word}
             </motion.span>
           ))}

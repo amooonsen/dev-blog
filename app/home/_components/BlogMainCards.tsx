@@ -17,7 +17,7 @@ export default function BlogMainCards() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 lg:mt-16 px-6 lg:px-10">
       {categories.map((category) => (
         <Link href={category.href} key={category.name}>
-          <motion.div whileHover={{ scale: 1.05 }} transition={{ type: 'spring', stiffness: 300 }}>
+          <motion.div whileHover={{ scale: 1.1 }} transition={{ type: 'spring', stiffness: 1000 }}>
             <Card className="overflow-hidden">
               <CardContent className="p-0">
                 <div

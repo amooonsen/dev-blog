@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
-// import fs from 'fs';
-// import path from 'path';
-// import matter from 'gray-matter';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 // components
 import { Section } from '@/components/ui/section';
@@ -14,26 +14,29 @@ import PostListNoData from './PostListNoData';
 
 // repo
 import { PostRepository } from '@/service/PostRepository';
-import { PostParser } from '@/service/PostParser';
 
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-export async function generateStaticParams() {
-  const postParser = new PostParser();
-  const postRepository = new PostRepository();
-  const categoryList = await postRepository.fetchCategoryList();
-  const postPaths: string[] = postRepository.getPostFilePaths();
+export async function getStaticProps() {
+  const files = fs.readdirSync(path.join(process.cwd(), 'posts'));
 
-  const paramList = await Promise.all(
-    postPaths.map(async (path) => {
-      const item = await postParser.parsePost(path, '/posts');
-      return {
-        category: item.categoryPath,
-      };
-    })
-  );
-  return paramList;
+  const posts = files.map((filename) => {
+    const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), 'posts', filename), 'utf-8');
+
+    const { data: frontMatter } = matter(markdownWithMeta);
+
+    return {
+      frontMatter,
+      slug: filename.replace('.mdx', ''),
+    };
+  });
+
+  return {
+    props: {
+      posts,
+    },
+  };
 }
 
 export default async function PostListPage({ params: { category }, searchParams }: ListPageProps) {

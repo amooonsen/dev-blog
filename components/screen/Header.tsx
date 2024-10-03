@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 // components
 import Logo from '../ui/Logo';
@@ -15,7 +16,7 @@ export default function Header() {
           </li>
         </ul>
         <Logo />
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-6 items-center">
           <HeaderNavigation />
           <ThemeToogle />
         </div>

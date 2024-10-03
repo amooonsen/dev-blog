@@ -1,7 +1,6 @@
 'use client';
 
 import React, { ReactElement, useState } from 'react';
-import style from './destoryText.module.css';
 
 // constants
 import { disperse } from '@/constants/destoryTextConst';
@@ -50,7 +49,7 @@ export default function DestoryText({ children }: DestoryTextProps): ReactElemen
   const modifiedChild = React.cloneElement(children as React.ReactElement<any>, {
     onMouseEnter: manageMouseEnter,
     onMouseLeave: manageMouseLeave,
-    className: `${children.props.className || ''} ${style.introLine}`,
+    className: `${children.props.className || ''} flex justify-between`,
   });
 
   return <>{React.cloneElement(modifiedChild, {}, getChars(children))}</>;

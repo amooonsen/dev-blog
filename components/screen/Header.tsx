@@ -1,10 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { Suspense } from 'react';
 
 // components
 import Logo from '../ui/Logo';
 import HeaderNavigation from '../ui/HeaderNavigation';
 import ThemeToogle from '@/components/screen/ThemeToogle';
+
+// icons
+import { Sun } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -18,7 +20,9 @@ export default function Header() {
         <Logo />
         <div className="flex gap-6 items-center">
           <HeaderNavigation />
-          <ThemeToogle />
+          <Suspense fallback={<Sun width={24} height={24} />}>
+            <ThemeToogle />
+          </Suspense>
         </div>
       </div>
     </header>

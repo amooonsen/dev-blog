@@ -1,12 +1,10 @@
 const logoTexts = [
-  '문.로그 :)',
+  '문.로그',
   '조경문 블로그',
   '🌕 LOOGGG',
   `Hello! It's Moon`,
-  'Frontend Dev: 조경문',
-  '달로 떠나는 코드 여행',
-  '💻 코드 탐험',
-  '빛나는 아이디어, 문처럼 🌙',
+  '프론트엔드 개발자 조경문',
+  'MLOGG',
 ];
 
 export default logoTexts;

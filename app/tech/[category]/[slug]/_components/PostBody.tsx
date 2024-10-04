@@ -1,4 +1,5 @@
-import { readFileSync } from 'fs';
+'use client';
+
 import React from 'react';
 
 // components

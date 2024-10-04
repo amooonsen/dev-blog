@@ -5,7 +5,7 @@ import { Skeleton } from '../ui/skeleton';
 export default function PostListSkeleton() {
   return (
     <>
-      <Skeleton className="w-48 h-9" />
+      <Skeleton className="w-48 h-12" />
       <ul className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
         {[...Array(9).keys()].map(
           (_: number, index: number): ReactElement => (

@@ -27,7 +27,7 @@ const sortOptions: { label: string; value: string }[] = [
   { label: '오래된순', value: 'oldest' },
 ];
 
-export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps) {
+const SortCategoryPopover = ({ type, allTags }: SortCategoryPopoverProps) => {
   const [selectedType, setSelectedType] = useState<'tag' | 'sort' | null>(null);
 
   // 선택된 태그 및 정렬 옵션 가져오기
@@ -73,7 +73,7 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
                   <li
                     className="flex gap-2 items-center"
                     key={tag}
-                    onClick={() => handleTagClick(tag)}
+                    // onClick={() => handleTagClick(tag)}
                   >
                     <Checkbox id={tag} onCheckedChange={() => handleTagClick(tag)} />
                     <Label className="text-base">{tag}</Label>
@@ -109,4 +109,6 @@ export function SortCategoryPopover({ type, allTags }: SortCategoryPopoverProps)
       </PopoverContent>
     </Popover>
   );
-}
+};
+
+export default React.memo(SortCategoryPopover);

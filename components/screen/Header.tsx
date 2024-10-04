@@ -1,16 +1,16 @@
-import React from 'react';
-
-import Link from 'next/link';
+import React, { Suspense } from 'react';
 
 // components
 import Logo from '../ui/Logo';
+import HeaderNavigation from '../ui/HeaderNavigation';
+import ThemeToogle from '@/components/screen/ThemeToogle';
 
-// constants
-import { navMenus, navMenusType } from '@/constants/navMenusConst';
+// icons
+import { Sun } from 'lucide-react';
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-100 w-full h-16 bg-background backdrop-blur-md border-b">
+    <header className="sticky top-0 z-50 w-full h-16 bg-background backdrop-blur-md border-b">
       <div className="flex justify-between items-center max-w-full lg:max-w-5xl h-full mx-auto px-6 lg:px-12">
         <ul className="skipnav">
           <li>
@@ -18,19 +18,12 @@ export default function Header() {
           </li>
         </ul>
         <Logo />
-        {/* 모바일 UI 제작 필요 */}
-        <nav className="hidden md:flex">
-          <ul className="flex gap-4 text-base">
-            {navMenus.map((item: navMenusType, index: number) => (
-              <li key={`nav-menus-${index}`}>
-                <Link className="block p-4" href={item.href} target={item.target} rel={item.rel}>
-                  {item.page}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        {/* ModeDark */}
+        <div className="flex gap-6 items-center">
+          <HeaderNavigation />
+          <Suspense fallback={<Sun width={24} height={24} />}>
+            <ThemeToogle />
+          </Suspense>
+        </div>
       </div>
     </header>
   );

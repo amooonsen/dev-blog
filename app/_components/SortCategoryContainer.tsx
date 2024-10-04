@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 // components
-import { SortCategoryPopover } from './SortCategoryPopover';
+import SortCategoryPopover from './SortCategoryPopover';
 import { Button } from '@/components/ui/button';
 
 // utils

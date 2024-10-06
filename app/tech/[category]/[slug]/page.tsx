@@ -21,22 +21,22 @@ interface PostDetailProps {
   };
 }
 
-export async function generateStaticParams() {
-  const postParser = new PostParser();
-  const postDetailRepository = new PostDetailRepository();
-  const postPaths: string[] = postDetailRepository.getPostFilePaths();
+// export async function generateStaticParams() {
+//   const postParser = new PostParser();
+//   const postDetailRepository = new PostDetailRepository();
+//   const postPaths: string[] = postDetailRepository.getPostFilePaths();
 
-  const paramList = await Promise.all(
-    postPaths.map(async (path) => {
-      const item = await postParser.parsePost(path, '/posts');
-      return {
-        category: item.categoryPath,
-        slug: item.slug,
-      };
-    })
-  );
-  return paramList;
-}
+//   const paramList = await Promise.all(
+//     postPaths.map(async (path) => {
+//       const item = await postParser.parsePost(path, '/posts');
+//       return {
+//         category: item.categoryPath,
+//         slug: item.slug,
+//       };
+//     })
+//   );
+//   return paramList;
+// }
 
 export async function generateMetadata({
   params: { category, slug },

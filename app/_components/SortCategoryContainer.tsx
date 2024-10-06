@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 // components
@@ -15,14 +15,20 @@ interface SortCategoryContainerProps {
 }
 
 export default function SortCategoryContainer({ allTags }: SortCategoryContainerProps) {
+  const [selectedTags, setSelectedTags] = useState(false);
+  const [hasSort, setHasSort] = useState(false);
+  const [hasTags, setHasTags] = useState(false);
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleResetClick = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    const hasTags = params.has('tags');
-    const hasSort = params.has('sort');
+  // const params = new URLSearchParams(searchParams.toString());
+  // const hasTags = params.has('tags');
+  // const hasSort = params.has('sort');
 
+  // if (hasTags || hasSort) setSelectedTags(true);
+
+  const handleResetClick = () => {
     if (hasTags || hasSort) {
       if (hasTags && !hasSort) {
         makeDialog({
@@ -31,10 +37,10 @@ export default function SortCategoryContainer({ allTags }: SortCategoryContainer
           description: '태그를 초기화 하시겠습니까?',
           cancelText: '취소',
           confirmText: '확인',
-          onConfirm() {
-            params.delete('tags');
-            router.push(`?${params.toString()}`);
-          },
+          // onConfirm() {
+          //   params.delete('tags');
+          //   router.push(`?${params.toString()}`);
+          // },
         });
         return;
       }
@@ -47,10 +53,10 @@ export default function SortCategoryContainer({ allTags }: SortCategoryContainer
           description: '정렬을 초기화 하시겠습니까?',
           cancelText: '취소',
           confirmText: '확인',
-          onConfirm() {
-            params.delete('sort');
-            router.push(`?${params.toString()}`);
-          },
+          // onConfirm() {
+          //   params.delete('sort');
+          //   router.push(`?${params.toString()}`);
+          // },
         });
         return;
       }
@@ -63,29 +69,42 @@ export default function SortCategoryContainer({ allTags }: SortCategoryContainer
           description: '모두 초기화 하시겠습니까?',
           cancelText: '취소',
           confirmText: '확인',
-          onConfirm() {
-            params.delete('tags');
-            params.delete('sort');
-            router.push(`?${params.toString()}`);
-          },
+          // onConfirm() {
+          //   params.delete('tags');
+          //   params.delete('sort');
+          //   router.push(`?${params.toString()}`);
+          // },
         });
         return;
       }
     }
 
     // 아무 것도 선택되지 않았을 때 경고
-    makeDialog({
-      type: 'alert',
-      title: '',
-      description: '초기화 할 항목이 없습니다.',
-      confirmText: '확인',
-    });
+    // makeDialog({
+    //   type: 'alert',
+    //   title: '',
+    //   description: '초기화 할 항목이 없습니다.',
+    //   confirmText: '확인',
+    // });
   };
+  // 3
+  //   useEffect(() => {
+  //     if (params.has('tags')) {
+  //       setHasTags(true);
+  //     }
+  //     if (params.has('sort')) {
+  //       setHasSort(true);
+  //     }
+  //   }, [params]);
+
+  useEffect(() => {
+    setSelectedTags(true);
+  }, [hasTags, hasSort]);
 
   return (
     <ul className="flex gap-4">
       <li>
-        <Button variant="destructive" size="sm" onClick={handleResetClick}>
+        <Button variant="destructive" size="sm" onClick={handleResetClick} disabled={!selectedTags}>
           초기화
         </Button>
       </li>

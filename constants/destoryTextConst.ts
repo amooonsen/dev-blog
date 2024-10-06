@@ -75,7 +75,7 @@ export const transforms: Transform[] = [
 ];
 
 export const disperse = {
-  open: (i) => ({
+  open: (i: number) => ({
     x: transforms[i].x + 'em',
     y: transforms[i].y + 'em',
     rotateZ: transforms[i].rotationZ,

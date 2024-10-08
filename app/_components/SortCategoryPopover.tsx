@@ -73,7 +73,6 @@ const SortCategoryPopover = ({ type, allTags }: SortCategoryPopoverProps) => {
                   <li
                     className="flex gap-2 items-center"
                     key={tag}
-                    // onClick={() => handleTagClick(tag)}
                   >
                     <Checkbox id={tag} onCheckedChange={() => handleTagClick(tag)} />
                     <Label className="text-base">{tag}</Label>

@@ -1,5 +1,7 @@
+type TypeOneDepth = 'tech' | 'newsletter' | 'life';
+
 export type ListPageProps = {
-  params: { category: string };
+  params: { oneDepth: TypeOneDepth; category: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 

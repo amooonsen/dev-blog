@@ -5,8 +5,8 @@ import { BaseRepository } from './BaseRepository';
 import { Post, CategoryDetail } from '@/types/TypePost';
 
 export class PostRepository extends BaseRepository implements IPostRepository {
-  constructor() {
-    super();
+  constructor(basePaths: string) {
+    super(basePaths);
   }
 
   public async fetchPostList(category?: string): Promise<Post[]> {

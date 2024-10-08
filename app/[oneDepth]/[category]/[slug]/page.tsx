@@ -41,7 +41,7 @@ interface PostDetailProps {
 export async function generateMetadata({
   params: { category, slug },
 }: PostDetailProps): Promise<Metadata> {
-  const postDetailRepository = new PostDetailRepository();
+  const postDetailRepository = new PostDetailRepository(slug);
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
 
   const title = `${postDetail.title} | ${blogName}`;
@@ -65,8 +65,8 @@ export async function generateMetadata({
 }
 
 export default async function PostDetail({ params: { category, slug } }: PostDetailProps) {
-  const postRepository = new PostRepository();
-  const postDetailRepository = new PostDetailRepository();
+  const postRepository = new PostRepository(category);
+  const postDetailRepository = new PostDetailRepository(slug);
 
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
   const postList = await postRepository.fetchPostList();

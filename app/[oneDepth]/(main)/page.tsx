@@ -1,3 +1,4 @@
+// components
 import PostListPage from '../../_components/PostListPage';
 
 // types

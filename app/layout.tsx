@@ -40,11 +40,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <body className={`${notoSansKr.className} antialiased`}>
-        <ThemeProvider>
-          <NextTopLoader color="#16a34a" shadow="0 0 10px #16a34a,0 0 5px #16a34a" />
-          <div id="wrap" className="min-h-screen">
+        <NextTopLoader color="#16a34a" shadow="0 0 10px #16a34a,0 0 5px #16a34a" />
+        <ThemeProvider attribute="class" defaultTheme="system">
+          <div id="wrap" className="min-h-screen bg-background">
             <Header />
             <div id="content">{children}</div>
             <Footer />

@@ -12,9 +12,5 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 
   if (!isMount) return null;
 
-  return (
-    <NextThemesProvider attribute="class" defaultTheme="system" {...props}>
-      {children}
-    </NextThemesProvider>
-  );
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }

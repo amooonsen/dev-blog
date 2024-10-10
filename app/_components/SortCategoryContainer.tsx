@@ -16,15 +16,13 @@ interface SortCategoryContainerProps {
 
 export default function SortCategoryContainer({ allTags }: SortCategoryContainerProps) {
   const [selectedTags, setSelectedTags] = useState(false);
-  const [hasSort, setHasSort] = useState(false);
-  const [hasTags, setHasTags] = useState(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // const params = new URLSearchParams(searchParams.toString());
-  // const hasTags = params.has('tags');
-  // const hasSort = params.has('sort');
+  const params = new URLSearchParams(searchParams.toString());
+  const hasTags = params.has('tags');
+  const hasSort = params.has('sort');
 
   // if (hasTags || hasSort) setSelectedTags(true);
 
@@ -102,7 +100,7 @@ export default function SortCategoryContainer({ allTags }: SortCategoryContainer
   }, [hasTags, hasSort]);
 
   return (
-    <ul className="flex gap-4">
+    <ul className="flex gap-4 mt-8 lg:mt-0">
       <li>
         <Button variant="destructive" size="sm" onClick={handleResetClick} disabled={!selectedTags}>
           초기화

@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 
 // components
@@ -21,13 +19,6 @@ import remarkA11yEmoji from '@fec/remark-a11y-emoji';
 interface PostBodyProps {
   post: Post;
 }
-
-// const prettyCodeOptions = {
-//   theme: {
-//     dark: JSON.parse(readFileSync('/public/theme/one-dark-pro.darker.json', 'utf-8')),
-//     // light: JSON.parse(readFileSync('./theme/one-monokai-light.json', 'utf-8')),
-//   },
-// };
 
 const rehypeOptions = {
   theme: 'slack-dark',

@@ -7,7 +7,6 @@ import PostFooter from './_components/PostFooter';
 
 // repo
 import { PostDetailRepository } from '@/service/PostDetailRepository';
-import { PostParser } from '@/service/PostParser';
 
 // meta
 import { Metadata } from 'next';
@@ -16,6 +15,7 @@ import { PostRepository } from '@/service/PostRepository';
 
 interface PostDetailProps {
   params: {
+    oneDepth: string;
     category: string;
     slug: string;
   };
@@ -39,9 +39,9 @@ interface PostDetailProps {
 // }
 
 export async function generateMetadata({
-  params: { category, slug },
+  params: { oneDepth, category, slug },
 }: PostDetailProps): Promise<Metadata> {
-  const postDetailRepository = new PostDetailRepository(slug);
+  const postDetailRepository = new PostDetailRepository(oneDepth);
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
 
   const title = `${postDetail.title} | ${blogName}`;
@@ -64,9 +64,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function PostDetail({ params: { category, slug } }: PostDetailProps) {
-  const postRepository = new PostRepository(category);
-  const postDetailRepository = new PostDetailRepository(slug);
+export default async function PostDetail({
+  params: { oneDepth, category, slug },
+}: PostDetailProps) {
+  const postRepository = new PostRepository(oneDepth);
+  const postDetailRepository = new PostDetailRepository(oneDepth);
 
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
   const postList = await postRepository.fetchPostList();

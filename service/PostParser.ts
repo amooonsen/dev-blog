@@ -6,7 +6,11 @@ import readingTime from 'reading-time';
 import { Post } from '@/types/TypePost';
 
 export class PostParser {
-  public async parsePost(postPath: string, postsBasePath: string): Promise<Post> {
+  public async parsePost(
+    postPath: string,
+    postsBasePath: string,
+    oneDepthPath: string | undefined
+  ): Promise<Post> {
     const absolutePostPath = path.resolve(postPath);
     const relativePath = path.relative(postsBasePath, absolutePostPath).replace('.mdx', '');
 
@@ -14,7 +18,7 @@ export class PostParser {
     const categoryPath = segments[segments.length - 3];
     const slug = segments[segments.length - 2];
 
-    const url = `/tech/${categoryPath}/${slug}`;
+    const url = `/${oneDepthPath}/${categoryPath}/${slug}`;
     const categoryPublicName = this.formatCategoryName(categoryPath);
 
     const fileContent = fs.readFileSync(postPath, 'utf-8');

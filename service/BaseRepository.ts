@@ -29,6 +29,7 @@ export abstract class BaseRepository {
   constructor(basePath: string) {
     this.BASE_PATH = basePath;
     this.POSTS_PATH = path.join(process.cwd(), this.BASE_PATH);
+    console.log(this.POSTS_PATH);
     this.postParser = new PostParser();
   }
 

@@ -44,9 +44,7 @@ export default async function PostListPage({
   params: { oneDepth, category },
   searchParams,
 }: ListPageProps) {
-  const postRepository = new PostRepository(category);
-  console.log(oneDepth);
-  console.log(category);
+  const postRepository = new PostRepository(oneDepth, category);
   const [allPostCount, categoryList, allTags, depthPaths] = await Promise.all([
     postRepository.fetchAllPostCount(),
     postRepository.fetchCategoryList(),

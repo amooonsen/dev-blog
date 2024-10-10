@@ -37,7 +37,7 @@ export default async function PostThumbnailList({
   return (
     <>
       <h2 className="text-3xl font-bold">{renderCategoryText() || '모든 글 보기'}</h2>
-      <ul className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+      <ul className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
         {postList.map(
           (post: Post): ReactElement => (
             <PostThumbnail key={post.url} post={post} />

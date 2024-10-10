@@ -72,7 +72,7 @@ export default async function PostListPage({
         <SearchPost />
       </Section>
       <Section className="mt-14">
-        <div className="flex justify-between">
+        <div className="flex flex-col lg:flex-row justify-between">
           <FilterCategory allPostCount={allPostCount} categoryList={categoryList} />
           <SortCategoryContainer allTags={allTags} />
         </div>

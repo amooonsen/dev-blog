@@ -16,7 +16,7 @@ interface FilterCategoryProps {
 
 export default function FilterCategory({ allPostCount, categoryList }: FilterCategoryProps) {
   return (
-    <ul className="flex flex-wrap gap-4 max-w-[60%]">
+    <ul className="flex flex-wrap gap-4 lg:max-w-[60%]">
       <li>
         <Button variant="outline" size="sm" className="inline-flex gap-2" asChild>
           <Link href="/tech">

@@ -64,10 +64,12 @@ const config: Config = {
           css: {
             'h2, h3, h4': {
               scrollMarginTop: '5rem',
+              color: 'var(--primary)',
             },
             p: {
               marginTop: '1rem',
               marginBottom: '1rem',
+              color: 'var(--foreground)',
             },
             '.callout-contents > p': {
               margin: '0',

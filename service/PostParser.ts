@@ -9,7 +9,7 @@ export class PostParser {
   public async parsePost(
     postPath: string,
     postsBasePath: string,
-    oneDepthPath: string | undefined
+    oneDepthPath: string | null = null
   ): Promise<Post> {
     const absolutePostPath = path.resolve(postPath);
     const relativePath = path.relative(postsBasePath, absolutePostPath).replace('.mdx', '');

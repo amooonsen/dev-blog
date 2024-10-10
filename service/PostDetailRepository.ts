@@ -8,10 +8,9 @@ import { Post } from '@/types/TypePost';
 export class PostDetailRepository extends BaseRepository implements IPostDetailRepository {
   public async fetchPostDetail(category: string, slug: string): Promise<Post> {
     const filePath = path.join(this.POSTS_PATH, category, slug, 'content.mdx');
-
-    console.log(this.POSTS_PATH);
-    console.log(category);
-    const postDetail = await this.postParser.parsePost(filePath, this.POSTS_PATH, '');
+    const postDetail = await this.postParser.parsePost(filePath, this.POSTS_PATH);
+    // console.log(postDetail);
+    // console.log(filePath);
     return postDetail;
   }
 }

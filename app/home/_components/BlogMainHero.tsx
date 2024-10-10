@@ -3,7 +3,7 @@
 import React, { useLayoutEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import BlogHeroImage from '@/assets/images/typescript_oop_1.png';
 
 export default function Hero() {
@@ -47,7 +47,7 @@ export default function Hero() {
           initial="hidden"
           animate={isLoaded ? 'visible' : 'hidden'}
         >
-          {['개발자', '조경문', '|', 'moon'].map((word, i) => (
+          {['개발자', '조경문', '블로그', '입니다.'].map((word, i) => (
             <motion.span key={i} custom={i} variants={titleVariants} className="inline-block mr-3">
               {word}
             </motion.span>
@@ -56,8 +56,9 @@ export default function Hero() {
         <div className="relative">
           {[
             '웹 프론트엔드 개발자 입니다.',
-            '주로 React로 개발을 하며, WebGL과 UI 인터렉션에 많은 관심이 있습니다.',
-            '언제나 고객의 입장에서 제품을 바라봅니다.',
+            '주로 React로 개발을 하고 있습니다.',
+            'WebGL과 UI 인터렉션에 많은 관심이 있습니다.',
+            '테크와 뉴스레터, 그리고 일상을 공유합니다.',
           ].map((sentence, i) => (
             <div key={i} className="relative overflow-hidden h-8 mb-2">
               <motion.p

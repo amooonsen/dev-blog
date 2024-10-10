@@ -5,14 +5,10 @@ import { BaseRepository } from './BaseRepository';
 import { Post, CategoryDetail } from '@/types/TypePost';
 
 export class PostRepository extends BaseRepository implements IPostRepository {
-  constructor(basePaths: string) {
-    super(basePaths);
-  }
-
   public async fetchPostList(category?: string): Promise<Post[]> {
     const postPaths = this.getPostFilePaths(category);
     const postPromises = postPaths.map((postPath) =>
-      this.postParser.parsePost(postPath, this.POSTS_PATH)
+      this.postParser.parsePost(postPath, this.POSTS_PATH, this.BASE_PATH)
     );
     const posts = await Promise.all(postPromises);
     return posts;

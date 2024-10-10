@@ -36,9 +36,8 @@ export default function Hero() {
         src={BlogHeroImage}
         alt="Hero background"
         layout="fill"
-        objectFit="cover"
         placeholder="blur"
-        className="z-0 select-none"
+        className="z-0 object-cover select-none"
         priority
       />
       <div className="relative z-20 text-center text-white px-4 max-w-3xl">

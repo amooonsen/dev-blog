@@ -14,8 +14,8 @@ export const AnimatedTooltip = ({ title, paragraph, children }: AnimatedTooltipP
   const springConfig = { stiffness: 100, damping: 5 };
   const x = useMotionValue(0);
 
-  const rotate = useSpring(useTransform(x, [-100, 100], [-45, 45]), springConfig);
-  const translateX = useSpring(useTransform(x, [-100, 100], [-50, 50]), springConfig);
+  const rotate = useSpring(useTransform(x, [-200, 200], [-20, 20]), springConfig);
+  const translateX = useSpring(useTransform(x, [-50, 50], [-25, 25]), springConfig);
 
   const handleMouseMove = (event: any) => {
     const halfWidth = event.target.offsetWidth / 2;
@@ -29,7 +29,7 @@ export const AnimatedTooltip = ({ title, paragraph, children }: AnimatedTooltipP
       onMouseLeave={() => setIsHovered(false)}
       onMouseMove={handleMouseMove}
     >
-      <div className="-mr-4">{children}</div>
+      <div className="">{children}</div>
       <AnimatePresence mode="popLayout">
         {isHovered && (
           <motion.div
@@ -40,7 +40,7 @@ export const AnimatedTooltip = ({ title, paragraph, children }: AnimatedTooltipP
               scale: 1,
               transition: {
                 type: 'spring',
-                stiffness: 260,
+                stiffness: 100,
                 damping: 10,
               },
             }}
@@ -53,8 +53,8 @@ export const AnimatedTooltip = ({ title, paragraph, children }: AnimatedTooltipP
           >
             <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
             <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
-            <div className="font-bold text-white relative z-30 text-base">{title}</div>
-            <div className="text-white text-xs">{paragraph}</div>
+            <div className="font-bold text-white relative z-30 text-xl">{title}</div>
+            <div className="text-white font-semibold text-base text-center">{paragraph}</div>
           </motion.div>
         )}
       </AnimatePresence>

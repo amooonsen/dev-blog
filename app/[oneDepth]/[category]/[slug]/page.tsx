@@ -7,6 +7,7 @@ import PostFooter from './_components/PostFooter';
 
 // repo
 import { PostDetailRepository } from '@/service/PostDetailRepository';
+import { PostParser } from '@/service/PostParser';
 
 // meta
 import { Metadata } from 'next';
@@ -21,22 +22,28 @@ interface PostDetailProps {
   };
 }
 
-// export async function generateStaticParams() {
-//   const postParser = new PostParser();
-//   const postDetailRepository = new PostDetailRepository();
-//   const postPaths: string[] = postDetailRepository.getPostFilePaths();
+export async function generateStaticParams({
+  params: { oneDepth, category, slug },
+}: PostDetailProps) {
+  if (!oneDepth) {
+    throw new Error('oneDepth 파라미터가 제공되지 않았습니다.');
+  }
+  const postParser = new PostParser();
+  const postDetailRepository = new PostDetailRepository(oneDepth); // oneDepth 전달
+  const postPaths: string[] = postDetailRepository.getPostFilePaths(category);
 
-//   const paramList = await Promise.all(
-//     postPaths.map(async (path) => {
-//       const item = await postParser.parsePost(path, '/posts');
-//       return {
-//         category: item.categoryPath,
-//         slug: item.slug,
-//       };
-//     })
-//   );
-//   return paramList;
-// }
+  const paramList = await Promise.all(
+    postPaths.map(async (path) => {
+      const item = await postParser.parsePost(path, oneDepth);
+      console.log(item);
+      return {
+        category: item.categoryPath,
+        slug: item.slug,
+      };
+    })
+  );
+  return paramList;
+}
 
 export async function generateMetadata({
   params: { oneDepth, category, slug },
@@ -71,6 +78,8 @@ export default async function PostDetail({
   const postDetailRepository = new PostDetailRepository(oneDepth);
 
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
+  console.log(postDetailRepository.getPostFilePaths(category));
+  console.log(postDetail);
   const postList = await postRepository.fetchPostList();
 
   return (

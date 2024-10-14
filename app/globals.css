@@ -9,6 +9,16 @@
   }
 }
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
 
 @layer base {
   :root {
@@ -64,17 +74,6 @@
     --chart-3: #f59e0b;
     --chart-4: #9333ea;
     --chart-5: #ef4444;
-  }
-}
-
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
   }
 }
 

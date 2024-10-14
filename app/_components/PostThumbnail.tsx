@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 // components
 import { Badge } from '@/components/ui/badge';
+import { AnimatedTooltip } from '@/components/motion/AnimatedTooltip';
 
 // types
 import { Post } from '@/types/TypePost';
@@ -33,12 +34,16 @@ export default function PostThumbnail({ post }: PostThumbnailProps) {
           </div>
         )}
         <div className="flex flex-col space-y-4">
-          <h3 className="text-overflow line-one relative inline-block mt-4 text-lg font-semibold transition-all duration-300 ease-out group-hover:text-primary">
-            {post.title}
-          </h3>
-          <p className="text-overflow line-two text-base h-12 text-slate-500 dark:text-slate-200">
-            {post.preview}
-          </p>
+          <AnimatedTooltip title={post.title}>
+            <h3 className="text-overflow line-one relative inline-block mt-4 text-lg font-semibold transition-all duration-300 ease-out group-hover:text-primary">
+              {post.title}
+            </h3>
+          </AnimatedTooltip>
+          <AnimatedTooltip paragraph={post.preview}>
+            <p className="text-overflow line-two text-base h-12 text-slate-500 dark:text-slate-200">
+              {post.preview}
+            </p>
+          </AnimatedTooltip>
         </div>
       </Link>
       <div className="flex items-center justify-between mt-4">

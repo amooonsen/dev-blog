@@ -12,6 +12,7 @@
   "dependencies": {
     "@fec/remark-a11y-emoji": "^4.0.2",
     "@hookform/resolvers": "^3.9.0",
+    "@next/bundle-analyzer": "^14.2.15",
     "@next/third-parties": "^14.2.14",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",

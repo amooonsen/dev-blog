@@ -8,11 +8,30 @@ import { Metadata } from 'next';
 // constants
 import { baseDomain, blogName } from '@/constants/metaInfoConst';
 
+// repo
+import { PostRepository } from '@/service/PostRepository';
+
 // utils
-import { formatCategoryName } from '@/lib/path';
+import { formatCategoryName, extractCategoryAndSlug } from '@/lib/path';
 
 // types
 import { ListPageProps } from '@/types/TypePage';
+
+export async function generateStaticParams() {
+  const postRepository = new PostRepository();
+  const postPaths: string[] = postRepository.getPostFilePaths();
+
+  const categoryList = await Promise.all(
+    postPaths.map((postPath) => {
+      const { category } = extractCategoryAndSlug(postPath, postRepository.POSTS_PATH);
+      return {
+        category,
+      };
+    })
+  );
+
+  return categoryList;
+}
 
 export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {
   const categoryPublicName = formatCategoryName(category);

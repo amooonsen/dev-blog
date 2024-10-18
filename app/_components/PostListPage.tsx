@@ -31,6 +31,7 @@ import { ListPageProps } from '@/types/TypePage';
 //       slug: filename.replace('.mdx', ''),
 //     };
 //   });
+//   console.log(posts);
 
 //   return {
 //     props: {

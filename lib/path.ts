@@ -4,12 +4,13 @@ import path from 'path';
 export function extractCategoryAndSlug(
   postPath: string,
   basePath: string
-): { category: string; slug: string } {
+): { oneDepth: string; category: string; slug: string } {
   const relativePath = path.relative(basePath, postPath).replace('.mdx', '');
   const segments = relativePath.split(path.sep);
+  const oneDepth = segments[segments.length - 4];
   const category = segments[segments.length - 3];
   const slug = segments[segments.length - 2];
-  return { category, slug };
+  return { oneDepth, category, slug };
 }
 
 // 카테고리 이름을 포맷팅하는 함수

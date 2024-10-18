@@ -7,8 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "clean": "rm -rf .next/cache"
+    "lint": "next lint"
   },
   "dependencies": {
     "@fec/remark-a11y-emoji": "^4.0.2",

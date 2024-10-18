@@ -1,18 +1,24 @@
-import React, { Suspense } from 'react';
+import React from 'react';
+import path from 'path';
+
+// meta
+import { Metadata } from 'next';
 
 // components
 import PostHead from './_components/PostHead';
 import PostBody from './_components/PostBody';
 import PostFooter from './_components/PostFooter';
 
+// constants
+import { blogName, baseDomain } from '@/constants/metaInfoConst';
+
 // repo
 import { PostDetailRepository } from '@/service/PostDetailRepository';
 import { PostParser } from '@/service/PostParser';
-
-// meta
-import { Metadata } from 'next';
-import { blogName, baseDomain } from '@/constants/metaInfoConst';
 import { PostRepository } from '@/service/PostRepository';
+
+// utils
+import { extractCategoryAndSlug } from '@/lib/path';
 
 interface PostDetailProps {
   params: {
@@ -24,56 +30,23 @@ interface PostDetailProps {
 
 export const dynamicParams = false;
 
-export async function generateStaticParams({
-  params: { oneDepth, category, slug },
-}: PostDetailProps) {
-  const postParser = new PostParser();
-  const postDetailRepository = new PostDetailRepository(oneDepth); // oneDepth 전달
-  const postPaths: string[] = postDetailRepository.getPostFilePaths(category);
-  const paramList = await Promise.all(
-    postPaths.map(async (path) => {
-      console.log(path);
-      // const detail = await postParser.parsePost(path);
-      // console.log(detail);
-      return {
-        category,
-        slug,
-      };
+export async function generateStaticParams() {
+  const postDetailRepository = new PostDetailRepository();
+  const postPaths: string[] = postDetailRepository.getPostFilePaths();
 
-      // const item = await postParser.parsePost(path, slug);
-      // console.log(item);
-      // return {
-      //   category: item.categoryPath,
-      //   slug: item.slug,
-      // };
+  const paramList = await Promise.all(
+    postPaths.map(async (postPath) => {
+      const { category, slug } = extractCategoryAndSlug(postPath, postDetailRepository.POSTS_PATH);
+
+      return {
+        category: category,
+        slug: slug,
+      };
     })
   );
+
   return paramList;
 }
-
-// export async function generateStaticParams() {
-//   const allPages = await getAllPageSlugs()
-
-//   return allPages
-//     .filter((page) => !page.hasCustomPage) // filter out pages that have custom pages, e.g. /journey
-//     .map((page) => ({
-//       slug: page.slug
-//     }))
-// }
-
-// export function generateStaticParams() {
-//   const categoryList = getCategoryList();
-//   const paramList = categoryList.map((category) => ({ category }));
-//   return paramList;
-// }
-
-// export function generateStaticParams() {
-//   const postPaths: string[] = getPostPaths();
-//   const paramList = postPaths
-//     .map((path) => parsePostAbstract(path))
-//     .map((item) => ({ category: item.categoryPath, slug: item.slug }));
-//   return paramList;
-// }
 
 export async function generateMetadata({
   params: { oneDepth, category, slug },

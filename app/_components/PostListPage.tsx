@@ -21,7 +21,7 @@ import { ListPageProps } from '@/types/TypePage';
 // 241002 generateStaticParams로 마이그레이션 및 공통화 필요
 export async function getStaticProps({ params: { oneDepth } }: ListPageProps) {
   const files = fs.readdirSync(path.join(process.cwd(), oneDepth));
-
+  console.log(`files ${files}`);
   const posts = files.map((filename) => {
     const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), oneDepth, filename), 'utf-8');
 

@@ -22,28 +22,58 @@ interface PostDetailProps {
   };
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams({
   params: { oneDepth, category, slug },
 }: PostDetailProps) {
-  if (!oneDepth) {
-    throw new Error('oneDepth 파라미터가 제공되지 않았습니다.');
-  }
   const postParser = new PostParser();
   const postDetailRepository = new PostDetailRepository(oneDepth); // oneDepth 전달
   const postPaths: string[] = postDetailRepository.getPostFilePaths(category);
-
   const paramList = await Promise.all(
     postPaths.map(async (path) => {
-      const item = await postParser.parsePost(path, oneDepth);
-      console.log(item);
+      console.log(path);
+      // const detail = await postParser.parsePost(path);
+      // console.log(detail);
       return {
-        category: item.categoryPath,
-        slug: item.slug,
+        category,
+        slug,
       };
+
+      // const item = await postParser.parsePost(path, slug);
+      // console.log(item);
+      // return {
+      //   category: item.categoryPath,
+      //   slug: item.slug,
+      // };
     })
   );
   return paramList;
 }
+
+// export async function generateStaticParams() {
+//   const allPages = await getAllPageSlugs()
+
+//   return allPages
+//     .filter((page) => !page.hasCustomPage) // filter out pages that have custom pages, e.g. /journey
+//     .map((page) => ({
+//       slug: page.slug
+//     }))
+// }
+
+// export function generateStaticParams() {
+//   const categoryList = getCategoryList();
+//   const paramList = categoryList.map((category) => ({ category }));
+//   return paramList;
+// }
+
+// export function generateStaticParams() {
+//   const postPaths: string[] = getPostPaths();
+//   const paramList = postPaths
+//     .map((path) => parsePostAbstract(path))
+//     .map((item) => ({ category: item.categoryPath, slug: item.slug }));
+//   return paramList;
+// }
 
 export async function generateMetadata({
   params: { oneDepth, category, slug },
@@ -78,8 +108,6 @@ export default async function PostDetail({
   const postDetailRepository = new PostDetailRepository(oneDepth);
 
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
-  console.log(postDetailRepository.getPostFilePaths(category));
-  console.log(postDetail);
   const postList = await postRepository.fetchPostList();
 
   return (

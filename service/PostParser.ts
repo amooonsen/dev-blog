@@ -12,6 +12,7 @@ export class PostParser {
     oneDepthPath: string | null = null
   ): Promise<Post> {
     const absolutePostPath = path.resolve(postPath);
+    console.log(absolutePostPath);
     const relativePath = path.relative(postsBasePath, absolutePostPath).replace('.mdx', '');
 
     const segments = relativePath.split(path.sep);

@@ -8,14 +8,14 @@ import { Metadata } from 'next';
 // constants
 import { baseDomain, blogName } from '@/constants/metaInfoConst';
 
-import { PostParser } from '@/service/PostParser';
+// utils
+import { formatCategoryName } from '@/lib/path';
 
 // types
 import { ListPageProps } from '@/types/TypePage';
 
 export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {
-  const postRepository = new PostParser();
-  const categoryPublicName = postRepository.formatCategoryName(category);
+  const categoryPublicName = formatCategoryName(category);
   const title = `${categoryPublicName} | ${blogName}`;
   const url = `${baseDomain}/${category}`;
 

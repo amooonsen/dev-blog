@@ -2,6 +2,11 @@
 
 import { IPostRepository } from './IPostRepository';
 import { BaseRepository } from './BaseRepository';
+
+// utils
+import { formatCategoryName } from '@/lib/path';
+
+// types
 import { Post, CategoryDetail } from '@/types/TypePost';
 
 export class PostRepository extends BaseRepository implements IPostRepository {
@@ -86,7 +91,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
       const categoryDetails: CategoryDetail[] = Object.entries(categoryCountMap).map(
         ([category, count]) => ({
           dirName: category,
-          publicName: this.postParser.formatCategoryName(category),
+          publicName: formatCategoryName(category),
           count,
         })
       );

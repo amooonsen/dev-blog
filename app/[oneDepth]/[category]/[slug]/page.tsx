@@ -1,18 +1,24 @@
-import React, { Suspense } from 'react';
+import React from 'react';
+import path from 'path';
+
+// meta
+import { Metadata } from 'next';
 
 // components
 import PostHead from './_components/PostHead';
 import PostBody from './_components/PostBody';
 import PostFooter from './_components/PostFooter';
 
+// constants
+import { blogName, baseDomain } from '@/constants/metaInfoConst';
+
 // repo
 import { PostDetailRepository } from '@/service/PostDetailRepository';
 import { PostParser } from '@/service/PostParser';
-
-// meta
-import { Metadata } from 'next';
-import { blogName, baseDomain } from '@/constants/metaInfoConst';
 import { PostRepository } from '@/service/PostRepository';
+
+// utils
+import { extractCategoryAndSlug } from '@/lib/path';
 
 interface PostDetailProps {
   params: {
@@ -22,26 +28,23 @@ interface PostDetailProps {
   };
 }
 
-export async function generateStaticParams({
-  params: { oneDepth, category, slug },
-}: PostDetailProps) {
-  if (!oneDepth) {
-    throw new Error('oneDepth 파라미터가 제공되지 않았습니다.');
-  }
-  const postParser = new PostParser();
-  const postDetailRepository = new PostDetailRepository(oneDepth); // oneDepth 전달
-  const postPaths: string[] = postDetailRepository.getPostFilePaths(category);
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const postDetailRepository = new PostDetailRepository();
+  const postPaths: string[] = postDetailRepository.getPostFilePaths();
 
   const paramList = await Promise.all(
-    postPaths.map(async (path) => {
-      const item = await postParser.parsePost(path, oneDepth);
-      console.log(item);
+    postPaths.map(async (postPath) => {
+      const { category, slug } = extractCategoryAndSlug(postPath, postDetailRepository.POSTS_PATH);
+
       return {
-        category: item.categoryPath,
-        slug: item.slug,
+        category: category,
+        slug: slug,
       };
     })
   );
+
   return paramList;
 }
 
@@ -78,8 +81,6 @@ export default async function PostDetail({
   const postDetailRepository = new PostDetailRepository(oneDepth);
 
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
-  console.log(postDetailRepository.getPostFilePaths(category));
-  console.log(postDetail);
   const postList = await postRepository.fetchPostList();
 
   return (

@@ -1,8 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  webpack: (config, { isServer }) => {
-    return config;
-  },
-};
+import withBundleAnalyzer from '@next/bundle-analyzer';
 
-export default nextConfig;
+withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
+
+export default withBundleAnalyzer(nextConfig);

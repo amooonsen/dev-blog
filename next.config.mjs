@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack(config) {
-    config.externals = config.externals || {};
-    config.externals['.next/cache'] = 'commonjs .next/cache';
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.cache = false;
+    }
     return config;
   },
 };

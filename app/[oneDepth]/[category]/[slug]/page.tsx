@@ -36,11 +36,14 @@ export async function generateStaticParams() {
 
   const paramList = await Promise.all(
     postPaths.map(async (postPath) => {
-      const { category, slug } = extractCategoryAndSlug(postPath, postDetailRepository.POSTS_PATH);
-
+      const { oneDepth, category, slug } = extractCategoryAndSlug(
+        postPath,
+        postDetailRepository.POSTS_PATH
+      );
       return {
-        category: category,
-        slug: slug,
+        oneDepth,
+        category,
+        slug,
       };
     })
   );

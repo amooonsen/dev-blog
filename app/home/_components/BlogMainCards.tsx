@@ -6,15 +6,14 @@ import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 
 const categories = [
-  { name: 'Tech', image: '/placeholder.svg?height=200&width=300', href: '/tech' },
-  { name: 'Newsletter', image: '/placeholder.svg?height=200&width=300', href: '/newsletter' },
-  { name: 'Life', image: '/placeholder.svg?height=200&width=300', href: '/life' },
-  { name: 'Contact', image: '/placeholder.svg?height=200&width=300', href: '/contact' },
+  { name: 'Tech', image: '/placeholder.svg?height=200&width=300', href: '/docs/tech' },
+  { name: 'Newsletter', image: '/placeholder.svg?height=200&width=300', href: '/docs/newsletter' },
+  { name: 'Life', image: '/placeholder.svg?height=200&width=300', href: '/docs/life' },
 ];
 
 export default function BlogMainCards() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 lg:mt-16 px-6 lg:px-10">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10 mt-10 lg:mt-16 px-6 lg:px-10">
       {categories.map((category) => (
         <Link href={category.href} key={category.name}>
           <motion.div whileHover={{ scale: 1.1 }} transition={{ type: 'spring', stiffness: 1000 }}>

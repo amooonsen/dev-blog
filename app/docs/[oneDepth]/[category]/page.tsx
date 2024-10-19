@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PostListPage from '../../_components/PostListPage';
+import PostListPage from '../../../_components/PostListPage';
 
 // meta
 import { Metadata } from 'next';

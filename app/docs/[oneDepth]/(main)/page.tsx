@@ -1,11 +1,12 @@
 // components
-import PostListPage from '../../_components/PostListPage';
+import PostListPage from '../../../_components/PostListPage';
 
 // types
 import { ListPageProps } from '@/types/TypePage';
 
 export async function generateStaticParams() {
-  return [{ oneDepth: 'tech' }, { oneDepth: 'newsletter' }, { oneDepth: 'life' }];
+  const paths = [{ oneDepth: 'tech' }, { oneDepth: 'newsletter' }, { oneDepth: 'life' }];
+  return paths;
 }
 
 const Blog = async ({ params, searchParams }: ListPageProps) => {

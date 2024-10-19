@@ -18,17 +18,15 @@ import { PostRepository } from '@/service/PostRepository';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-export async function generateStaticParams() {
-  const postRepository = new PostRepository();
-  const categories = await postRepository.fetchCategoryList();
-  const staticParams = categories.map((category) => ({ oneDepth: category.dirName }));
-  return staticParams;
-}
-
 export default async function PostListPage({
   params: { oneDepth, category },
   searchParams,
 }: ListPageProps) {
+  if (!oneDepth) {
+    console.error('oneDepth 값이 없습니다.');
+    return <div>잘못된 접근입니다. 경로를 확인하세요.</div>;
+  }
+
   const postRepository = new PostRepository(oneDepth);
   const [allPostCount, categoryList, allTags] = await Promise.all([
     postRepository.fetchAllPostCount(),
@@ -46,7 +44,7 @@ export default async function PostListPage({
   const sortOption = Array.isArray(sortParam) ? sortParam[0] : sortParam || '';
 
   const postList = await postRepository.fetchFilteredAndSortedPostList(
-    category,
+    category ?? '',
     selectedTags,
     sortOption
   );

@@ -40,7 +40,7 @@ export async function generateStaticParams() {
         postPath,
         postDetailRepository.POSTS_PATH
       );
-      console.log(`oneDepth ${oneDepth}`);
+
       return {
         oneDepth,
         category,

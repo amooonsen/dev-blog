@@ -21,7 +21,6 @@ import { ListPageProps } from '@/types/TypePage';
 export async function generateStaticParams() {
   const postRepository = new PostRepository();
   const categories = await postRepository.fetchCategoryList();
-  console.log(categories);
   const staticParams = categories.map((category) => ({ oneDepth: category.dirName }));
   return staticParams;
 }
@@ -51,6 +50,8 @@ export default async function PostListPage({
     selectedTags,
     sortOption
   );
+
+  console.log(postList);
 
   return (
     <main className="mt-20 mb-32">

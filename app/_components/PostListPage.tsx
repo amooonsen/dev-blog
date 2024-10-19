@@ -45,11 +45,9 @@ export default async function PostListPage({
 
   const postList = await postRepository.fetchFilteredAndSortedPostList(
     category ?? '',
-    selectedTags,
+    selectedTags ?? '',
     sortOption
   );
-
-  console.log(postList);
 
   return (
     <main className="mt-20 mb-32">

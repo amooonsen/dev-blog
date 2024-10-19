@@ -22,10 +22,9 @@ export async function generateStaticParams() {
   const postPaths: string[] = postRepository.getPostFilePaths();
 
   const categoryList = await Promise.all(
-    postPaths.map((postPath) => {
+    postPaths.map(async (postPath) => {
       const { oneDepth, category } = extractCategoryAndSlug(postPath, postRepository.POSTS_PATH);
 
-      console.log(`oneDepth ${oneDepth}`);
       return {
         oneDepth,
         category,

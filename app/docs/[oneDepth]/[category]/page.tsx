@@ -25,6 +25,7 @@ export async function generateStaticParams() {
     postPaths.map((postPath) => {
       const { oneDepth, category } = extractCategoryAndSlug(postPath, postRepository.POSTS_PATH);
 
+      console.log(`oneDepth ${oneDepth}`);
       return {
         oneDepth,
         category,

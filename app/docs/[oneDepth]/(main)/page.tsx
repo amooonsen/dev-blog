@@ -17,13 +17,7 @@ const Blog = async ({ params, searchParams }: ListPageProps) => {
     return <div>잘못된 접근입니다. 경로를 확인하세요.</div>;
   }
 
-  const filteredSearchParams = Object.fromEntries(
-    Object.entries(searchParams ?? {}).filter(
-      ([key]) => key !== '_rsc' // _rsc 쿼리 파라미터 제외
-    )
-  );
-
-  return <PostListPage params={{ oneDepth, category }} searchParams={filteredSearchParams} />;
+  return <PostListPage params={{ oneDepth, category }} searchParams={searchParams} />;
 };
 
 export default Blog;

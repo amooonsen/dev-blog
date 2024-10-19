@@ -18,6 +18,14 @@ import { PostRepository } from '@/service/PostRepository';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
+export async function generateStaticParams() {
+  const postRepository = new PostRepository();
+  const categories = await postRepository.fetchCategoryList();
+  console.log(categories);
+  const staticParams = categories.map((category) => ({ oneDepth: category.dirName }));
+  return staticParams;
+}
+
 export default async function PostListPage({
   params: { oneDepth, category },
   searchParams,

@@ -18,7 +18,7 @@ import { PostRepository } from '@/service/PostRepository';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-export async function getStaticProps({ params: { oneDepth } }) {
+export async function getStaticProps({ params: { oneDepth } }: ListPageProps) {
   const files = fs.readdirSync(path.join(process.cwd(), oneDepth));
 
   const posts = files.map((filename) => {

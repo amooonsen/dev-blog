@@ -18,7 +18,7 @@ export class PostParser {
   ): Promise<Post> {
     const { category: categoryPath, slug } = extractCategoryAndSlug(postPath, postsBasePath);
 
-    const url = `/${oneDepthPath}/${categoryPath}/${slug}`;
+    const url = `/docs/${oneDepthPath}/${categoryPath}/${slug}`;
     const categoryPublicName = formatCategoryName(categoryPath);
 
     const fileContent = fs.readFileSync(postPath, 'utf-8');

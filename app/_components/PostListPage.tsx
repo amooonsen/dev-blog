@@ -18,27 +18,26 @@ import { PostRepository } from '@/service/PostRepository';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-// 241002 generateStaticParams로 마이그레이션 및 공통화 필요
-// export async function getStaticProps({ params: { oneDepth } }: ListPageProps) {
-//   const files = fs.readdirSync(path.join(process.cwd(), oneDepth));
-//   const posts = files.map((filename) => {
-//     const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), oneDepth, filename), 'utf-8');
+export async function getStaticProps({ params: { oneDepth } }) {
+  const files = fs.readdirSync(path.join(process.cwd(), oneDepth));
 
-//     const { data: frontMatter } = matter(markdownWithMeta);
+  const posts = files.map((filename) => {
+    const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), oneDepth, filename), 'utf-8');
 
-//     return {
-//       frontMatter,
-//       slug: filename.replace('.mdx', ''),
-//     };
-//   });
-//   console.log(posts);
+    const { data: frontMatter } = matter(markdownWithMeta);
 
-//   return {
-//     props: {
-//       posts,
-//     },
-//   };
-// }
+    return {
+      frontMatter,
+      slug: filename.replace('.mdx', ''),
+    };
+  });
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
 
 export default async function PostListPage({
   params: { oneDepth, category },

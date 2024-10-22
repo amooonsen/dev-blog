@@ -1,13 +1,8 @@
-import path from 'path';
-
 // 경로로부터 카테고리와 슬러그를 추출하는 함수
 export function extractCategoryAndSlug(
   postPath: string,
   basePath: string
 ): { oneDepth: string; category: string; slug: string } {
-  console.log(`basePath ${basePath}`);
-  console.log(`postPath ${postPath}`);
-
   const basePathParts = basePath.split('/');
   const lastPart = basePathParts.pop();
   const filePath = postPath

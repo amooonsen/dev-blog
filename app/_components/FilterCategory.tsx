@@ -9,14 +9,14 @@ import { Button } from '@/components/ui/button';
 import { CategoryDetail } from '@/types/TypePost';
 
 interface FilterCategoryProps {
-  oneDepth: string;
+  onedepth: string;
   allPostCount: number;
   categoryList: CategoryDetail[];
   category?: string;
 }
 
 export default function FilterCategory({
-  oneDepth,
+  onedepth,
   allPostCount,
   categoryList,
 }: FilterCategoryProps) {
@@ -24,7 +24,7 @@ export default function FilterCategory({
     <ul className="flex flex-wrap gap-4 lg:max-w-[60%]">
       <li>
         <Button variant="outline" size="sm" className="inline-flex gap-2" asChild>
-          <Link href={`/docs/${oneDepth}`}>
+          <Link href={`/docs/${onedepth}`}>
             <strong>All</strong>
             <span>{allPostCount}</span>
           </Link>

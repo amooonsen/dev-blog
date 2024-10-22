@@ -19,7 +19,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     }
 
     const postPromises = postPaths.map((postPath) =>
-      this.postParser.parsePost(postPath, this.POSTS_PATH, this.BASE_PATH)
+      this.postParser.parsePost(postPath, this.POSTS_PATH)
     );
     const posts = await Promise.all(postPromises);
     return posts;

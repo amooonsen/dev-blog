@@ -32,28 +32,27 @@ export async function generateStaticParams() {
       };
     })
   );
-  console.log(categoryList);
   return categoryList;
 }
 
-export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {
-  const categoryPublicName = formatCategoryName(category);
-  const title = `${categoryPublicName} | ${blogName}`;
-  const url = `${baseDomain}/${category}`;
+// export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {
+//   const categoryPublicName = formatCategoryName(category);
+//   const title = `${categoryPublicName} | ${blogName}`;
+//   const url = `${baseDomain}/${category}`;
 
-  return {
-    title,
-    openGraph: {
-      title,
-      url,
-      // images: [blogThumbnailURL],
-    },
-    twitter: {
-      title,
-      // images: [blogThumbnailURL],
-    },
-  };
-}
+//   return {
+//     title,
+//     openGraph: {
+//       title,
+//       url,
+//       // images: [blogThumbnailURL],
+//     },
+//     twitter: {
+//       title,
+//       // images: [blogThumbnailURL],
+//     },
+//   };
+// }
 
 export default async function CategoryListPage({ params, searchParams }: ListPageProps) {
   return <PostListPage params={params} searchParams={searchParams} />;

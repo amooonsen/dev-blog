@@ -19,7 +19,7 @@ const Blog = async ({ params, searchParams }: ListPageProps) => {
     return <div>잘못된 접근입니다. 경로를 확인하세요.</div>;
   }
 
-  return <PostListPage params={{ onedepth, category }} searchParams={searchParams} />;
+  return <PostListPage params={params} searchParams={searchParams} />;
 };
 
 export default Blog;

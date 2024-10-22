@@ -1,8 +1,4 @@
 import React, { Suspense } from 'react';
-import { revalidateTag } from 'next/cache';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 
 // components
 import { Section } from '@/components/ui/section';
@@ -39,11 +35,13 @@ export default async function PostListPage({
     : [];
   const sortOption = Array.isArray(sortParam) ? sortParam[0] : sortParam || '';
 
-  const postList = await postRepository.fetchFilteredAndSortedPostList(
-    category ?? '',
-    selectedTags ?? '',
-    sortOption
-  );
+  // const postList = await postRepository.fetchFilteredAndSortedPostList(
+  //   category ?? '',
+  //   selectedTags ?? '',
+  //   sortOption
+  // );
+
+  const postList = await postRepository.fetchPostList(category);
 
   return (
     <main className="mt-20 mb-32">

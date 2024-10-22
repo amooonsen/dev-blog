@@ -13,11 +13,6 @@ export class PostRepository extends BaseRepository implements IPostRepository {
   public async fetchPostList(category?: string, onedepth?: string): Promise<Post[]> {
     let postPaths = this.getPostFilePaths(category);
 
-    // 카테고리가 undefined인 경우, onedepth로 필터링
-    if (!category && onedepth) {
-      postPaths = postPaths.filter((postPath) => postPath.includes(`/${onedepth}/`));
-    }
-    console.log(postPaths);
     const postPromises = postPaths.map((postPath) =>
       this.postParser.parsePost(postPath, this.POSTS_PATH)
     );

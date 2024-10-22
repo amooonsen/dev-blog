@@ -20,6 +20,7 @@ export default async function PostListPage({
   searchParams,
 }: ListPageProps) {
   const postRepository = new PostRepository(onedepth);
+  console.log(onedepth);
   const [allPostCount, categoryList, allTags] = await Promise.all([
     postRepository.fetchAllPostCount(),
     postRepository.fetchCategoryList(),
@@ -42,7 +43,6 @@ export default async function PostListPage({
   // );
 
   const postList = await postRepository.fetchPostList(category, onedepth);
-
   return (
     <main className="mt-20 mb-32">
       <Section className="mt-10">

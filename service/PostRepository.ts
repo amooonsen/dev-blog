@@ -17,7 +17,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     if (!category && onedepth) {
       postPaths = postPaths.filter((postPath) => postPath.includes(`/${onedepth}/`));
     }
-
+    console.log(postPaths);
     const postPromises = postPaths.map((postPath) =>
       this.postParser.parsePost(postPath, this.POSTS_PATH)
     );

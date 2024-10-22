@@ -9,7 +9,7 @@ export abstract class BaseRepository {
   protected postParser: PostParser;
 
   constructor(basePath: string = '') {
-    this.BASE_PATH = basePath;
+    this.BASE_PATH = '/tech';
     this.POSTS_PATH = path.join(process.cwd(), this.BASE_PATH);
     this.postParser = new PostParser();
   }

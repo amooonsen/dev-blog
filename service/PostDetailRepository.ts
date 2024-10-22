@@ -9,8 +9,6 @@ export class PostDetailRepository extends BaseRepository implements IPostDetailR
   public async fetchPostDetail(category: string, slug: string): Promise<Post> {
     const filePath = path.join(this.POSTS_PATH, category, slug, 'content.mdx');
     const postDetail = await this.postParser.parsePost(filePath, this.POSTS_PATH);
-    console.log(`detail filePath ${filePath}`);
-    console.log(`detail this.POSTS_PATH ${this.POSTS_PATH}`);
     return postDetail;
   }
 }

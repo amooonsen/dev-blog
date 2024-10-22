@@ -19,37 +19,10 @@ import { PostRepository } from '@/service/PostRepository';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-export async function getStaticProps({ params: { oneDepth } }: ListPageProps) {
-  const files = fs.readdirSync(path.join(process.cwd(), oneDepth));
-  const posts = files.map((filename) => {
-    const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), oneDepth, filename), 'utf-8');
-
-    const { data: frontMatter } = matter(markdownWithMeta);
-
-    return {
-      frontMatter,
-      slug: filename.replace('.mdx', ''),
-    };
-  });
-
-  revalidateTag('static-props');
-
-  return {
-    props: {
-      posts,
-    },
-  };
-}
-
 export default async function PostListPage({
   params: { oneDepth, category },
   searchParams,
 }: ListPageProps) {
-  if (!oneDepth) {
-    console.error('oneDepth 값이 없습니다.');
-    return <div>잘못된 접근입니다. 경로를 확인하세요.</div>;
-  }
-
   const postRepository = new PostRepository(oneDepth);
   const [allPostCount, categoryList, allTags] = await Promise.all([
     postRepository.fetchAllPostCount(),

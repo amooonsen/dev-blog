@@ -1,28 +1,14 @@
 // components
 import PostListPage from '../../../_components/PostListPage';
 
-import { PostRepository } from '@/service/PostRepository';
-
 // types
 import { ListPageProps } from '@/types/TypePage';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
   const paths = ['tech', 'newsletter', 'life'];
-
-  const postRepository = new PostRepository();
-  const categories = await postRepository.fetchCategoryList();
-
-  // 필요한 데이터만 추출 (dirName)
-  const categoryPaths = categories.map((categoryDetail) => categoryDetail.dirName);
-
-  const params = paths.flatMap((oneDepth) =>
-    categoryPaths.map((category) => ({
-      oneDepth,
-      category,
-    }))
-  );
-
-  return params;
+  return paths.map((oneDepth) => ({ oneDepth }));
 }
 
 const Blog = async ({ params, searchParams }: ListPageProps) => {

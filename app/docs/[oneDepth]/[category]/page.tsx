@@ -32,8 +32,7 @@ export async function generateStaticParams() {
       };
     })
   );
-
-  return categoryList.filter((item) => item.oneDepth && item.category); // 필터링하여 빈 값 제거
+  return categoryList;
 }
 
 export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {

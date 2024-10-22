@@ -12,9 +12,9 @@ import { Post, CategoryDetail } from '@/types/TypePost';
 export class PostRepository extends BaseRepository implements IPostRepository {
   public async fetchPostList(category?: string): Promise<Post[]> {
     const postPaths = this.getPostFilePaths(category);
-    const postPromises = postPaths.map((postPath) => {
-      return this.postParser.parsePost(postPath, this.POSTS_PATH, this.BASE_PATH);
-    });
+    const postPromises = postPaths.map((postPath) =>
+      this.postParser.parsePost(postPath, this.POSTS_PATH, this.BASE_PATH)
+    );
     const posts = await Promise.all(postPromises);
     return posts;
   }
@@ -35,10 +35,6 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     sortOption: string
   ): Promise<Post[]> {
     let posts = await this.fetchPostList(category);
-
-    if (selectedTags.length === 0 && !sortOption) {
-      return posts;
-    }
 
     // 태그 필터링
     if (selectedTags.length > 0) {

@@ -11,7 +11,6 @@ export function extractCategoryAndSlug(
     .replace('.mdx', '');
 
   const [_, onedepth, category, slug] = filePath.split('/');
-  console.log(`Extracted path - onedepth: ${onedepth}, category: ${category}, slug: ${slug}`);
 
   return { onedepth, category, slug };
 }

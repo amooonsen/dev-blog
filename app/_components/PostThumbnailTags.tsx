@@ -15,7 +15,6 @@ interface PostThumbnailTagsProps {
 
 export default function PostThumbnailTags({ post }: PostThumbnailTagsProps) {
   const { handleLinkClick } = usePreventSameLinkNavigation();
-  console.log(post);
   return (
     <ul className="flex flex-wrap gap-1 items-center mt-4 pt-4 border-t">
       {post.tags?.map(

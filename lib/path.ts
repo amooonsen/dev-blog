@@ -5,11 +5,17 @@ export function extractCategoryAndSlug(
   postPath: string,
   basePath: string
 ): { oneDepth: string; category: string; slug: string } {
-  const relativePath = path.relative(basePath, postPath).replace('.mdx', '');
-  const segments = relativePath.split(path.sep);
-  const oneDepth = segments[segments.length - 4];
-  const category = segments[segments.length - 3];
-  const slug = segments[segments.length - 2];
+  console.log(`basePath ${basePath}`);
+  console.log(`postPath ${postPath}`);
+
+  const basePathParts = basePath.split('/');
+  const lastPart = basePathParts.pop();
+  const filePath = postPath
+    .slice(postPath.indexOf(basePath))
+    .replace(basePath, '' + `/${lastPart}`)
+    .replace('.mdx', '');
+
+  const [_, oneDepth, category, slug] = filePath.split('/');
   return { oneDepth, category, slug };
 }
 

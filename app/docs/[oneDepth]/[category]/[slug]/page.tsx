@@ -28,27 +28,27 @@ interface PostDetailProps {
   };
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
-export async function generateStaticParams() {
-  const postDetailRepository = new PostDetailRepository();
-  const postPaths: string[] = postDetailRepository.getPostFilePaths();
+// export async function generateStaticParams() {
+//   const postDetailRepository = new PostDetailRepository();
+//   const postPaths: string[] = postDetailRepository.getPostFilePaths();
 
-  const paramList = await Promise.all(
-    postPaths.map(async (postPath) => {
-      const { onedepth, category, slug } = extractCategoryAndSlug(
-        postPath,
-        postDetailRepository.POSTS_PATH
-      );
-      return {
-        onedepth,
-        category,
-        slug,
-      };
-    })
-  );
-  return paramList;
-}
+//   const paramList = await Promise.all(
+//     postPaths.map(async (postPath) => {
+//       const { onedepth, category, slug } = extractCategoryAndSlug(
+//         postPath,
+//         postDetailRepository.POSTS_PATH
+//       );
+//       return {
+//         onedepth,
+//         category,
+//         slug,
+//       };
+//     })
+//   );
+//   return paramList;
+// }
 
 export async function generateMetadata({
   params: { onedepth, category, slug },

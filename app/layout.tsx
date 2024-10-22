@@ -34,6 +34,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const dynamic = 'forece-dynamic';
+
 export default function RootLayout({
   children,
 }: Readonly<{

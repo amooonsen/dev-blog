@@ -4,9 +4,9 @@ import PostListPage from '../../_components/PostListPage';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-export async function generateStaticParams() {
-  return [{ onedepth: 'tect' }, { onedepth: 'newsletter' }, { onedepth: 'life' }];
-}
+// export async function generateStaticParams() {
+//   return [{ onedepth: 'tect' }, { onedepth: 'newsletter' }, { onedepth: 'life' }];
+// }
 
 const Blog = async ({ params, searchParams }: ListPageProps) => {
   if (!params.onedepth) {

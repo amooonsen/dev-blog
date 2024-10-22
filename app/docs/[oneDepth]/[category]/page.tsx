@@ -19,21 +19,21 @@ import { ListPageProps } from '@/types/TypePage';
 
 // export const revalidate = 60; // 매 60초마다 ISR로 페이지 재생성
 
-export async function generateStaticParams() {
-  const postRepository = new PostRepository();
-  const postPaths: string[] = postRepository.getPostFilePaths(); // 비동기 처리가 필요하다면 await 추가
+// export async function generateStaticParams() {
+//   const postRepository = new PostRepository();
+//   const postPaths: string[] = postRepository.getPostFilePaths(); // 비동기 처리가 필요하다면 await 추가
 
-  const categoryList = await Promise.all(
-    postPaths.map(async (postPath) => {
-      const { onedepth, category } = extractCategoryAndSlug(postPath, postRepository.POSTS_PATH);
-      return {
-        onedepth,
-        category,
-      };
-    })
-  );
-  return categoryList;
-}
+//   const categoryList = await Promise.all(
+//     postPaths.map(async (postPath) => {
+//       const { onedepth, category } = extractCategoryAndSlug(postPath, postRepository.POSTS_PATH);
+//       return {
+//         onedepth,
+//         category,
+//       };
+//     })
+//   );
+//   return categoryList;
+// }
 
 // export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {
 //   const categoryPublicName = formatCategoryName(category);

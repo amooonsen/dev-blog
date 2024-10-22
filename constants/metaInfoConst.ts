@@ -1,8 +1,6 @@
 // 도메인 구입 후 교체 필요
 export const baseDomain =
-  process.env.NEXT_PUBLIC_MODE === 'local'
-    ? 'http://localhost:3000'
-    : 'https://dev-blog-2024-teal.vercel.app';
+  process.env.NEXT_PUBLIC_MODE === 'local' ? 'http://localhost:3000' : 'https://moonlogg.life';
 
 export const blogName = '개발자 조경문';
 export const blogDesc =

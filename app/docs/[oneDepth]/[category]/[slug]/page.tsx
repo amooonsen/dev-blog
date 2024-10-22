@@ -40,9 +40,6 @@ export async function generateStaticParams() {
         postPath,
         postDetailRepository.POSTS_PATH
       );
-      // console.log(`slug oneDepth: ${oneDepth}`);
-      // console.log(`slug category: ${category}`);
-      // console.log(`slug slug: ${slug}`);
       return {
         oneDepth,
         category,
@@ -50,7 +47,6 @@ export async function generateStaticParams() {
       };
     })
   );
-  console.log(paramList);
   return paramList;
 }
 

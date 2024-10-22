@@ -1,8 +1,4 @@
 import React, { Suspense } from 'react';
-import { revalidateTag } from 'next/cache';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 
 // components
 import { Section } from '@/components/ui/section';
@@ -30,12 +26,13 @@ export default async function PostListPage({
     postRepository.fetchAllTags(),
   ]);
 
-  const tagsParams = searchParams?.tags;
-  const sortParam = searchParams?.sort;
+  const tagsParams = searchParams?.tags ?? '';
+  const sortParam = searchParams?.sort ?? '';
+
   const selectedTags = Array.isArray(tagsParams)
-    ? tagsParams // 배열이면 그대로 사용
+    ? tagsParams
     : tagsParams
-    ? tagsParams.split(',') // 문자열이면 split 사용
+    ? tagsParams.split(',')
     : [];
   const sortOption = Array.isArray(sortParam) ? sortParam[0] : sortParam || '';
 
@@ -44,6 +41,8 @@ export default async function PostListPage({
     selectedTags ?? '',
     sortOption
   );
+
+  console.log(`postList ${postList}`);
 
   return (
     <main className="mt-20 mb-32">

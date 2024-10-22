@@ -12,6 +12,7 @@ import { Post, CategoryDetail } from '@/types/TypePost';
 export class PostRepository extends BaseRepository implements IPostRepository {
   public async fetchPostList(category?: string): Promise<Post[]> {
     const postPaths = this.getPostFilePaths(category);
+    console.log(`postPaths: ${postPaths}`);
     const postPromises = postPaths.map((postPath) => {
       return this.postParser.parsePost(postPath, this.POSTS_PATH, this.BASE_PATH);
     });
@@ -36,7 +37,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
   ): Promise<Post[]> {
     let posts = await this.fetchPostList(category);
 
-    if (!selectedTags || !sortOption) {
+    if (selectedTags.length === 0 && !sortOption) {
       return posts;
     }
 

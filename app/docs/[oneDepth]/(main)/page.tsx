@@ -7,7 +7,6 @@ import { ListPageProps } from '@/types/TypePage';
 export async function generateStaticParams() {
   const paths = ['tech', 'newsletter', 'life'];
   return paths.map((oneDepth) => {
-    console.log(`oneDepth ${oneDepth}`);
     return {
       oneDepth,
     };

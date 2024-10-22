@@ -41,10 +41,6 @@ export async function generateStaticParams() {
         postDetailRepository.POSTS_PATH
       );
 
-      console.log(`slugPage : ${oneDepth}`);
-      console.log(`slugPage : ${category}`);
-      console.log(`slugPage : ${slug}`);
-
       return {
         oneDepth,
         category,

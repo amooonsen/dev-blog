@@ -22,7 +22,7 @@ import { extractCategoryAndSlug } from '@/lib/path';
 
 interface PostDetailProps {
   params: {
-    oneDepth: string;
+    onedepth: string;
     category: string;
     slug: string;
   };
@@ -36,26 +36,24 @@ export async function generateStaticParams() {
 
   const paramList = await Promise.all(
     postPaths.map(async (postPath) => {
-      const { oneDepth, category, slug } = extractCategoryAndSlug(
+      const { onedepth, category, slug } = extractCategoryAndSlug(
         postPath,
         postDetailRepository.POSTS_PATH
       );
-
       return {
-        oneDepth,
+        onedepth,
         category,
         slug,
       };
     })
   );
-
   return paramList;
 }
 
 export async function generateMetadata({
-  params: { oneDepth, category, slug },
+  params: { onedepth, category, slug },
 }: PostDetailProps): Promise<Metadata> {
-  const postDetailRepository = new PostDetailRepository(oneDepth);
+  const postDetailRepository = new PostDetailRepository(onedepth);
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
 
   const title = `${postDetail.title} | ${blogName}`;
@@ -79,10 +77,10 @@ export async function generateMetadata({
 }
 
 export default async function PostDetail({
-  params: { oneDepth, category, slug },
+  params: { onedepth, category, slug },
 }: PostDetailProps) {
-  const postRepository = new PostRepository(oneDepth);
-  const postDetailRepository = new PostDetailRepository(oneDepth);
+  const postRepository = new PostRepository(onedepth);
+  const postDetailRepository = new PostDetailRepository(onedepth);
 
   const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
   const postList = await postRepository.fetchPostList();

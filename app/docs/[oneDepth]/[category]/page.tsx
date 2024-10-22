@@ -17,43 +17,44 @@ import { formatCategoryName, extractCategoryAndSlug } from '@/lib/path';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-export const revalidate = 60; // 매 60초마다 ISR로 페이지 재생성
+// export const revalidate = 60; // 매 60초마다 ISR로 페이지 재생성
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const postRepository = new PostRepository();
-  const postPaths: string[] = await postRepository.getPostFilePaths(); // 비동기 처리가 필요하다면 await 추가
+  const postPaths: string[] = postRepository.getPostFilePaths(); // 비동기 처리가 필요하다면 await 추가
 
   const categoryList = await Promise.all(
     postPaths.map(async (postPath) => {
-      const { oneDepth, category } = extractCategoryAndSlug(postPath, postRepository.POSTS_PATH);
+      const { onedepth, category } = extractCategoryAndSlug(postPath, postRepository.POSTS_PATH);
       return {
-        oneDepth,
+        onedepth,
         category,
       };
     })
   );
-
-  return categoryList.filter((item) => item.oneDepth && item.category); // 필터링하여 빈 값 제거
+  return categoryList;
 }
 
-export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {
-  const categoryPublicName = formatCategoryName(category);
-  const title = `${categoryPublicName} | ${blogName}`;
-  const url = `${baseDomain}/${category}`;
+// export async function generateMetadata({ params: { category } }: ListPageProps): Promise<Metadata> {
+//   const categoryPublicName = formatCategoryName(category);
+//   const title = `${categoryPublicName} | ${blogName}`;
+//   const url = `${baseDomain}/${category}`;
 
-  return {
-    title,
-    openGraph: {
-      title,
-      url,
-      // images: [blogThumbnailURL],
-    },
-    twitter: {
-      title,
-      // images: [blogThumbnailURL],
-    },
-  };
-}
+//   return {
+//     title,
+//     openGraph: {
+//       title,
+//       url,
+//       // images: [blogThumbnailURL],
+//     },
+//     twitter: {
+//       title,
+//       // images: [blogThumbnailURL],
+//     },
+//   };
+// }
 
 export default async function CategoryListPage({ params, searchParams }: ListPageProps) {
   return <PostListPage params={params} searchParams={searchParams} />;

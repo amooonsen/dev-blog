@@ -11,14 +11,14 @@ import { extractCategoryAndSlug, formatCategoryName } from '@/lib/path';
 import { Post } from '@/types/TypePost';
 
 export class PostParser {
-  public async parsePost(
-    postPath: string,
-    postsBasePath: string,
-    oneDepthPath: string | null = null
-  ): Promise<Post> {
-    const { category: categoryPath, slug } = extractCategoryAndSlug(postPath, postsBasePath);
+  public async parsePost(postPath: string, postsBasePath: string): Promise<Post> {
+    const {
+      onedepth,
+      category: categoryPath,
+      slug,
+    } = extractCategoryAndSlug(postPath, postsBasePath);
 
-    const url = `/docs/${oneDepthPath}/${categoryPath}/${slug}`;
+    const url = `/docs/${onedepth}/${categoryPath}/${slug}`;
     const categoryPublicName = formatCategoryName(categoryPath);
 
     const fileContent = fs.readFileSync(postPath, 'utf-8');

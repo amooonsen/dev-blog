@@ -1,16 +1,18 @@
-import path from 'path';
-
 // 경로로부터 카테고리와 슬러그를 추출하는 함수
 export function extractCategoryAndSlug(
   postPath: string,
   basePath: string
-): { oneDepth: string; category: string; slug: string } {
-  const relativePath = path.relative(basePath, postPath).replace('.mdx', '');
-  const segments = relativePath.split(path.sep);
-  const oneDepth = segments[segments.length - 4];
-  const category = segments[segments.length - 3];
-  const slug = segments[segments.length - 2];
-  return { oneDepth, category, slug };
+): { onedepth: string; category: string; slug: string } {
+  const basePathParts = basePath.split('/');
+  const lastPart = basePathParts.pop();
+  const filePath = postPath
+    .slice(postPath.indexOf(basePath))
+    .replace(basePath, '' + `/${lastPart}`)
+    .replace('.mdx', '');
+
+  const [_, onedepth, category, slug] = filePath.split('/');
+
+  return { onedepth, category, slug };
 }
 
 // 카테고리 이름을 포맷팅하는 함수

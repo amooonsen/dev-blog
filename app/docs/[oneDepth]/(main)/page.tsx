@@ -6,7 +6,12 @@ import { ListPageProps } from '@/types/TypePage';
 
 export async function generateStaticParams() {
   const paths = ['tech', 'newsletter', 'life'];
-  return paths.map((oneDepth) => ({ oneDepth }));
+  return paths.map((oneDepth) => {
+    console.log(`oneDepth ${oneDepth}`);
+    return {
+      oneDepth,
+    };
+  });
 }
 
 const Blog = async ({ params, searchParams }: ListPageProps) => {

@@ -62,7 +62,7 @@ export default async function PostListPage({
       </Section>
       <Section className="mt-14 space-y-8">
         <Suspense fallback={<PostListSkeleton />}>
-          {/* {postList.length > 0 ? (
+          {postList.length > 0 ? (
             <PostThumbnailList
               postList={postList}
               category={category}
@@ -70,8 +70,7 @@ export default async function PostListPage({
             />
           ) : (
             <PostListNoData />
-          )} */}
-          <PostThumbnailList postList={postList} category={category} selectedTags={selectedTags} />
+          )}
         </Suspense>
       </Section>
     </main>

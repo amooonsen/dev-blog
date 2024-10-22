@@ -56,6 +56,17 @@ export default async function PostListPage({
         </div>
       </Section>
       <Section className="mt-14 space-y-8">
+        {/* <Suspense fallback={<PostListSkeleton />}>
+          {postList.length > 0 ? (
+            <PostThumbnailList
+              postList={postList}
+              category={category}
+              selectedTags={selectedTags}
+            />
+          ) : (
+            <PostListNoData />
+          )}
+        </Suspense> */}
         <Suspense fallback={<PostListSkeleton />}>
           {postList.length > 0 ? (
             <PostThumbnailList

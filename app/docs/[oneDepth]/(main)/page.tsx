@@ -1,31 +1,30 @@
 // components
 import PostListPage from '../../../_components/PostListPage';
 
+import { PostRepository } from '@/service/PostRepository';
+
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-// repo
-import { PostRepository } from '@/service/PostRepository';
-
-// utils
-import { formatCategoryName, extractCategoryAndSlug } from '@/lib/path';
-
 export async function generateStaticParams() {
-  const postRepository = new PostRepository();
-  const postPaths: string[] = await postRepository.getPostFilePaths(); // 비동기 처리가 필요하다면 await 추가
+  const paths = ['tech', 'newsletter', 'life'];
 
-  const categoryList = await Promise.all(
-    postPaths.map(async (postPath) => {
-      const { oneDepth, category } = extractCategoryAndSlug(postPath, postRepository.POSTS_PATH);
-      return {
-        oneDepth,
-        category,
-      };
-    })
+  const postRepository = new PostRepository();
+  const categories = await postRepository.fetchCategoryList();
+
+  // 필요한 데이터만 추출 (dirName)
+  const categoryPaths = categories.map((categoryDetail) => categoryDetail.dirName);
+
+  const params = paths.flatMap((oneDepth) =>
+    categoryPaths.map((category) => ({
+      oneDepth,
+      category,
+    }))
   );
 
-  return categoryList.filter((item) => item.oneDepth && item.category); // 필터링하여 빈 값 제거
+  return params;
 }
+
 const Blog = async ({ params, searchParams }: ListPageProps) => {
   const { oneDepth, category } = params ?? { oneDepth: '', category: '' };
 

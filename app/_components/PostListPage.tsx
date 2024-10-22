@@ -1,7 +1,4 @@
 import React, { Suspense } from 'react';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 
 // components
 import { Section } from '@/components/ui/section';
@@ -18,14 +15,6 @@ import { PostRepository } from '@/service/PostRepository';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-export async function generateStaticParams() {
-  const postRepository = new PostRepository();
-  const categories = await postRepository.fetchCategoryList();
-  console.log(categories);
-  const staticParams = categories.map((category) => ({ oneDepth: category.dirName }));
-  return staticParams;
-}
-
 export default async function PostListPage({
   params: { oneDepth, category },
   searchParams,
@@ -37,20 +26,23 @@ export default async function PostListPage({
     postRepository.fetchAllTags(),
   ]);
 
-  const tagsParams = searchParams?.tags;
-  const sortParam = searchParams?.sort;
+  const tagsParams = searchParams?.tags ?? '';
+  const sortParam = searchParams?.sort ?? '';
+
   const selectedTags = Array.isArray(tagsParams)
-    ? tagsParams // 배열이면 그대로 사용
+    ? tagsParams
     : tagsParams
-    ? tagsParams.split(',') // 문자열이면 split 사용
+    ? tagsParams.split(',')
     : [];
   const sortOption = Array.isArray(sortParam) ? sortParam[0] : sortParam || '';
 
   const postList = await postRepository.fetchFilteredAndSortedPostList(
-    category,
-    selectedTags,
+    category ?? '',
+    selectedTags ?? '',
     sortOption
   );
+
+  console.log(`postList ${postList}`);
 
   return (
     <main className="mt-20 mb-32">
@@ -64,6 +56,17 @@ export default async function PostListPage({
         </div>
       </Section>
       <Section className="mt-14 space-y-8">
+        {/* <Suspense fallback={<PostListSkeleton />}>
+          {postList.length > 0 ? (
+            <PostThumbnailList
+              postList={postList}
+              category={category}
+              selectedTags={selectedTags}
+            />
+          ) : (
+            <PostListNoData />
+          )}
+        </Suspense> */}
         <Suspense fallback={<PostListSkeleton />}>
           {postList.length > 0 ? (
             <PostThumbnailList

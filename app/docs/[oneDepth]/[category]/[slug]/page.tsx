@@ -40,6 +40,7 @@ export async function generateStaticParams() {
         postPath,
         postDetailRepository.POSTS_PATH
       );
+
       return {
         oneDepth,
         category,

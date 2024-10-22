@@ -2,7 +2,7 @@
 export function extractCategoryAndSlug(
   postPath: string,
   basePath: string
-): { oneDepth: string; category: string; slug: string } {
+): { onedepth: string; category: string; slug: string } {
   const basePathParts = basePath.split('/');
   const lastPart = basePathParts.pop();
   const filePath = postPath
@@ -10,10 +10,10 @@ export function extractCategoryAndSlug(
     .replace(basePath, '' + `/${lastPart}`)
     .replace('.mdx', '');
 
-  const [_, oneDepth, category, slug] = filePath.split('/');
-  console.log(`Extracted path - oneDepth: ${oneDepth}, category: ${category}, slug: ${slug}`);
+  const [_, onedepth, category, slug] = filePath.split('/');
+  console.log(`Extracted path - onedepth: ${onedepth}, category: ${category}, slug: ${slug}`);
 
-  return { oneDepth, category, slug };
+  return { onedepth, category, slug };
 }
 
 // 카테고리 이름을 포맷팅하는 함수

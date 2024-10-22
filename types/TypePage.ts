@@ -1,7 +1,7 @@
 type TypeOneDepth = 'tech' | 'newsletter' | 'life';
 
 export type ListPageProps = {
-  params: { oneDepth: TypeOneDepth; category: string };
+  params: { onedepth: TypeOneDepth; category: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 

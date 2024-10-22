@@ -16,12 +16,12 @@ import { PostRepository } from '@/service/PostRepository';
 import { ListPageProps } from '@/types/TypePage';
 
 export default async function PostListPage({
-  params: { oneDepth, category },
+  params: { onedepth, category },
   searchParams,
 }: ListPageProps) {
-  console.log('PostListPage params:', { oneDepth, category });
+  console.log('PostListPage params:', { onedepth, category });
   console.log('PostListPage searchParams:', searchParams);
-  const postRepository = new PostRepository(oneDepth);
+  const postRepository = new PostRepository(onedepth);
   const [allPostCount, categoryList, allTags] = await Promise.all([
     postRepository.fetchAllPostCount(),
     postRepository.fetchCategoryList(),
@@ -43,7 +43,7 @@ export default async function PostListPage({
   //   sortOption
   // );
 
-  const postList = await postRepository.fetchPostList(category);
+  const postList = await postRepository.fetchPostList(category, onedepth);
 
   return (
     <main className="mt-20 mb-32">
@@ -53,7 +53,7 @@ export default async function PostListPage({
       <Section className="mt-14">
         <div className="flex flex-col lg:flex-row justify-between">
           <FilterCategory
-            oneDepth={oneDepth}
+            onedepth={onedepth}
             allPostCount={allPostCount}
             categoryList={categoryList}
           />

@@ -10,12 +10,12 @@ import { formatCategoryName } from '@/lib/path';
 import { Post, CategoryDetail } from '@/types/TypePost';
 
 export class PostRepository extends BaseRepository implements IPostRepository {
-  public async fetchPostList(category?: string, oneDepth?: string): Promise<Post[]> {
+  public async fetchPostList(category?: string, onedepth?: string): Promise<Post[]> {
     let postPaths = this.getPostFilePaths(category);
 
-    // 카테고리가 undefined인 경우, oneDepth로 필터링
-    if (!category && oneDepth) {
-      postPaths = postPaths.filter((postPath) => postPath.includes(`/${oneDepth}/`));
+    // 카테고리가 undefined인 경우, onedepth로 필터링
+    if (!category && onedepth) {
+      postPaths = postPaths.filter((postPath) => postPath.includes(`/${onedepth}/`));
     }
 
     const postPromises = postPaths.map((postPath) =>

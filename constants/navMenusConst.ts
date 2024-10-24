@@ -15,8 +15,12 @@ export const navMenus: navMenusType[] = [
     href: '/docs/newsletter',
   },
   {
+    page: 'Life',
+    href: '/docs/life',
+  },
+  {
     page: 'Portfolio',
-    href: '#',
+    href: 'https://github.com/amooonsen/dev-blog',
     target: '_blank',
     rel: 'noopener noreferrer',
   },

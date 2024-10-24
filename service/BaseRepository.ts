@@ -8,7 +8,7 @@ export abstract class BaseRepository {
   readonly POSTS_PATH: string;
   protected postParser: PostParser;
 
-  constructor(basePath: string = '/tech') {
+  constructor(basePath: string = '') {
     this.BASE_PATH = basePath;
     this.POSTS_PATH = path.join(process.cwd(), this.BASE_PATH);
     this.postParser = new PostParser();

@@ -1,5 +1,8 @@
 import React from 'react';
+import Link from 'next/link';
 
+// 참고 UI
+// https://next-blog-starter.vercel.app/
 export default function BlogMainRecent() {
   return (
     <>
@@ -57,9 +60,9 @@ export default function BlogMainRecent() {
         <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
           <div>
             <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
-              <a className="hover:underline" href="/posts/dynamic-routing">
+              <Link className="hover:underline" href="/posts/dynamic-routing">
                 Dynamic Routing and Static Generation
-              </a>
+              </Link>
             </h3>
             <div className="mb-4 md:mb-0 text-lg">
               <time dateTime="2020-03-16T05:35:07.322Z">March 16, 2020</time>
@@ -127,9 +130,9 @@ export default function BlogMainRecent() {
               </div>
             </div>
             <h3 className="text-3xl mb-3 leading-snug">
-              <a className="hover:underline" href="/posts/hello-world">
+              <Link className="hover:underline" href="/posts/hello-world">
                 Learn How to Pre-render Pages Using Static Generation with Next.js
-              </a>
+              </Link>
             </h3>
             <div className="text-lg mb-4">
               <time dateTime="2020-03-16T05:35:07.322Z">March 16, 2020</time>
@@ -185,9 +188,9 @@ export default function BlogMainRecent() {
               </div>
             </div>
             <h3 className="text-3xl mb-3 leading-snug">
-              <a className="hover:underline" href="/posts/preview">
+              <Link className="hover:underline" href="/posts/preview">
                 Preview Mode for Static Generation
-              </a>
+              </Link>
             </h3>
             <div className="text-lg mb-4">
               <time dateTime="2020-03-16T05:35:07.322Z">March 16, 2020</time>

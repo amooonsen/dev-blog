@@ -15,17 +15,9 @@ export const navMenus: navMenusType[] = [
     href: '/docs/newsletter',
   },
   {
-    page: 'Life',
-    href: '/docs/life',
-  },
-  // {
-  //   page: 'Portfolio',
-  //   href: '#',
-  //   target: '_blank',
-  //   rel: 'noopener noreferrer',
-  // },
-  {
-    page: 'Contact',
-    href: '/contact',
+    page: 'Portfolio',
+    href: '#',
+    target: '_blank',
+    rel: 'noopener noreferrer',
   },
 ];

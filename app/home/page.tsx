@@ -7,12 +7,12 @@ import BlogMainRecent from './_components/BlogMainRecent';
 
 export default function HomePage() {
   return (
-    <main className="mb-32">
+    <main className="lg:max-w-7xl mt-10 mb-32">
       {/* <BlogMainHero /> */}
-      <Section className="lg:max-w-7xl mt-10">
+      <Section>
         <BlogMainRecent />
       </Section>
-      <Section className="lg:max-w-7xl mt-10">
+      <Section>
         <SearchPost />
         <BlogMainCards />
       </Section>

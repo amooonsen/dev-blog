@@ -3,7 +3,7 @@ import React from 'react';
 export default function BlogMainRecent() {
   return (
     <>
-      <div className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
+      <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
         <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
           Blog.
         </h1>
@@ -12,7 +12,7 @@ export default function BlogMainRecent() {
           <br />
           기술, 뉴스테러, 그리고 일상을 공유합니다.
         </h4>
-      </div>
+      </section>
       <section>
         <div className="mb-8 md:mb-16">
           <div className="sm:mx-0">
@@ -75,12 +75,12 @@ export default function BlogMainRecent() {
           </div>
         </div>
       </section>
-      <div>
+      <section>
         <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
           More Stories
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
-          <div>
+          <article>
             <div className="mb-5">
               <div className="sm:mx-0">
                 <a
@@ -140,16 +140,8 @@ export default function BlogMainRecent() {
               fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities
               morbi tempus.
             </p>
-            <div className="flex items-center">
-              <img
-                src="/posts/frontend/nextjs_font_opt_thumbnail.avif"
-                className="w-12 h-12 rounded-full mr-4"
-                alt="Tim Neutkens"
-              />
-              <div className="text-xl font-bold">Tim Neutkens</div>
-            </div>
-          </div>
-          <div>
+          </article>
+          <article>
             <div className="mb-5">
               <div className="sm:mx-0">
                 <a aria-label="Preview Mode for Static Generation" href="/posts/preview">
@@ -206,17 +198,9 @@ export default function BlogMainRecent() {
               fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities
               morbi tempus.
             </p>
-            <div className="flex items-center">
-              <img
-                src="/posts/frontend/nextjs_font_opt_thumbnail.avif"
-                className="w-12 h-12 rounded-full mr-4"
-                alt="Joe Haddad"
-              />
-              <div className="text-xl font-bold">Joe Haddad</div>
-            </div>
-          </div>
+          </article>
         </div>
-      </div>
+      </section>
     </>
   );
 }

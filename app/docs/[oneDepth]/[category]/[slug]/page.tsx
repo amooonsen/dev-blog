@@ -14,7 +14,6 @@ import { blogName, baseDomain } from '@/constants/metaInfoConst';
 
 // repo
 import { PostDetailRepository } from '@/service/PostDetailRepository';
-import { PostParser } from '@/service/PostParser';
 import { PostRepository } from '@/service/PostRepository';
 
 // utils

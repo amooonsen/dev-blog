@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "remove-cache": "node clear-cache.js"
   },
   "dependencies": {
     "@fec/remark-a11y-emoji": "^4.0.2",

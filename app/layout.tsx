@@ -23,7 +23,7 @@ import Footer from '@/components/screen/Footer';
 import { notoSansKr } from '@/assets/fonts/fonts';
 
 // 캐싱 옵션
-export const fetchCache = 'force-no-store';
+// export const fetchCache = 'force-no-store';
 
 export const metadata: Metadata = {
   title: blogName,

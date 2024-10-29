@@ -18,14 +18,10 @@ export const navMenus: navMenusType[] = [
     page: 'Life',
     href: '/docs/life',
   },
-  // {
-  //   page: 'Portfolio',
-  //   href: '#',
-  //   target: '_blank',
-  //   rel: 'noopener noreferrer',
-  // },
   {
-    page: 'Contact',
-    href: '/contact',
+    page: 'Portfolio',
+    href: 'https://github.com/amooonsen/dev-blog',
+    target: '_blank',
+    rel: 'noopener noreferrer',
   },
 ];

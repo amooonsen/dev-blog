@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
+import Link from 'next/link';
 
 // components
-import Logo from '../ui/Logo';
 import HeaderNavigation from '../ui/HeaderNavigation';
 import ThemeToogle from '@/components/screen/ThemeToogle';
 
@@ -17,7 +17,11 @@ export default function Header() {
             <a href="#content">컨텐츠 바로가기</a>
           </li>
         </ul>
-        <Logo />
+        <div id="logo" className="lg:min-w-[300px] h-[36px]">
+          <Link href="/home" className={`text-2xl font-semibold`} style={{ display: 'block' }}>
+            MoonLogg
+          </Link>
+        </div>
         <div className="flex gap-6 items-center">
           <HeaderNavigation />
           <Suspense fallback={<Sun width={24} height={24} />}>

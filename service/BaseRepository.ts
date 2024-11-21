@@ -1,4 +1,4 @@
-import { sync } from 'glob';
+import { glob, sync } from 'glob';
 
 import path from 'path';
 import { PostParser } from './PostParser';
@@ -20,8 +20,16 @@ export abstract class BaseRepository {
   //   postParser: PostParser {}
   // }
 
-  public getPostFilePaths(category?: string): string[] {
-    const folder = category || '**';
-    return sync(`${this.POSTS_PATH}/${folder}/**/*.mdx`);
+  getPostFilePaths(category?: string): string[] {
+    try {
+      const pattern = category
+        ? path.join(this.POSTS_PATH, category, '**/content.mdx')
+        : path.join(this.POSTS_PATH, '**/content.mdx');
+
+      return glob.sync(pattern);
+    } catch (error) {
+      console.error('Error reading post files:', error);
+      return [];
+    }
   }
 }

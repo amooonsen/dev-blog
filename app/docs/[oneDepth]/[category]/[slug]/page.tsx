@@ -39,6 +39,12 @@ export async function generateStaticParams() {
         postPath,
         postDetailRepository.POSTS_PATH
       );
+
+      console.log('Processing path:', {
+        postPath,
+        extracted: { onedepth, category, slug },
+      });
+
       return {
         onedepth,
         category,
@@ -46,7 +52,18 @@ export async function generateStaticParams() {
       };
     })
   );
-  return paramList;
+
+  // 중복 제거 및 모든 onedepth 포함
+  const uniqueParams = Array.from(
+    new Set(
+      paramList.map((param) =>
+        JSON.stringify({ onedepth: param.onedepth, category: param.category, slug: param.slug })
+      )
+    )
+  ).map((str) => JSON.parse(str));
+
+  console.log('Final unique params:', uniqueParams);
+  return uniqueParams;
 }
 
 export async function generateMetadata({
@@ -75,13 +92,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function PostDetail({
-  params: { onedepth, category, slug },
-}: PostDetailProps) {
+export default async function PostDetail({ params }: PostDetailProps) {
+  const { onedepth, category, slug } = params;
+  const decodedCategory = decodeURIComponent(category);
+
   const postRepository = new PostRepository(onedepth);
   const postDetailRepository = new PostDetailRepository(onedepth);
 
-  const postDetail = await postDetailRepository.fetchPostDetail(category, slug);
+  const postDetail = await postDetailRepository.fetchPostDetail(decodedCategory, slug);
   const postList = await postRepository.fetchPostList();
 
   return (

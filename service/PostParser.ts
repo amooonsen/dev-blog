@@ -12,30 +12,45 @@ import { Post } from '@/types/TypePost';
 
 export class PostParser {
   public async parsePost(postPath: string, postsBasePath: string): Promise<Post> {
-    const {
-      onedepth,
-      category: categoryPath,
-      slug,
-    } = extractCategoryAndSlug(postPath, postsBasePath);
+    try {
+      const {
+        onedepth,
+        category: categoryPath,
+        slug,
+      } = extractCategoryAndSlug(postPath, postsBasePath);
 
-    const url = `/docs/${onedepth}/${categoryPath}/${slug}`;
-    const categoryPublicName = formatCategoryName(categoryPath);
+      const url = `/docs/${onedepth}/${categoryPath}/${slug}`;
+      const categoryPublicName = formatCategoryName(categoryPath);
 
-    const fileContent = fs.readFileSync(postPath, 'utf-8');
-    const { data: frontmatter, content } = matter(fileContent);
-    const readingMinutes = Math.ceil(readingTime(content).minutes);
-    const dateString = dayjs(frontmatter.date).locale('ko').format('YYYY년 MM월 DD일');
+      const fileContent = fs.readFileSync(postPath, 'utf-8');
+      const { data: frontmatter, content } = matter(fileContent);
+      const readingMinutes = Math.ceil(readingTime(content).minutes);
+      const dateString = dayjs(frontmatter.date).locale('ko').format('YYYY년 MM월 DD일');
 
-    return {
-      url,
-      categoryPath,
-      categoryPublicName,
-      slug,
-      date: frontmatter.date,
-      dateString,
-      content,
-      readingMinutes,
-      ...frontmatter,
-    } as Post;
+      console.log('Parsed post:', {
+        url,
+        onedepth,
+        categoryPath,
+        slug,
+        postPath,
+        postsBasePath,
+      });
+
+      return {
+        url,
+        onedepth,
+        categoryPath,
+        categoryPublicName,
+        slug,
+        date: frontmatter.date,
+        dateString,
+        content,
+        readingMinutes,
+        ...frontmatter,
+      };
+    } catch (error) {
+      console.error('Error parsing post:', error);
+      throw error;
+    }
   }
 }

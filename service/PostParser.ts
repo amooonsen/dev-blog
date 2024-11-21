@@ -37,6 +37,10 @@ export class PostParser {
       });
 
       return {
+        title: frontmatter.title,
+        desc: frontmatter.desc,
+        thumbnail: frontmatter.thumbnail,
+        thumbnailAlt: frontmatter.thumbnailAlt,
         url,
         onedepth,
         categoryPath,

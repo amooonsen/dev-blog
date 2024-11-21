@@ -9,4 +9,5 @@ export interface IPostRepository {
   ): Promise<Post[]>;
   fetchAllPostCount(): Promise<number>;
   fetchCategoryList(): Promise<CategoryDetail[]>;
+  fetchRecentPosts(limit?: number): Promise<Post[]>;
 }

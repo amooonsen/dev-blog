@@ -18,26 +18,26 @@ import { PostRepository } from '@/service/PostRepository';
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-export async function getStaticProps({ params: { onedepth } }: { params: { onedepth: string } }) {
-  const files = fs.readdirSync(path.join(process.cwd(), onedepth));
-  const posts = files.map((filename) => {
-    const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), onedepth, filename), 'utf-8');
+// export async function getStaticProps({ params: { onedepth } }: { params: { onedepth: string } }) {
+//   const files = fs.readdirSync(path.join(process.cwd(), onedepth));
+//   const posts = files.map((filename) => {
+//     const markdownWithMeta = fs.readFileSync(path.join(process.cwd(), onedepth, filename), 'utf-8');
 
-    const { data: frontMatter } = matter(markdownWithMeta);
+//     const { data: frontMatter } = matter(markdownWithMeta);
 
-    return {
-      frontMatter,
-      slug: filename.replace('.mdx', ''),
-    };
-  });
+//     return {
+//       frontMatter,
+//       slug: filename.replace('.mdx', ''),
+//     };
+//   });
 
-  console.log(posts);
-  return {
-    props: {
-      posts,
-    },
-  };
-}
+//   console.log(posts);
+//   return {
+//     props: {
+//       posts,
+//     },
+//   };
+// }
 
 export default async function PostListPage({
   params: { onedepth, category },

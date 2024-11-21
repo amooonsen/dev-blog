@@ -103,4 +103,20 @@ export class PostRepository extends BaseRepository implements IPostRepository {
       return [];
     }
   }
+
+  public async fetchRecentPosts(limit: number = 6): Promise<Post[]> {
+    try {
+      // 모든 포스트를 가져옵니다
+      const posts = await this.fetchPostList();
+      
+      // 날짜순으로 정렬합니다
+      const sortedPosts = this.sortPostsByDate(posts, 'desc');
+      
+      // 최근 게시물 limit 개수만큼 반환합니다
+      return sortedPosts.slice(0, limit);
+    } catch (error) {
+      console.error('최근 게시물 불러오기 실패:', error);
+      return [];
+    }
+  }
 }

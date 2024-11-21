@@ -207,3 +207,54 @@ export default function BlogMainRecent() {
     </>
   );
 }
+
+
+// import React from 'react';
+// import Link from 'next/link';
+// import Image from 'next/image';
+
+// import { PostRepository } from '@/service/PostRepository';
+
+// // 참고 UI
+// // https://next-blog-starter.vercel.app/
+// export default async function BlogMainRecent() {
+//   // 데이터 페칭 로직
+//   const postRepository = new PostRepository('tech'); // 또는 적절한 카테고리
+//   const recentPosts = await postRepository.fetchRecentPosts(6);
+
+//   return (
+//     <div className="space-y-12">
+//       <h2 className="text-3xl font-bold tracking-tight">최근 게시물</h2>
+//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+//         {recentPosts.map((post) => (
+//           <article key={post.slug} className="flex flex-col">
+//             <div className="relative w-full h-48 mb-4">
+//               {post.thumbnail && (
+//                 <Link href={post.url}>
+//                   <Image
+//                     src={post.thumbnail}
+//                     alt={post.thumbnailAlt || post.title}
+//                     fill
+//                     className="object-cover rounded-lg hover:opacity-80 transition-opacity"
+//                   />
+//                 </Link>
+//               )}
+//             </div>
+//             <div className="flex-1 flex flex-col">
+//               <h3 className="text-xl font-semibold mb-2 line-clamp-2">
+//                 <Link href={post.url} className="hover:text-primary">
+//                   {post.title}
+//                 </Link>
+//               </h3>
+//               <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{post.desc}</p>
+//               <div className="mt-auto flex items-center justify-between text-sm">
+//                 <time className="text-muted-foreground">{post.dateString}</time>
+//                 <span className="text-muted-foreground">{post.readingMinutes}분 읽기</span>
+//               </div>
+//             </div>
+//           </article>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }

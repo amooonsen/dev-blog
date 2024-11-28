@@ -31,39 +31,26 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const postDetailRepository = new PostDetailRepository();
-  const postPaths: string[] = postDetailRepository.getPostFilePaths();
+  const postPaths = postDetailRepository.getPostFilePaths();
 
-  const paramList = await Promise.all(
-    postPaths.map(async (postPath) => {
-      const { onedepth, category, slug } = extractCategoryAndSlug(
-        postPath,
-        postDetailRepository.POSTS_PATH
-      );
+  const paramList = postPaths.map(postPath => {
+    const { onedepth, category, slug } = extractCategoryAndSlug(
+      postPath,
+      process.cwd()
+    );
+    
+    return {
+      onedepth,
+      category,
+      slug,
+    };
+  });
 
-      console.log('Processing path:', {
-        postPath,
-        extracted: { onedepth, category, slug },
-      });
-
-      return {
-        onedepth,
-        category,
-        slug,
-      };
-    })
-  );
-
-  // 중복 제거 및 모든 onedepth 포함
-  const uniqueParams = Array.from(
-    new Set(
-      paramList.map((param) =>
-        JSON.stringify({ onedepth: param.onedepth, category: param.category, slug: param.slug })
-      )
-    )
-  ).map((str) => JSON.parse(str));
-
-  console.log('Final unique params:', uniqueParams);
-  return uniqueParams;
+  const uniqueParams = [...new Set(paramList.map(param => 
+    JSON.stringify({ onedepth: param.onedepth, category: param.category, slug: param.slug })
+  ))];
+  
+  return uniqueParams.map(param => JSON.parse(param));
 }
 
 export async function generateMetadata({

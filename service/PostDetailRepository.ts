@@ -18,22 +18,20 @@ export class PostDetailRepository extends BaseRepository implements IPostDetailR
   }
 
   public getPostFilePaths(): string[] {
-    const allPaths: string[] = [];
     const rootDir = process.cwd();
     const onedepths = ['tech', 'newsletter', 'life'];
-
-    onedepths.forEach((onedepth) => {
-      try {
+    
+    try {
+      return onedepths.flatMap(onedepth => {
         const pattern = path.join(rootDir, onedepth, '**', 'content.mdx');
-        const paths = glob.globSync(pattern);
-        console.log(`Found paths for ${onedepth}:`, paths);
-        allPaths.push(...paths);
-      } catch (error) {
-        console.error(`Error reading ${onedepth} directory:`, error);
-      }
-    });
-
-    return allPaths;
+        return glob.sync(pattern, {
+          ignore: ['**/node_modules/**', '**/.next/**']
+        });
+      });
+    } catch (error) {
+      console.error('Error reading post files:', error);
+      return [];
+    }
   }
 }
 

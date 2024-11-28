@@ -8,25 +8,22 @@ export abstract class BaseRepository {
   readonly POSTS_PATH: string;
   protected postParser: PostParser;
 
-  constructor(basePath: string = '/tech') {
+  constructor(basePath: string = '') {
     this.BASE_PATH = basePath;
-    this.POSTS_PATH = path.join(process.cwd(), this.BASE_PATH);
+    this.POSTS_PATH = basePath ? path.join(process.cwd(), basePath) : process.cwd();
     this.postParser = new PostParser();
   }
 
-  // PostDetailRepository {
-  //   BASE_PATH: '',
-  //   POSTS_PATH: '/Users/cho/Desktop/코딩/workspace/개인/사이드/dev-blog',
-  //   postParser: PostParser {}
-  // }
-
-  getPostFilePaths(category?: string): string[] {
+  getPostFilePaths(category?: string, onedepth?: string): string[] {
     try {
+      const baseDir = onedepth ? path.join(process.cwd(), onedepth) : process.cwd();
       const pattern = category
-        ? path.join(this.POSTS_PATH, category, '**/content.mdx')
-        : path.join(this.POSTS_PATH, '**/content.mdx');
+        ? path.join(baseDir, category, '**/content.mdx')
+        : path.join(baseDir, '**/content.mdx');
 
-      return glob.sync(pattern);
+      return glob.sync(pattern, {
+        ignore: ['**/node_modules/**', '**/.next/**'],
+      });
     } catch (error) {
       console.error('Error reading post files:', error);
       return [];

@@ -22,7 +22,7 @@ export default async function PostThumbnailList({
   const renderCategoryText = () => {
     postList.forEach((item) => {
       const filteredTag = item.tags?.filter((tag: string) =>
-        selectedTags.some((selectedTag) => tag.includes(selectedTag))
+        selectedTags?.some((selectedTag) => tag.includes(selectedTag))
       );
 
       if (item.categoryPath === category) {

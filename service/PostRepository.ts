@@ -11,13 +11,25 @@ import { Post, CategoryDetail } from '@/types/TypePost';
 
 export class PostRepository extends BaseRepository implements IPostRepository {
   public async fetchPostList(category?: string, onedepth?: string): Promise<Post[]> {
-    let postPaths = this.getPostFilePaths(category);
+    try {
+      const postPaths = this.getPostFilePaths(category, onedepth);
+      console.log('Fetching posts for:', { onedepth, category, postPaths });
 
-    const postPromises = postPaths.map((postPath) =>
-      this.postParser.parsePost(postPath, this.POSTS_PATH)
-    );
-    const posts = await Promise.all(postPromises);
-    return posts;
+      const postPromises = postPaths.map(async (postPath) => {
+        try {
+          return await this.postParser.parsePost(postPath, this.POSTS_PATH);
+        } catch (error) {
+          console.error('Error parsing post:', postPath, error);
+          return null;
+        }
+      });
+
+      const posts = (await Promise.all(postPromises)).filter((post): post is Post => post !== null);
+      return posts;
+    } catch (error) {
+      console.error('Error in fetchPostList:', error);
+      return [];
+    }
   }
 
   private sortPostsByDate(posts: Post[], order: 'asc' | 'desc' = 'desc'): Post[] {

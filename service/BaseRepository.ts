@@ -14,11 +14,12 @@ export abstract class BaseRepository {
     this.postParser = new PostParser();
   }
 
-  getPostFilePaths(category?: string): string[] {
+  getPostFilePaths(category?: string, onedepth?: string): string[] {
     try {
+      const baseDir = onedepth ? path.join(process.cwd(), onedepth) : process.cwd();
       const pattern = category
-        ? path.join(this.POSTS_PATH, category, '**/content.mdx')
-        : path.join(this.POSTS_PATH, '**/content.mdx');
+        ? path.join(baseDir, category, '**/content.mdx')
+        : path.join(baseDir, '**/content.mdx');
 
       return glob.sync(pattern, {
         ignore: ['**/node_modules/**', '**/.next/**'],

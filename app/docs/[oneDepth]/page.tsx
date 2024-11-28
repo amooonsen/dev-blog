@@ -15,3 +15,11 @@ const Blog = async ({ params, searchParams }: ListPageProps) => {
 };
 
 export default Blog;
+
+export async function generateStaticParams() {
+  return [
+    { onedepth: 'tech' },
+    { onedepth: 'newsletter' },
+    { onedepth: 'life' }
+  ];
+}

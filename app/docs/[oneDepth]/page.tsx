@@ -1,25 +1,16 @@
-// components
+import React from 'react';
 import PostListPage from '../../_components/PostListPage';
-
-// types
 import { ListPageProps } from '@/types/TypePage';
 
-// export async function generateStaticParams() {
-//   return [{ onedepth: 'tect' }, { onedepth: 'newsletter' }, { onedepth: 'life' }];
-// }
-
+export const dynamic = 'force-static';
 export const dynamicParams = false;
-
-const Blog = async ({ params, searchParams }: ListPageProps) => {
-  return <PostListPage params={params} searchParams={searchParams} />;
-};
-
-export default Blog;
+export const revalidate = false;
 
 export async function generateStaticParams() {
-  return [
-    { onedepth: 'tech' },
-    { onedepth: 'newsletter' },
-    { onedepth: 'life' }
-  ];
+  return [{ onedepth: 'tech' }, { onedepth: 'newsletter' }, { onedepth: 'life' }];
+}
+
+export default async function Blog({ params, searchParams }: ListPageProps) {
+  console.log('Rendering Blog with params:', params);
+  return <PostListPage params={params} searchParams={searchParams} />;
 }

@@ -18,7 +18,11 @@ export function generateStaticParams() {
   const postPaths: string[] = getPostPaths();
   const paramList = postPaths
     .map((path) => parsePostAbstract(path))
-    .map((item) => ({ category: item.category, slug: item.slug }));
+    .map((item) => ({
+      onedepth: item.onedepth,
+      category: item.category,
+      slug: item.slug,
+    }));
   return paramList;
 }
 

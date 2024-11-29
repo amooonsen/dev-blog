@@ -46,12 +46,12 @@ const parsePost = async (postPath: string): Promise<Post> => {
 /**
  * 게시물의 요약 정보를 파싱하여 반환합니다.
  * @param {string} postPath - 게시물 파일 경로
- * @returns {Object} 게시물 요약 정보 (oneDepth, category, slug, url, categoryPublicName 포함)
+ * @returns {Object} 게시물 요약 정보 (onedepth, category, slug, url, categoryPublicName 포함)
  */
 export const parsePostAbstract = (
   postPath: string
 ): {
-  oneDepth: string;
+  onedepth: string;
   category: string;
   slug: string;
   url: string;
@@ -63,10 +63,10 @@ export const parsePostAbstract = (
     .replace(`${BASE_PATH}/`, '')
     .replace('.mdx', '');
 
-  const [oneDepth, category, slug] = filePath.split('/');
-  const url = `/docs/${oneDepth}/${category}/${slug}`;
+  const [onedepth, category, slug] = filePath.split('/');
+  const url = `/docs/${onedepth}/${category}/${slug}`;
   const categoryPublicName = getCategoryPublicName(category);
-  return { oneDepth, category, slug, url, categoryPublicName };
+  return { onedepth, category, slug, url, categoryPublicName };
 };
 
 /**
@@ -104,11 +104,11 @@ export const getCategoryPublicName = (dirPath: string): string => {
 
 /**
  * 모든 게시물의 리스트를 가져옵니다.
- * @param {string} [oneDepth] - 선택적으로 특정 oneDepth를 지정합니다. 없을 시 모든 게시물 포함.
+ * @param {string} [onedepth] - 선택적으로 특정 oneDepth를 지정합니다. 없을 시 모든 게시물 포함.
  * @returns {Promise<Post[]>} 게시물 리스트
  */
-export const getPostList = async (oneDepth?: string): Promise<Post[]> => {
-  const postPaths = oneDepth ? getPostPaths(`${oneDepth}`) : getPostPaths();
+export const getPostList = async (onedepth?: string): Promise<Post[]> => {
+  const postPaths = onedepth ? getPostPaths(`${onedepth}`) : getPostPaths();
   const postList = await Promise.all(postPaths.map((postPath) => parsePost(postPath)));
   return postList;
 };
@@ -126,11 +126,11 @@ const sortPostList = (PostList: Post[]): Post[] => {
 
 /**
  * 최신순으로 정렬된 게시물 리스트를 가져옵니다.
- * @param {string} [oneDepth] - 선택적으로 특정 oneDepth를 지정합니다. 없을 시 모든 게시물 포함.
+ * @param {string} [onedepth] - 선택적으로 특정 oneDepth를 지정합니다. 없을 시 모든 게시물 포함.
  * @returns {Promise<Post[]>} 정렬된 게시물 리스트
  */
-export const getSortedPostList = async (oneDepth?: string): Promise<Post[]> => {
-  const postList = await getPostList(oneDepth);
+export const getSortedPostList = async (onedepth?: string): Promise<Post[]> => {
+  const postList = await getPostList(onedepth);
   return sortPostList(postList);
 };
 
@@ -166,17 +166,17 @@ export const getCategoryDetailList = async () => {
 
 /**
  * 특정 게시물의 상세 정보를 가져옵니다.
- * @param {string} oneDepth - 게시물의 1차 디렉터리 정보
+ * @param {string} onedepth - 게시물의 1차 디렉터리 정보
  * @param {string} category - 게시물의 카테고리
  * @param {string} slug - 게시물의 슬러그
  * @returns {Promise<Post>} 게시물 상세 정보
  */
 export const getPostDetail = async (
-  oneDepth: string,
+  onedepth: string,
   category: string,
   slug: string
 ): Promise<Post> => {
-  const filePath = `${POSTS_PATH}/${oneDepth}/${category}/${slug}/content.mdx`;
+  const filePath = `${POSTS_PATH}/${onedepth}/${category}/${slug}/content.mdx`;
   const detail = await parsePost(filePath);
   return detail;
 };

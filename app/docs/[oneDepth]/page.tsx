@@ -2,8 +2,9 @@ import React from 'react';
 import PostListPage from '../../_components/PostListPage';
 import { ListPageProps } from '@/types/TypePage';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+function getrateStaticParams() {
+  return ['tech', 'newsletter', 'life'].map((onedepth) => ({ onedepth }));
+}
 
 export default async function Blog({ params, searchParams }: ListPageProps) {
   return <PostListPage params={params} searchParams={searchParams} />;

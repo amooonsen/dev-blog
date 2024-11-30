@@ -8,15 +8,15 @@ export type navMenusType = {
 export const navMenus: navMenusType[] = [
   {
     page: 'Tech',
-    href: '/docs/tech',
+    href: '/post/tech',
   },
   {
     page: 'NewsLetter',
-    href: '/docs/newsletter',
+    href: '/post/newsletter',
   },
   {
     page: 'Life',
-    href: '/docs/life',
+    href: '/post/life',
   },
   {
     page: 'Portfolio',

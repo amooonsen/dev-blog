@@ -19,7 +19,7 @@
 //         slug,
 //       } = extractCategoryAndSlug(postPath, postsBasePath);
 
-//       const url = `/docs/${onedepth}/${categoryPath}/${slug}`;
+//       const url = `/post/${onedepth}/${categoryPath}/${slug}`;
 //       const categoryPublicName = formatCategoryName(categoryPath);
 
 //     const fileContent = fs.readFileSync(postPath, 'utf-8');

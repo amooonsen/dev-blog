@@ -73,7 +73,7 @@ export const parsePostAbstract = (
     .replace('.mdx', '');
 
   const [onedepth, category, slug] = filePath.split('/');
-  const url = `/docs/${onedepth}/${category}/${slug}`;
+  const url = `/post/${onedepth}/${category}/${slug}`;
   const categoryPublicName = getCategoryPublicName(category);
   return { onedepth, category, slug, url, categoryPublicName };
 };

@@ -22,7 +22,7 @@ export default function PostThumbnailTags({ post }: PostThumbnailTagsProps) {
           <li className="mr-2" key={`thumbnail-tags-${index}`}>
             <Link
               className="text-xs relative text-gray-600 transition-all duration-300 hover:text-primary"
-              href={`/docs/tech?tags=${item}`}
+              href={`/post/tech?tags=${item}`}
               onClick={(event) => handleLinkClick(event, item)}
             >
               {item}

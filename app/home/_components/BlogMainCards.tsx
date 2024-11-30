@@ -6,9 +6,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 
 const categories = [
-  { name: 'Tech', image: '/placeholder.svg?height=200&width=300', href: '/docs/tech' },
-  { name: 'Newsletter', image: '/placeholder.svg?height=200&width=300', href: '/docs/newsletter' },
-  { name: 'Life', image: '/placeholder.svg?height=200&width=300', href: '/docs/life' },
+  { name: 'Tech', image: '/placeholder.svg?height=200&width=300', href: '/post/tech' },
+  { name: 'Newsletter', image: '/placeholder.svg?height=200&width=300', href: '/post/newsletter' },
+  { name: 'Life', image: '/placeholder.svg?height=200&width=300', href: '/post/life' },
 ];
 
 export default function BlogMainCards() {

@@ -8,9 +8,25 @@ import readingTime from 'reading-time';
 // types
 import { Post, PostMatter, CategoryDetail } from '@/types/TypePost';
 
-const BASE_PATH = '/post';
+// 상수 정의
+const POST_CONFIG = {
+  BASE_PATH: '/post',
+  VALID_ONEDEPTHS: ['tech', 'newsletter', 'life'] as const,
+} as const;
 
-const POSTS_PATH = path.join(process.cwd(), BASE_PATH);
+// 타입 정의
+type OneDepth = (typeof POST_CONFIG.VALID_ONEDEPTHS)[number];
+
+interface PostPath {
+  onedepth: OneDepth;
+  category: string;
+  slug: string;
+}
+
+// 유틸리티 함수
+const isValidOneDepth = (value: string): value is OneDepth => {
+  return POST_CONFIG.VALID_ONEDEPTHS.includes(value as OneDepth);
+};
 
 /**
  * 특정 카테고리의 모든 게시물 경로를 가져옵니다.
@@ -19,18 +35,20 @@ const POSTS_PATH = path.join(process.cwd(), BASE_PATH);
  * @returns {string[]} 게시물 경로 배열
  */
 export const getPostPaths = (onedepth?: string, category?: string): string[] => {
-  let pattern: string;
+  try {
+    const POSTS_PATH = path.join(process.cwd(), POST_CONFIG.BASE_PATH);
 
-  if (onedepth && category) {
-    pattern = `${POSTS_PATH}/${onedepth}/${category}/**/*.mdx`;
-  } else if (onedepth) {
-    pattern = `${POSTS_PATH}/${onedepth}/**/*.mdx`;
-  } else {
-    pattern = `${POSTS_PATH}/**/**/*.mdx`;
+    if (onedepth && !isValidOneDepth(onedepth)) {
+      throw new Error(`Invalid onedepth: ${onedepth}`);
+    }
+
+    const pattern = [POSTS_PATH, onedepth || '**', category || '**', '**/*.mdx'].join('/');
+
+    return sync(pattern);
+  } catch (error) {
+    console.error('Failed to get post paths:', error);
+    return [];
   }
-
-  const postPaths: string[] = sync(pattern);
-  return postPaths;
 };
 
 /**
@@ -68,8 +86,8 @@ export const parsePostAbstract = (
 } => {
   const normalizedPath = postPath.split(path.sep).join('/');
   const filePath = normalizedPath
-    .slice(normalizedPath.indexOf(BASE_PATH))
-    .replace(`${BASE_PATH}/`, '')
+    .slice(normalizedPath.indexOf(POST_CONFIG.BASE_PATH))
+    .replace(`${POST_CONFIG.BASE_PATH}/`, '')
     .replace('.mdx', '');
 
   const [onedepth, category, slug] = filePath.split('/');
@@ -150,61 +168,31 @@ export const getSortedPostList = async (onedepth?: string, category?: string): P
  * @returns {string[]} 카테고리 리스트
  */
 export const getCategoryList = (): string[] => {
-  const cgPaths: string[] = sync(`${POSTS_PATH}/*`);
+  const cgPaths: string[] = sync(`${POST_CONFIG.BASE_PATH}/*`);
   const cgList = cgPaths.map((p) => p.split(path.sep).slice(-1)?.[0]);
   return cgList;
 };
 
-export const getCategoryDetailList = async () => {
-  const postList = await getPostList();
-  const result: { [key: string]: number } = {};
-  for (const post of postList) {
-    const category = post.categoryPath;
-    if (result[category]) {
-      result[category] += 1;
-    } else {
-      result[category] = 1;
-    }
+export const getCategoryDetailList = async (onedepth?: string) => {
+  try {
+    const postList = await getPostList(onedepth);
+
+    const categoryCount = postList.reduce((acc, post) => {
+      const category = post.categoryPath;
+      acc[category] = (acc[category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    return Object.entries(categoryCount).map(([category, count]) => ({
+      dirName: category,
+      publicName: getCategoryPublicName(category),
+      count,
+    }));
+  } catch (error) {
+    console.error('Failed to get category details:', error);
+    return [];
   }
-  const detailList: CategoryDetail[] = Object.entries(result).map(([category, count]) => ({
-    dirName: category,
-    publicName: getCategoryPublicName(category),
-    count,
-  }));
-
-  return detailList;
 };
-
-// export const getCategoryDetailList = async (onedepth?: string) => {
-//   try {
-//     // onedepth에 해당하는 게시물만 가져오기
-//     const postList = await getPostList(undefined, onedepth);
-//     const result: { [key: string]: number } = {};
-
-//     for (const post of postList) {
-//       // 해당 onedepth의 카테고리만 카운트
-//       if (!onedepth || post.onedepth === onedepth) {
-//         const category = post.categoryPath;
-//         if (result[category]) {
-//           result[category] += 1;
-//         } else {
-//           result[category] = 1;
-//         }
-//       }
-//     }
-
-//     const detailList: CategoryDetail[] = Object.entries(result).map(([category, count]) => ({
-//       dirName: category,
-//       publicName: getCategoryPublicName(category),
-//       count,
-//     }));
-
-//     return detailList;
-//   } catch (error) {
-//     console.error('카테고리 리스트 불러오기 실패:', error);
-//     return [];
-//   }
-// };
 
 /**
  * 특정 게시물의 상세 정보를 가져옵니다.
@@ -217,9 +205,29 @@ export const getPostDetail = async (
   onedepth: string,
   category: string,
   slug: string
-): Promise<Post> => {
-  const filePath = `${POSTS_PATH}/${onedepth}/${category}/${slug}/content.mdx`;
-  const detail = await parsePost(filePath);
-  console.log(detail);
-  return detail;
+): Promise<Post | null> => {
+  try {
+    if (!isValidOneDepth(onedepth)) {
+      throw new Error(`Invalid onedepth: ${onedepth}`);
+    }
+
+    const filePath = path.join(
+      process.cwd(),
+      POST_CONFIG.BASE_PATH,
+      onedepth,
+      category,
+      slug,
+      'content.mdx'
+    );
+
+    if (!fs.existsSync(filePath)) {
+      throw new Error(`Post not found: ${filePath}`);
+    }
+
+    const detail = await parsePost(filePath);
+    return detail;
+  } catch (error) {
+    console.error('Failed to get post detail:', error);
+    return null;
+  }
 };

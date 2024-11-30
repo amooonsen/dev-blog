@@ -29,16 +29,17 @@ export default async function PostListPage({
       {/* <Section className="mt-10">
         <SearchPost />
       </Section> */}
-      <Section className="mt-14">
+      {/* 241130 기능 개발 전 까지 검색 영역 주석처리 */}
+      {/* <Section className="mt-14">
         <div className="flex flex-col lg:flex-row justify-between">
           <FilterCategory
             onedepth={onedepth}
             allPostCount={allPostCount}
             categoryList={categoryList}
           />
-          {/* <SortCategoryContainer allTags={allTags} /> */}
+          <SortCategoryContainer allTags={allTags} />
         </div>
-      </Section>
+      </Section> */}
       <Section className="mt-14 space-y-8">
         <Suspense fallback={<PostListSkeleton />}>
           {postList.length > 0 ? (

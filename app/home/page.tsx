@@ -10,18 +10,14 @@ import BlogMainRecent from './_components/BlogMainRecent';
 
 export default function HomePage() {
   return (
-    <main className="lg:max-w-7xl mt-10 mb-32">
+    <main className="lg:max-w-7xl mt-10 mb-32 mx-auto">
       <Section>
-        <Suspense fallback={<div>Loading...</div>}>
-          <BlogMainRecent />
-        </Suspense>
+        <BlogMainRecent />
       </Section>
       <Section>
         {/* 241130 기능 개발 전 까지 검색 영역 주석처리 */}
         {/* <SearchPost /> */}
-        <Suspense fallback={<div>Loading...</div>}>
           <BlogMainCards />
-        </Suspense>
       </Section>
     </main>
   );

@@ -14,6 +14,9 @@ interface PostDetailProps {
   };
 }
 
+// 허용된 param 외 접근시 404
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   const postPaths: string[] = getPostPaths();
   const paramList = postPaths

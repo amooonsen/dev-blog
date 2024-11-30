@@ -17,7 +17,8 @@ export default function HomePage() {
         </Suspense>
       </Section>
       <Section>
-        <SearchPost />
+        {/* 241130 기능 개발 전 까지 검색 영역 주석처리 */}
+        {/* <SearchPost /> */}
         <Suspense fallback={<div>Loading...</div>}>
           <BlogMainCards />
         </Suspense>

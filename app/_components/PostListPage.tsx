@@ -25,9 +25,10 @@ export default async function PostListPage({
 
   return (
     <main className="mt-20 mb-32">
-      <Section className="mt-10">
+      {/* 241130 기능 개발 전 까지 검색 영역 주석처리 */}
+      {/* <Section className="mt-10">
         <SearchPost />
-      </Section>
+      </Section> */}
       <Section className="mt-14">
         <div className="flex flex-col lg:flex-row justify-between">
           <FilterCategory

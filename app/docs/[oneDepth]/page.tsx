@@ -2,7 +2,7 @@ import React from 'react';
 import PostListPage from '../../_components/PostListPage';
 import { ListPageProps } from '@/types/TypePage';
 
-function getrateStaticParams() {
+export function generateStaticParams() {
   return ['tech', 'newsletter', 'life'].map((onedepth) => ({ onedepth }));
 }
 

@@ -1,12 +1,10 @@
 import React from 'react';
-import { PostDetailRepository } from '@/service/PostDetailRepository';
-import { PostRepository } from '@/service/PostRepository';
+
+import { getPostDetail, getPostPaths, parsePostAbstract } from '@/lib/post';
+
 import PostHead from './_components/PostHead';
 import PostBody from './_components/PostBody';
 import PostFooter from './_components/PostFooter';
-
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 interface PostDetailProps {
   params: {
@@ -16,23 +14,30 @@ interface PostDetailProps {
   };
 }
 
+// 허용된 param 외 접근시 404
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  const postPaths: string[] = getPostPaths();
+  const paramList = postPaths
+    .map((path) => parsePostAbstract(path))
+    .map((item) => ({
+      onedepth: item.onedepth,
+      category: item.category,
+      slug: item.slug,
+    }));
+  return paramList;
+}
+
 export default async function PostDetail({ params }: PostDetailProps) {
   const { onedepth, category, slug } = params;
-  const decodedCategory = decodeURIComponent(category);
-
-  const postRepository = new PostRepository(onedepth);
-  const postDetailRepository = new PostDetailRepository(onedepth);
-
-  const [postDetail, postList] = await Promise.all([
-    postDetailRepository.fetchPostDetail(decodedCategory, slug),
-    postRepository.fetchPostList(),
-  ]);
+  const postDetail = await getPostDetail(onedepth, category, slug);
 
   return (
     <main className="mx-auto mt-20">
       <PostHead post={postDetail} />
       <PostBody post={postDetail} />
-      <PostFooter postList={postList} />
+      {/* <PostFooter postList={postList} /> */}
     </main>
   );
 }

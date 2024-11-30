@@ -1,19 +1,3 @@
-export interface Post {
-  title: string;
-  desc: string;
-  url: string;
-  categoryPath: string;
-  thumbnail: string;
-  thumbnailAlt: string;
-  categoryPublicName: string;
-  slug: string;
-  date: Date;
-  dateString: string;
-  content: string;
-  readingMinutes: number;
-  [key: string]: any;
-}
-
 export interface CategoryDetail {
   dirName: string;
   publicName: string;
@@ -35,6 +19,7 @@ export interface Post extends PostMatter {
   content: string;
   readingMinutes: number;
   categoryPublicName: string;
+  tag?: string;
 }
 
 export interface HeadingItem {

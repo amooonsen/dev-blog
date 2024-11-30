@@ -34,7 +34,10 @@ export default function FilterCategory({
         (item: CategoryDetail): ReactElement => (
           <li key={item.dirName}>
             <Button variant="outline" size="sm" className="inline-flex gap-2" asChild>
-              <Link href={`/docs/tech/${item.dirName}`} aria-label={`카테고리: ${item.dirName}`}>
+              <Link
+                href={`/docs/${onedepth}/${item.dirName}`}
+                aria-label={`카테고리: ${item.dirName}`}
+              >
                 <strong>{item.publicName}</strong>
                 <span>{item.count}</span>
               </Link>

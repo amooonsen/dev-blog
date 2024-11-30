@@ -17,10 +17,9 @@ const POSTS_PATH = path.join(process.cwd(), BASE_PATH);
  * @param {string} [category] - 선택적으로 특정 카테고리를 지정합니다. 없을 시 모든 카테고리 포함.
  * @returns {string[]} 게시물 경로 배열
  */
-export const getPostPaths = (category?: string): string[] => {
-  const folder = category || '**';
-  const postPaths: string[] = sync(`${POSTS_PATH}/${folder}/**/*.mdx`);
-  console.log(postPaths);
+export const getPostPaths = (onedepth?: string): string[] => {
+  const pattern = onedepth ? `${POSTS_PATH}/${onedepth}/**/*.mdx` : `${POSTS_PATH}/**/**/*.mdx`;
+  const postPaths: string[] = sync(pattern);
   return postPaths;
 };
 
@@ -178,5 +177,6 @@ export const getPostDetail = async (
 ): Promise<Post> => {
   const filePath = `${POSTS_PATH}/${onedepth}/${category}/${slug}/content.mdx`;
   const detail = await parsePost(filePath);
+  console.log(POSTS_PATH);
   return detail;
 };

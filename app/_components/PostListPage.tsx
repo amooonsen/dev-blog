@@ -15,7 +15,7 @@ import { getSortedPostList, getCategoryDetailList, getAllPostCount } from '@/lib
 // types
 import { ListPageProps } from '@/types/TypePage';
 
-export default async function PostListPage({
+export default async function onePostListPage({
   params: { onedepth, category },
   searchParams,
 }: ListPageProps) {

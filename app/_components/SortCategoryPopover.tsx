@@ -70,10 +70,7 @@ const SortCategoryPopover = ({ type, allTags }: SortCategoryPopoverProps) => {
             <ScollAreaContainer>
               <ul className="grid gap-2">
                 {allTags?.map((tag) => (
-                  <li
-                    className="flex gap-2 items-center"
-                    key={tag}
-                  >
+                  <li className="flex gap-2 items-center" key={tag}>
                     <Checkbox id={tag} onCheckedChange={() => handleTagClick(tag)} />
                     <Label className="text-base">{tag}</Label>
                   </li>

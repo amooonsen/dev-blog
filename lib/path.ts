@@ -10,20 +10,13 @@ export function extractCategoryAndSlug(
 
   // onedepth 디렉토리 목록
   const validOnedepths = ['tech', 'newsletter', 'life'];
-  
-  const onedepth = validOnedepths.find(dep => pathParts.includes(dep)) || 'tech';
-  const onedepthIndex = pathParts.indexOf(onedepth);
-  
-  const category = encodeURIComponent(pathParts[onedepthIndex + 1] || '');
-  const slug = pathParts[onedepthIndex + 2] || '';
 
-  console.log('Path extraction:', {
-    relativePath,
-    pathParts,
-    onedepth,
-    category,
-    slug
-  });
+  const onedepth = validOnedepths.find((dep) => pathParts.includes(dep)) || 'tech';
+  const onedepthIndex = pathParts.indexOf(onedepth);
+
+  const category = encodeURIComponent(pathParts[onedepthIndex + 1] || '');
+
+  const slug = pathParts[onedepthIndex + 2] || '';
 
   return { onedepth, category, slug };
 }

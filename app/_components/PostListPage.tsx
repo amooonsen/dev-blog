@@ -19,7 +19,7 @@ export default async function PostListPage({
   params: { onedepth, category },
   searchParams,
 }: ListPageProps) {
-  const postList = await getSortedPostList(onedepth);
+  const postList = await getSortedPostList(onedepth, category);
   const categoryList = await getCategoryDetailList();
   const allPostCount = await getAllPostCount();
 

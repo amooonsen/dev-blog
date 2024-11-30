@@ -14,13 +14,22 @@ const POSTS_PATH = path.join(process.cwd(), BASE_PATH);
 
 /**
  * 특정 카테고리의 모든 게시물 경로를 가져옵니다.
+ * @param {string} [onedepth] - 선택적으로 특정 oneDepth를 지정합니다. 없을 시 모든 게시물 포함.
  * @param {string} [category] - 선택적으로 특정 카테고리를 지정합니다. 없을 시 모든 카테고리 포함.
  * @returns {string[]} 게시물 경로 배열
  */
-export const getPostPaths = (category?: string): string[] => {
-  const folder = category || '**';
-  const postPaths: string[] = sync(`${POSTS_PATH}/${folder}/**/*.mdx`);
-  console.log(postPaths);
+export const getPostPaths = (onedepth?: string, category?: string): string[] => {
+  let pattern: string;
+
+  if (onedepth && category) {
+    pattern = `${POSTS_PATH}/${onedepth}/${category}/**/*.mdx`;
+  } else if (onedepth) {
+    pattern = `${POSTS_PATH}/${onedepth}/**/*.mdx`;
+  } else {
+    pattern = `${POSTS_PATH}/**/**/*.mdx`;
+  }
+
+  const postPaths: string[] = sync(pattern);
   return postPaths;
 };
 
@@ -64,7 +73,7 @@ export const parsePostAbstract = (
     .replace('.mdx', '');
 
   const [onedepth, category, slug] = filePath.split('/');
-  const url = `/docs/${onedepth}/${category}/${slug}`;
+  const url = `/post/${onedepth}/${category}/${slug}`;
   const categoryPublicName = getCategoryPublicName(category);
   return { onedepth, category, slug, url, categoryPublicName };
 };
@@ -105,10 +114,11 @@ export const getCategoryPublicName = (dirPath: string): string => {
 /**
  * 모든 게시물의 리스트를 가져옵니다.
  * @param {string} [onedepth] - 선택적으로 특정 oneDepth를 지정합니다. 없을 시 모든 게시물 포함.
+ * @param {string} [category] - 선택적으로 특정 카테고리를 지정합니다. 없을 시 모든 카테고리 포함.
  * @returns {Promise<Post[]>} 게시물 리스트
  */
-export const getPostList = async (onedepth?: string): Promise<Post[]> => {
-  const postPaths = onedepth ? getPostPaths(`${onedepth}`) : getPostPaths();
+export const getPostList = async (onedepth?: string, category?: string): Promise<Post[]> => {
+  const postPaths = getPostPaths(onedepth, category);
   const postList = await Promise.all(postPaths.map((postPath) => parsePost(postPath)));
   return postList;
 };
@@ -127,10 +137,11 @@ const sortPostList = (PostList: Post[]): Post[] => {
 /**
  * 최신순으로 정렬된 게시물 리스트를 가져옵니다.
  * @param {string} [onedepth] - 선택적으로 특정 oneDepth를 지정합니다. 없을 시 모든 게시물 포함.
+ * @param {string} [category] - 선택적으로 특정 카테고리를 지정합니다. 없을 시 모든 카테고리 포함.
  * @returns {Promise<Post[]>} 정렬된 게시물 리스트
  */
-export const getSortedPostList = async (onedepth?: string): Promise<Post[]> => {
-  const postList = await getPostList(onedepth);
+export const getSortedPostList = async (onedepth?: string, category?: string): Promise<Post[]> => {
+  const postList = await getPostList(onedepth, category);
   return sortPostList(postList);
 };
 
@@ -164,6 +175,37 @@ export const getCategoryDetailList = async () => {
   return detailList;
 };
 
+// export const getCategoryDetailList = async (onedepth?: string) => {
+//   try {
+//     // onedepth에 해당하는 게시물만 가져오기
+//     const postList = await getPostList(undefined, onedepth);
+//     const result: { [key: string]: number } = {};
+
+//     for (const post of postList) {
+//       // 해당 onedepth의 카테고리만 카운트
+//       if (!onedepth || post.onedepth === onedepth) {
+//         const category = post.categoryPath;
+//         if (result[category]) {
+//           result[category] += 1;
+//         } else {
+//           result[category] = 1;
+//         }
+//       }
+//     }
+
+//     const detailList: CategoryDetail[] = Object.entries(result).map(([category, count]) => ({
+//       dirName: category,
+//       publicName: getCategoryPublicName(category),
+//       count,
+//     }));
+
+//     return detailList;
+//   } catch (error) {
+//     console.error('카테고리 리스트 불러오기 실패:', error);
+//     return [];
+//   }
+// };
+
 /**
  * 특정 게시물의 상세 정보를 가져옵니다.
  * @param {string} onedepth - 게시물의 1차 디렉터리 정보
@@ -178,5 +220,6 @@ export const getPostDetail = async (
 ): Promise<Post> => {
   const filePath = `${POSTS_PATH}/${onedepth}/${category}/${slug}/content.mdx`;
   const detail = await parsePost(filePath);
+  console.log(detail);
   return detail;
 };

@@ -24,7 +24,7 @@ export default function FilterCategory({
     <ul className="flex flex-wrap gap-4 lg:max-w-[60%]">
       <li>
         <Button variant="outline" size="sm" className="inline-flex gap-2" asChild>
-          <Link href={`/docs/${onedepth}`}>
+          <Link href={`/post/${onedepth}`}>
             <strong>All</strong>
             <span>{allPostCount}</span>
           </Link>
@@ -34,7 +34,10 @@ export default function FilterCategory({
         (item: CategoryDetail): ReactElement => (
           <li key={item.dirName}>
             <Button variant="outline" size="sm" className="inline-flex gap-2" asChild>
-              <Link href={`/docs/tech/${item.dirName}`} aria-label={`카테고리: ${item.dirName}`}>
+              <Link
+                href={`/post/${onedepth}/${item.dirName}`}
+                aria-label={`카테고리: ${item.dirName}`}
+              >
                 <strong>{item.publicName}</strong>
                 <span>{item.count}</span>
               </Link>

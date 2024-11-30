@@ -26,6 +26,7 @@ export function generateStaticParams() {
       category: item.category,
       slug: item.slug,
     }));
+  console.log(paramList);
   return paramList;
 }
 

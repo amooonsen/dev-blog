@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -18,7 +17,6 @@
     @apply bg-background text-foreground;
   }
 }
-
 
 @layer base {
   :root {
@@ -140,5 +138,5 @@
 }
 
 ::selection {
-  background-color: var(--primary);
+  /* background-color: var(--primary); */
 }

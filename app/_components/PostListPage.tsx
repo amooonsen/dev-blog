@@ -19,7 +19,7 @@ export default async function PostListPage({
   params: { onedepth, category },
   searchParams,
 }: ListPageProps) {
-  const postList = await getSortedPostList(onedepth, category);
+  const { posts } = await getSortedPostList(onedepth, category);
   const categoryList = await getCategoryDetailList();
   const allPostCount = await getAllPostCount();
 
@@ -42,8 +42,8 @@ export default async function PostListPage({
       </Section> */}
       <Section className="mt-14 space-y-8">
         <Suspense fallback={<PostListSkeleton />}>
-          {postList.length > 0 ? (
-            <PostThumbnailList postList={postList} category={category} selectedTags={['TEST']} />
+          {posts.length > 0 ? (
+            <PostThumbnailList posts={posts} category={category} selectedTags={['TEST']} />
           ) : (
             <PostListNoData />
           )}

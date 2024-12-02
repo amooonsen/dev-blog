@@ -66,7 +66,8 @@ const parsePost = async (postPath: string): Promise<Post> => {
     title: postDetail.title,
     date: postDetail.date,
     thumbnail: postDetail.thumbnail,
-    desc: postDetail.desc,
+    thumbnailAlt: postDetail.thumbnailAlt,
+    preview: postDetail.preview,
   };
 };
 
@@ -156,11 +157,53 @@ const sortPostList = (PostList: Post[]): Post[] => {
  * 최신순으로 정렬된 게시물 리스트를 가져옵니다.
  * @param {string} [onedepth] - 선택적으로 특정 oneDepth를 지정합니다. 없을 시 모든 게시물 포함.
  * @param {string} [category] - 선택적으로 특정 카테고리를 지정합니다. 없을 시 모든 카테고리 포함.
- * @returns {Promise<Post[]>} 정렬된 게시물 리스트
+ * @param {number} [page=1] - 페이지 번호
+ * @param {number} [limit=10] - 페이지당 게시물 수
+ * @returns {Promise<{posts: Post[], hasMore: boolean, total: number}>} 정렬된 게시물 리스트와 추가 데이터
  */
-export const getSortedPostList = async (onedepth?: string, category?: string): Promise<Post[]> => {
+export const getSortedPostList = async (
+  onedepth?: string,
+  category?: string,
+  page: number = 1,
+  limit: number = 10
+): Promise<{ posts: Post[]; hasMore: boolean; total: number }> => {
   const postList = await getPostList(onedepth, category);
-  return sortPostList(postList);
+  const sortedPosts = sortPostList(postList);
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+  const paginatedPosts = sortedPosts.slice(startIndex, endIndex);
+
+  return {
+    posts: paginatedPosts,
+    hasMore: endIndex < sortedPosts.length,
+    total: sortedPosts.length,
+  };
+};
+
+/**
+ * 추가 게시물을 가져옵니다.
+ * @param {string} [onedepth] - 선택적으로 특정 oneDepth를 지정합니다.
+ * @param {string} [category] - 선택적으로 특정 카테고리를 지정합니다.
+ * @param {number} offset - 건너뛸 게시물 수
+ * @param {number} [limit=10] - 가져올 게시물 수
+ * @returns {Promise<{posts: Post[], hasMore: boolean}>} 추가 게시물 리스트와 더보기 가능 여부
+ */
+export const getMorePosts = async (
+  offset: number,
+  limit: number = 10,
+  onedepth?: string,
+  category?: string
+): Promise<{ posts: Post[]; hasMore: boolean }> => {
+  const postList = await getPostList(onedepth, category);
+  const sortedPosts = sortPostList(postList);
+
+  const nextPosts = sortedPosts.slice(offset, offset + limit);
+
+  return {
+    posts: nextPosts,
+    hasMore: offset + limit < sortedPosts.length,
+  };
 };
 
 /**

@@ -7,16 +7,6 @@ import {
 
 const myLinks = [
   {
-    title: 'Changelog',
-    icon: <IconExchange className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: 'https://github.com/amooonsen/dev-blog/pulls',
-  },
-  {
-    title: 'Instagram',
-    icon: <IconBrandInstagram className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: 'https://www.instagram.com/_mo___on/',
-  },
-  {
     title: 'GitHub',
     icon: <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
     href: 'https://github.com/amooonsen',
@@ -25,6 +15,16 @@ const myLinks = [
     title: 'Profile',
     icon: <IconBriefcase2 className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
     href: 'https://www.rallit.com/hub/resumes/290067',
+  },
+  {
+    title: 'Changelog',
+    icon: <IconExchange className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+    href: 'https://github.com/amooonsen/dev-blog/pulls',
+  },
+  {
+    title: 'Instagram',
+    icon: <IconBrandInstagram className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+    href: 'https://www.instagram.com/_mo___on/',
   },
 ];
 

@@ -7,20 +7,20 @@ import PostThumbnail from './PostThumbnail';
 import { Post } from '@/types/TypePost';
 
 interface PostThumbnailListProps {
-  postList: Post[];
+  posts: Post[];
   category: string;
   selectedTags: string[];
 }
 
 export default async function PostThumbnailList({
-  postList,
+  posts,
   category,
   selectedTags,
 }: PostThumbnailListProps) {
   let heading: string = '';
 
   const renderCategoryText = () => {
-    postList.forEach((item) => {
+    posts.forEach((item) => {
       const filteredTag = item.tags?.filter((tag: string) =>
         selectedTags?.some((selectedTag) => tag.includes(selectedTag))
       );
@@ -38,7 +38,7 @@ export default async function PostThumbnailList({
     <>
       <h2 className="text-3xl font-bold">{renderCategoryText() || '모든 글 보기'}</h2>
       <ul className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
-        {postList.map(
+        {posts.map(
           (post: Post): ReactElement => (
             <PostThumbnail key={post.url} post={post} />
           )

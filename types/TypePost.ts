@@ -9,7 +9,7 @@ export interface PostMatter {
   date: Date;
   dateString: string;
   thumbnail: string;
-  desc: string;
+  preview: string;
 }
 
 export interface Post extends PostMatter {
@@ -26,21 +26,4 @@ export interface HeadingItem {
   text: string;
   link: string;
   indent: number;
-}
-
-export interface ProjectMatter {
-  title: string;
-  desc: string;
-  startMonth: string;
-  endMonth: string;
-  tags: string;
-  gitRepoUrl?: string;
-  link?: string;
-}
-
-export interface Project extends ProjectMatter {
-  slug: string;
-  startMonthString: string;
-  endMonthString?: string;
-  content: string;
 }

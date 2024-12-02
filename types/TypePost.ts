@@ -9,6 +9,7 @@ export interface PostMatter {
   date: Date;
   dateString: string;
   thumbnail: string;
+  thumbnailAlt: string;
   preview: string;
 }
 

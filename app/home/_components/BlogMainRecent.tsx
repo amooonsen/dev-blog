@@ -9,7 +9,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { getSortedPostList } from '@/lib/post';
 
 export default async function BlogMainRecent() {
-  const { posts } = await getSortedPostList('', '', 1, 3);
+  const { posts } = await getSortedPostList(undefined, undefined, 1, 3);
   console.log(posts.length);
   return (
     <>
@@ -27,13 +27,10 @@ export default async function BlogMainRecent() {
         <div className="mb-8 md:mb-16">
           <div className="sm:mx-0">
             <AspectRatio ratio={16 / 9}>
-              <Link
-                aria-label="Dynamic Routing and Static Generation"
-                href="/posts/dynamic-routing"
-              >
+              <Link aria-label={posts[0].title} href={posts[0].url}>
                 <Image
-                  alt="Cover Image for Dynamic Routing and Static Generation"
-                  src="/posts/frontend/nextjs_font_opt_thumbnail.avif"
+                  alt={posts[0].thumbnailAlt || posts[0].title}
+                  src={posts[0].thumbnail}
                   className="shadow-sm hover:shadow-md transition-shadow duration-200"
                   fill
                   sizes="100vw"
@@ -64,125 +61,40 @@ export default async function BlogMainRecent() {
           More Stories
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
-          <article>
-            <div className="mb-5">
-              <div className="sm:mx-0">
-                <a
-                  aria-label="Learn How to Pre-render Pages Using Static Generation with Next.js"
-                  href="/posts/hello-world"
-                >
-                  <div
-                    style={{
-                      display: 'block',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      boxSizing: 'border-box',
-                      margin: 0,
-                    }}
-                  >
-                    <div
-                      style={{ display: 'block', boxSizing: 'border-box', paddingTop: '50%' }}
-                    ></div>
-                    <img
-                      alt="Cover Image for Learn How to Pre-render Pages Using Static Generation with Next.js"
-                      src="/posts/frontend/nextjs_font_opt_thumbnail.avif"
-                      decoding="async"
-                      className="shadow-sm hover:shadow-md transition-shadow duration-200"
-                      style={{
-                        visibility: 'visible',
-                        position: 'absolute',
-                        inset: 0,
-                        boxSizing: 'border-box',
-                        padding: 0,
-                        border: 'none',
-                        margin: 'auto',
-                        display: 'block',
-                        width: '0px',
-                        height: '0px',
-                        minWidth: '100%',
-                        maxWidth: '100%',
-                        minHeight: '100%',
-                        maxHeight: '100%',
-                      }}
-                      sizes="100vw"
-                    />
-                  </div>
-                </a>
+          {posts.slice(1).map((post) => (
+            <article key={post.url}>
+              <div className="mb-5">
+                <div className="sm:mx-0">
+                  <AspectRatio ratio={16 / 9}>
+                    <Link aria-label={post.title} href={post.url}>
+                      {post.thumbnail ? (
+                        <Image
+                          src={post.thumbnail}
+                          alt={post.thumbnailAlt}
+                          sizes="(max-width: 550px) 50vw, 450px"
+                          fill
+                          className="object-cover transition-transform duration-300 ease-out group-hover:scale-125 bg-foreground"
+                        />
+                      ) : (
+                        <div className="relative flex justify-center items-center aspect-video w-full rounded-md bg-foreground overflow-hidden">
+                          <span className="text-sm text-white dark:text-black">No Image</span>
+                        </div>
+                      )}
+                    </Link>
+                  </AspectRatio>
+                </div>
               </div>
-            </div>
-            <h3 className="text-3xl mb-3 leading-snug">
-              <Link className="hover:underline" href="/posts/hello-world">
-                Learn How to Pre-render Pages Using Static Generation with Next.js
-              </Link>
-            </h3>
-            <div className="text-lg mb-4">
-              <time dateTime="2020-03-16T05:35:07.322Z">March 16, 2020</time>
-            </div>
-            <p className="text-lg leading-relaxed mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel
-              fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities
-              morbi tempus.
-            </p>
-          </article>
-          <article>
-            <div className="mb-5">
-              <div className="sm:mx-0">
-                <a aria-label="Preview Mode for Static Generation" href="/posts/preview">
-                  <div
-                    style={{
-                      display: 'block',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      boxSizing: 'border-box',
-                      margin: 0,
-                    }}
-                  >
-                    <div
-                      style={{ display: 'block', boxSizing: 'border-box', paddingTop: '50%' }}
-                    ></div>
-                    <img
-                      alt="Cover Image for Preview Mode for Static Generation"
-                      src="/posts/frontend/nextjs_font_opt_thumbnail.avif"
-                      decoding="async"
-                      className="shadow-sm hover:shadow-md transition-shadow duration-200"
-                      style={{
-                        visibility: 'visible',
-                        position: 'absolute',
-                        inset: 0,
-                        boxSizing: 'border-box',
-                        padding: 0,
-                        border: 'none',
-                        margin: 'auto',
-                        display: 'block',
-                        width: '0px',
-                        height: '0px',
-                        minWidth: '100%',
-                        maxWidth: '100%',
-                        minHeight: '100%',
-                        maxHeight: '100%',
-                      }}
-                      sizes="100vw"
-                    />
-                  </div>
-                </a>
+              <h3 className="text-3xl mb-3 leading-snug">
+                <Link className="hover:underline" href={post.url}>
+                  {post.title}
+                </Link>
+              </h3>
+              <div className="text-lg mb-4">
+                <time dateTime={post.dateString}>{post.dateString}</time>
               </div>
-            </div>
-            <h3 className="text-3xl mb-3 leading-snug">
-              <Link className="hover:underline" href="/posts/preview">
-                Preview Mode for Static Generation
-              </Link>
-            </h3>
-            <div className="text-lg mb-4">
-              <time dateTime="2020-03-16T05:35:07.322Z">March 16, 2020</time>
-            </div>
-            <p className="text-lg leading-relaxed mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel
-              fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities
-              morbi tempus.
-            </p>
-          </article>
+              <p className="text-lg leading-relaxed mb-4">{post.preview}</p>
+            </article>
+          ))}
         </div>
       </section>
     </>

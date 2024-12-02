@@ -66,6 +66,7 @@ const parsePost = async (postPath: string): Promise<Post> => {
     title: postDetail.title,
     date: postDetail.date,
     thumbnail: postDetail.thumbnail,
+    thumbnailAlt: postDetail.thumbnailAlt,
     preview: postDetail.preview,
   };
 };
@@ -189,10 +190,10 @@ export const getSortedPostList = async (
  * @returns {Promise<{posts: Post[], hasMore: boolean}>} 추가 게시물 리스트와 더보기 가능 여부
  */
 export const getMorePosts = async (
-  onedepth?: string,
-  category?: string,
   offset: number,
-  limit: number = 10
+  limit: number = 10,
+  onedepth?: string,
+  category?: string
 ): Promise<{ posts: Post[]; hasMore: boolean }> => {
   const postList = await getPostList(onedepth, category);
   const sortedPosts = sortPostList(postList);

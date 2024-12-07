@@ -20,7 +20,7 @@ export const navMenus: navMenusType[] = [
   },
   {
     page: 'Portfolio',
-    href: 'https://github.com/amooonsen/dev-blog',
+    href: 'https://github.com/amooonsen/2025_portfolio',
     target: '_blank',
     rel: 'noopener noreferrer',
   },
